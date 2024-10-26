@@ -1,0 +1,33 @@
+{
+    "name": "madj2k/t3-cat-search",
+    "type": "typo3-cms-extension",
+    "description": "This extensions allows you to tag data-sets with categories and search for them",
+    "homepage": "https://www.steffenkroggel.de",
+    "license": ["GPL-2.0+"],
+    "keywords": ["TYPO3 CMS", "Categories", "Tag", "Search"],
+    "support": {
+        "email": "developer@steffenkroggel.de"
+    },
+    "authors": [
+        {
+            "name": "Steffen Kroggel",
+            "email": "developer@steffenkroggel.de",
+            "homepage": "https://www.steffenkroggel.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "typo3/cms-core": "~12.4.0",
+	},
+    "autoload": {
+        "psr-4": {
+            "Madj2k\\CatSearch\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "cat_search"
+        }
+    }
+}
