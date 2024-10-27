@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages">
+        <body>
+
+			<!-- palettes and tabs -->
+			<trans-unit id="palette.main">
+				<source>Basis-Information</source>
+				<target>Basis-Informationen</target>
+			</trans-unit>
+			<trans-unit id="tab.description">
+				<source>Description</source>
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="palette.description">
+				<source>Description</source>
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tab.filter">
+				<source>Filter Categories</source>
+				<target>Filter-Kategorien</target>
+			</trans-unit>
+			<trans-unit id="palette.filter">
+				<source>Filter Categories</source>
+				<target>Filter-Kategorien</target>
+			</trans-unit>
+			<trans-unit id="tab.meta">
+				<source>Meta-Information</source>
+				<target>Meta-Informationen</target>
+			</trans-unit>
+			<trans-unit id="palette.meta">
+				<source>Meta-Information</source>
+				<target>Meta-Informationen</target>
+			</trans-unit>
+			<trans-unit id="tab.relations">
+				<source>Relations</source>
+				<target>Beziehungen</target>
+			</trans-unit>
+			<trans-unit id="palette.relations">
+				<source>Relations</source>
+				<target>Beziehungen</target>
+			</trans-unit>
+			<trans-unit id="tab.media">
+				<source>Media</source>
+				<target>Medien</target>
+			</trans-unit>
+			<trans-unit id="palette.media">
+				<source>Media</source>
+				<target>Medien</target>
+			</trans-unit>
+
+
+			<!-- tx_catsearch_domain_model_filterable -->
+			<trans-unit id="tx_catsearch_domain_model_filterable">
+				<source>Category Search: Filterable</source>
+				<target>Kategorien-Suche: Filterable</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type">
+				<source>Record Typ</source>
+				<target>Datensatz-Typ</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.0">
+				<source>Document</source>
+				<target>Dokument</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.1">
+				<source>Product</source>
+				<target>Produkt</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.title_cleaned">
+				<source>Title (cleaned)</source>
+				<target>Titel (bereinigt)</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.subtitle">
+				<source>Subtitle</source>
+				<target>Untertitel</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.product_number">
+				<source>Product Number</source>
+				<target>Produkt-Nummer</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.teaser">
+				<source>Teaser</source>
+				<target>Teaser</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.header">
+				<source>Header</source>
+				<target>Überschrift</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.header2">
+				<source>Header 2</source>
+				<target>Überschrift 2</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.subheader">
+				<source>Subheader</source>
+				<target>Unterüberschrift</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.description">
+				<source>Description</source>
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.description2">
+				<source>Description 2</source>
+				<target>Beschreibung 2</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.description3">
+				<source>Description 3</source>
+				<target>Beschreibung 3</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.features">
+				<source>Features</source>
+				<target>Merkmale / Features</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.options">
+				<source>Options</source>
+				<target>Optionen</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.details">
+				<source>Technical Details</source>
+				<target>Technische Details</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.product_number">
+				<source>Product Number</source>
+				<target>Produkt-Nummer</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.publish_date">
+				<source>Publish date</source>
+				<target>Veröffentlichungsdatum</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.teaser_image">
+				<source>Teaser-Bild</source>
+				<target>Teaser-Bild</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.main_image">
+				<source>Main-Image</source>
+				<target>Haupt-Bild</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.images">
+				<source>Images</source>
+				<target>Bilder</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.downloads">
+				<source>Downloads</source>
+				<target>Downloads</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.download">
+				<source>Download</source>
+				<target>Download</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.media_files">
+				<source>Media</source>
+				<target>Medien</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.related_filterables">
+				<source>Related to</source>
+				<target>Verwandt mit</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.related_filterables_from">
+				<source>Marked as related from</source>
+				<target>Als verwandt markiert von</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.related_filterable_documents">
+				<source>Releated Documents</source>
+				<target>Verwandte Dokumente</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.related_filterable_products">
+				<source>Releated Products</source>
+				<target>Verwandte Produkte</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.filters">
+				<source>Filters</source>
+				<target>Filter</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.slug">
+				<source>Slug</source>
+				<target>Slug</target>
+			</trans-unit>
+
+
+			<!-- tx_catsearch_domain_model_filter -->
+			<trans-unit id="tx_catsearch_domain_model_filter">
+				<source>Category Search: Filter</source>
+				<target>Kategorien-Suche: Filter</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filter.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filter.type">
+				<source>Filter Type</source>
+				<target>Filter Typ</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filter.items">
+				<source>Items</source>
+				<target>Items</target>
+			</trans-unit>
+
+
+			<!-- tx_catsearch_domain_model_filtertype -->
+			<trans-unit id="tx_catsearch_domain_model_filtertype">
+				<source>Category Search: Filter Type</source>
+				<target>Kategorien Suche: Filter Typ</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filtertype.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filtertype.filters">
+				<source>Filters</source>
+				<target>Filter</target>
+			</trans-unit>
+
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages">
+        <body>
+
+			<!-- tx_catsearch_domain_model_filterable -->
+			<trans-unit id="tx_catsearch_domain_model_filterable">
+				<source>Category Search: Filterable</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.0">
+				<source>Document</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.1">
+				<source>Product</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.title_cleaned">
+				<source>Title (cleaned)</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.filters">
+				<source>Filters</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.downloads">
+				<source>Downloads</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.publish_date">
+				<source>Publish date</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.slug">
+				<source>Slug</source>
+			</trans-unit>
+
+
+			<!-- tx_catsearch_domain_model_filter -->
+			<trans-unit id="tx_catsearch_domain_model_filter">
+				<source>Category Search: Filter</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filter.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filter.type">
+				<source>Filter Type</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filter.items">
+				<source>Items</source>
+			</trans-unit>
+
+
+			<!-- tx_catsearch_domain_model_filtertype -->
+			<trans-unit id="tx_catsearch_domain_model_filtertype">
+				<source>Category Search: Filter Type</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filtertype.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filtertype.filters">
+				<source>Filters</source>
+			</trans-unit>
+
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,25 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:catSearch="http://typo3.org/ns/Madj2k/CatSearch/ViewHelpers"
+	  data-namespace-typo3-fluid="true"
+>
+
+	<section class="content-outer" id="c{data.uid}">
+
+        <f:debug>{paginator.paginatedItems}</f:debug>
+        
+        
+        <f:comment>
+		<catSearch:searchForm action="search" class="magazine-search-form" name="search" object="{search}" section="c{data.uid}" method="GET">
+			<f:render partial="Search/Filters" arguments="{filterOptions: filterOptions, search: search, data: data, settings: settings}" />
+			<f:render partial="Search/View" arguments="{resultCount: resultCount, filterOptions: filterOptions, search: search, data: data, settings: settings}" />
+		</catSearch:searchForm>
+
+		<f:if condition="{paginator.paginatedItems}">
+			<f:render partial="Search/Results" arguments="{magazines: paginator.paginatedItems, pagination: pagination, search: search, data: data, settings: settings}" />
+		</f:if>
+        </f:comment>
+        
+	</section>
+
+
+</html>

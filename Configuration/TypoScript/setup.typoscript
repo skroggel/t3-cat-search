@@ -1,0 +1,25 @@
+plugin.tx_catsearch {
+
+	view {
+		layoutRootPaths {
+			0 = EXT:cat_search/Resources/Private/Layouts/
+			10 = {$plugin.tx_catsearch.view.layoutRootPath}
+		}
+		templateRootPaths {
+			0 = EXT:cat_search/Resources/Private/Templates/
+            10 = {$plugin.tx_catsearch.view.templateRootPath}
+        }
+		partialRootPaths {
+			0 = EXT:cat_search/Resources/Private/Partials/
+			10 = {$plugin.tx_catsearch.view.partialRootPath}
+        }
+	}
+
+	persistence {
+		storagePid = {$plugin.tx_catsearch.persistence.storagePid}
+	}
+
+	settings {
+
+	}
+}

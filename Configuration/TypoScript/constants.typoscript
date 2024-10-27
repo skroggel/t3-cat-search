@@ -1,0 +1,17 @@
+plugin.tx_catsearch {
+	view {
+
+		# cat=plugin.tx_catsearch/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:cat_search/Resources/Private/Layouts/
+
+		# cat=plugin.tx_catsearch/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:cat_search/Resources/Private/Templates/
+
+		# cat=plugin.tx_catsearch/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:cat_search/Resources/Private/Partials/
+	}
+
+	persistence {
+	    storagePid =
+	}
+}

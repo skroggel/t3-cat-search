@@ -1,0 +1,18 @@
+mod.wizards.newContentElement.wizardItems.catSearch {
+    header = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:contentElementWizward.header
+    elements {
+		search {
+			iconIdentifier = catsearch-plugin-search
+			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_search.title
+			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_search.description
+			tt_content_defValues {
+				CType = list
+				list_type = catsearch_search
+			}
+		}
+    }
+
+    show = *
+}
+
+

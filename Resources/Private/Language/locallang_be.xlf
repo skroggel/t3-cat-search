@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+	<file source-language="en" datatype="plaintext">
+		<body>
+			<trans-unit id="extConf.fulltextIndexTable">
+				<source>Table for fulltext indexing</source>
+			</trans-unit>
+			<trans-unit id="extConf.fulltextIndexFields">
+				<source>Fields for fulltext indexing</source>
+			</trans-unit>
+
+
+			<!-- Content Element Wizard -->
+			<trans-unit id="contentElementWizward.header">
+				<source>Category Search</source>
+			</trans-unit>
+
+
+			<!-- Flexforms -->
+			<trans-unit id="flexform.tx_catsearch_search.title">
+				<source>Category Search</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType1">
+				<source>Filter Type 1</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType2">
+				<source>Filter Type 2</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType3">
+				<source>Filter Type 3</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType4">
+				<source>Filter Type 4</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType5">
+				<source>Filter Type 5</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.detailPid">
+				<source>Page with Detail-View</source>
+			</trans-unit>
+
+
+			<!-- Plugins -->
+			<trans-unit id="plugin.tx_catsearch_search.title">
+				<source>Category Search Search</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

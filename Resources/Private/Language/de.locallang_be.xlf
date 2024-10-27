@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+	<file source-language="en" datatype="plaintext">
+		<body>
+
+			<trans-unit id="extConf.fulltextIndexTable">
+				<source>Table for fulltext indexing</source>
+				<target>Tabelle für Volltext-Indexierung</target>
+			</trans-unit>
+			<trans-unit id="extConf.fulltextIndexFields">
+				<source>Fields for fulltext indexing</source>
+				<target>Felder für Volltext-Indexierung</target>
+			</trans-unit>
+
+
+			<!-- Content Element Wizard -->
+			<trans-unit id="contentElementWizward.header">
+				<source>Category Search</source>
+				<target>Kategorien-Suche</target>
+			</trans-unit>
+
+
+			<!-- Flexforms -->
+			<trans-unit id="flexform.tx_catsearch_search.title">
+				<source>Category Search</source>
+				<target>Kategorien-Suche</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType1">
+				<source>Filter Type 1</source>
+				<target>Filter Typ </target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType2">
+				<source>Filter Type 2</source>
+				<target>Filter Typ 2</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType3">
+				<source>Filter Type 3</source>
+				<target>Filter Typ 3</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType4">
+				<source>Filter Type 4</source>
+				<target>Filter Typ 4</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType5">
+				<source>Filter Type 5</source>
+				<target>Filter Typ 5</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.detailPid">
+				<source>Page with Detail-View</source>
+				<target>Seite mit Detailansicht</target>
+			</trans-unit>
+
+
+			<!-- Plugins -->
+			<trans-unit id="plugin.tx_catsearch_search.title">
+				<source>Category Search Search</source>
+				<target>Kategorien-Suche: Suche</target>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>
