@@ -54,21 +54,21 @@ final class SearchController extends AbstractSearchController
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    protected function getFilterOptions (): array
+    protected function getSearchOptions (): array
     {
         $languageId = $this->siteLanguage->getLanguageId();
         $cacheIdentifier = 'filteroptions_' . $languageId;
 
-        if (!$filters = $this->cache->get($cacheIdentifier)) {
+        if (!$searchOptions = $this->cache->get($cacheIdentifier)) {
 
-            $filters = parent::getFilterOptions();
+            $searchOptions = parent::getSearchOptions();
             $this->cache->set(
                 $cacheIdentifier,
-                $filters,
+                $searchOptions,
                 ['madj2kcatsearch_filteroptions', 'madj2kcatsearch_filteroptions_' . $languageId]);
         }
 
-        return $filters;
+        return $searchOptions;
     }
 
 

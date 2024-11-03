@@ -5,7 +5,7 @@ call_user_func(
 	function($extensionKey)
 	{
 
-		foreach(['Search'] as $plugin) {
+		foreach(['Search', 'TeaserFiltered', 'Detail'] as $plugin) {
 			$pluginSignature = \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 				$extensionKey,
 				$plugin,

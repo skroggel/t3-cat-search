@@ -59,11 +59,11 @@
 				<source>Record Typ</source>
 				<target>Datensatz-Typ</target>
 			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.0">
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.1">
 				<source>Document</source>
 				<target>Dokument</target>
 			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.1">
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.2">
 				<source>Product</source>
 				<target>Produkt</target>
 			</trans-unit>

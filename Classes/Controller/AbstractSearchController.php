@@ -16,8 +16,10 @@ namespace Madj2k\CatSearch\Controller;
  */
 
 use Madj2k\CatSearch\Domain\DTO\Search;
+use Madj2k\CatSearch\Domain\Model\Filterable;
 use Madj2k\CatSearch\Domain\Repository\FilterableRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterRepository;
+use Madj2k\CatSearch\Domain\Repository\FilterTypeRepository;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
@@ -25,6 +27,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -48,6 +51,12 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @var \Madj2k\CatSearch\Domain\Repository\FilterRepository|null
      */
     protected ?FilterRepository $filterRepository = null;
+
+
+    /**
+     * @var \Madj2k\CatSearch\Domain\Repository\FilterTypeRepository|null
+     */
+    protected ?FilterTypeRepository $filterTypeRepository = null;
 
 
 	/**
@@ -79,6 +88,16 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
     public function injectFilterRepository(FilterRepository $filterRepository): void
     {
         $this->filterRepository = $filterRepository;
+    }
+
+
+    /**
+     * @param \Madj2k\CatSearch\Domain\Repository\FilterTypeRepository $filterTypeRepository
+     * @return void
+     */
+    public function injectFilterTypeRepository(FilterTypeRepository $filterTypeRepository): void
+    {
+        $this->filterTypeRepository = $filterTypeRepository;
     }
 
 
@@ -116,7 +135,44 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	}
 
 
-	/**
+    /**
+     * action teaserFiltered
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    public function teaserFilteredAction(): ResponseInterface
+    {
+        $results = $this->filterableRepository->findByFilter(intval($this->settings['filter']), $this->settings);
+
+        $this->view->assignMultiple([
+            'results' => $results
+        ]);
+
+        return $this->htmlResponse();
+    }
+
+
+
+    /**
+     * action detail
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filterable $filterable
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function detailAction(Filterable $filterable): ResponseInterface
+    {
+        $this->view->assignMultiple([
+            'result' => $filterable,
+            'siteLanguage' => $this->siteLanguage,
+        ]);
+
+        return $this->htmlResponse();
+    }
+
+
+    /**
 	 * action search
 	 *
 	 * @param \Madj2k\CatSearch\Domain\DTO\Search|null $search
@@ -136,9 +192,9 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 
 		// if useSessionPage is TRUE and no explicit page is given,
 		// we may be coming from the detail view back to the search
-		// in this case we want the results to start at the correct page
+		// in this case we want the results to start at the correct page.
 		// if useSessionPage is FALSE set current page in search-DTO and
-		// store object in session no matter if it is new, given as param
+		// store object in session - no matter if it is new, given as param
 		// or loaded from session
 		if ($useSessionPage && $currentPage == 0) {
 			$currentPage = $search->getCurrentPage() ?? 1;
@@ -171,7 +227,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 			'paginator' => $paginator,
 			'pagination' => $pagination,
 			'resultCount' => $results->count(),
-			'filterOptions' => $this->getFilterOptions()
+			'searchOptions' => $this->getSearchOptions()
 		]);
 
 		return $this->htmlResponse();
@@ -182,10 +238,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 * action removeSearchFilter
 	 *
 	 * @param string $property
-	 * @param int $value
+	 * @param string $value
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function removeSearchFilterAction(string $property, int $value = 0): ResponseInterface
+	public function removeSearchFilterAction(string $property, string $value = ''): ResponseInterface
 	{
 		if ($search = $this->loadSearchfromSession()) {
 			$search->unsetProperty($property, $value);
@@ -238,12 +294,14 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    protected function getFilterOptions (): array
+    protected function getSearchOptions (): array
     {
         $languageId = $this->siteLanguage->getLanguageId();
 
         // Store the data in cache
-        $filters = [
+        $searchOptions = [
+            'filters' => [],
+            'filtersCombined' => [],
             'years' => $this->filterableRepository->findAllYearsAssigned(
                 $languageId,
             ),
@@ -256,14 +314,30 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
                 (isset($this->settings['filterType' . $filterNumber]))
                 && ($this->settings['filterType' . $filterNumber])
             ){
-                $filters['filter' . $filterNumber] = $this->filterRepository->findAllAssignedByLanguageAndType(
+                $filterOptions = $this->filterRepository->findAllAssignedByLanguageAndType(
                     $languageId,
                     (int) $this->settings['filterType' . $filterNumber],
                 );
+
+                // add all options to one big array for tags
+                $searchOptions['filtersCombined'] += $filterOptions;
+
+                // add filterOptions with filterType to separate array
+                // in order to be able to cache the filters we can not add an object here!
+                /** @var \Madj2k\CatSearch\Domain\Model\FilterType $filterType */
+                $filterType = $this->filterTypeRepository->findByUid($this->settings['filterType' . $filterNumber]);
+                $searchOptions['filters']['filter' . $filterNumber] = [
+                    'filterType' => [
+                        'uid' => $filterType->getUid(),
+                        'title' => $filterType->getTitle()
+                    ],
+                    'filterOptions' => $filterOptions
+                ];
+
             }
         }
 
-        return $filters;
+        return $searchOptions;
     }
 
 

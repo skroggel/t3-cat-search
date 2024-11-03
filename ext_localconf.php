@@ -18,6 +18,28 @@ call_user_func(
             ],
         );
 
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'TeaserFiltered',
+            [
+                \Madj2k\CatSearch\Controller\SearchController::class => 'teaserFiltered'
+            ],
+            [
+                \Madj2k\CatSearch\Controller\SearchController::class => 'teaserFiltered'
+            ],
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'Detail',
+            [
+                \Madj2k\CatSearch\Controller\SearchController::class => 'detail'
+            ],
+            [
+
+            ],
+        );
+
         //=================================================================
         // Hooks
         //=================================================================

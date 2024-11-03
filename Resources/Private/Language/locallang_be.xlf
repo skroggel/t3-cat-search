@@ -2,23 +2,62 @@
 <xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
 	<file source-language="en" datatype="plaintext">
 		<body>
+
+
+			<!-- TCA-Hook -->
+			<trans-unit id="indexHook.contendIndexed">
+				<source>The following content was indexed (record: %s):</source>
+			</trans-unit>
+
+
+			<!-- extConf -->
 			<trans-unit id="extConf.fulltextIndexTable">
-				<source>Table for fulltext indexing</source>
+				<source>Basis-Table for fulltext indexing</source>
 			</trans-unit>
 			<trans-unit id="extConf.fulltextIndexFields">
-				<source>Fields for fulltext indexing</source>
+				<source>Fields for fulltext indexing. Use dot-notation to refer tu subtables (and subtables of the subtables). The title- and teaser-field are searched separately.</source>
+			</trans-unit>
+			<trans-unit id="extConf.showIndexResult">
+				<source>Show result of indexing in backend</source>
 			</trans-unit>
 
 
 			<!-- Content Element Wizard -->
 			<trans-unit id="contentElementWizward.header">
-				<source>Category Search</source>
+				<source>Category-Search</source>
 			</trans-unit>
 
 
 			<!-- Flexforms -->
 			<trans-unit id="flexform.tx_catsearch_search.title">
-				<source>Category Search</source>
+				<source>CatSearch</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.header">
+				<source>Header</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType">
+				<source>Record Type</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.0">
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.1">
+				<source>Only Documents</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.2">
+				<source>Only Products</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showTextQuery">
+				<source>Show Freetext-Search</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showYear">
+				<source>Show Year-Filter</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showTags">
+				<source>Show Tags</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filter">
+				<source>Filter</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterType1">
 				<source>Filter Type 1</source>
@@ -35,14 +74,32 @@
 			<trans-unit id="flexform.settings.filterType5">
 				<source>Filter Type 5</source>
 			</trans-unit>
+			<trans-unit id="flexform.settings.searchPid">
+				<source>Page with Search</source>
+			</trans-unit>
 			<trans-unit id="flexform.settings.detailPid">
 				<source>Page with Detail-View</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout">
+				<source>Layout</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout.default">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout.big">
+				<source>Big</source>
 			</trans-unit>
 
 
 			<!-- Plugins -->
 			<trans-unit id="plugin.tx_catsearch_search.title">
-				<source>Category Search Search</source>
+				<source>CatSearch: Search</source>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_teaserfiltered.title">
+				<source>CatSearch: Filterable Teaser</source>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_detail.title">
+				<source>CatSearch: Detail-View</source>
 			</trans-unit>
 		</body>
 	</file>

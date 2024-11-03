@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class FilterableRepository
@@ -60,19 +61,44 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 		$query = $this->createQuery();
 		$constraints = [];
 
-		// search for categories - but with "OR"
-		if ($categories = $search->getAllFilters()) {
-			$subConstraints = [];
-			foreach ($categories as $category) {
-				if($category != 0){
-					$subConstraints[] = $query->contains('filters', $category);
+        // filter by documentType
+        if (
+            (isset($settings['recordType']))
+            && ($recordType = $settings['recordType'])
+            && (isset($GLOBALS['TCA'][$this->getTableName()]['ctrl']['type']))
+            && ($typeField = $GLOBALS['TCA'][$this->getTableName()]['ctrl']['type'])
+        ){
+            $constraints[] = $query->equals($typeField, $recordType);
+        }
+
+		// get all single filters. We use AND here
+		if ($filters = $search->getAllSingleFilters()) {
+			foreach ($filters as $filter) {
+				if ($filter != 0){
+					$constraints[] = $query->contains('filters', $filter);
 				}
 			}
-
-			if (!empty($subConstraints)){
-				$constraints[] = $query->logicalOr(...$subConstraints);
-			}
 		}
+
+        // add multiple filters - but with OR-constrain!
+        foreach (range(1,5) as $number) {
+            $getter = 'getFilterMultiple' . $number;
+            if (
+                (method_exists($search, $getter))
+                && ($filters = $search->$getter())
+            ){
+                $subConstraints = [];
+                foreach ($filters as $filter) {
+                    if ($filter != 0){
+                        $subConstraints[] = $query->contains('filters', $filter);
+                    }
+                }
+
+                if (!empty($subConstraints)){
+                    $constraints[] = $query->logicalOr(...$subConstraints);
+                }
+            }
+        }
 
 		// search for year
 		if ($year = $search->getYear()) {
@@ -81,7 +107,11 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 
 		// search for string
 		if ($textQuery = $search->getTextQuery()) {
-			$constraints[] = $query->like('content_index', '%' . $textQuery .'%');
+			$constraints[] = $query->logicalOr(
+                $query->like('title', '%' . $textQuery .'%'),
+                $query->like('teaser', '%' . $textQuery .'%'),
+                $query->like('content_index', '%' . $textQuery .'%')
+            );
 		}
 
 		// Change sorting according to given values - check if given value is configured and the given field defined in TCA
@@ -89,7 +119,7 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 			(in_array($search->getSorting(), GeneralUtility::trimExplode(',', $settings['sorting'] ?? '')))
 			&& ($sorting = explode('#', strtolower($search->getSorting())))
 			&& (count($sorting) == 2)
-			&& ($GLOBALS['TCA'][$this->getTableName()]['columns'][$sorting[0]])
+			&& (isset($GLOBALS['TCA'][$this->getTableName()]['columns'][$sorting[0]]))
 		){
 			$orderDirection = QueryInterface::ORDER_ASCENDING;
 			$orderColumn = $sorting[0];
@@ -108,14 +138,15 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 	}
 
 
-	/**
-	 * Find all by given filter
-	 *
-	 * @param int $filter
-	 * @param array $settings
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-	 */
+    /**
+     * Find all by given filter
+     *
+     * @param int $filter
+     * @param array $settings
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
 	public function findByFilter(int $filter, array $settings): QueryResultInterface
 	{
 
@@ -124,10 +155,21 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 			$query->setLimit($limit);
 		}
 
-		$query->matching(
-			$query->contains('filters', $filter)
-		);
+        $constraints = [
+            $query->contains('filters', $filter)
+        ];
 
+        // filter by documentType
+        if (
+            (isset($settings['recordType']))
+            && ($recordType = $settings['recordType'])
+            && (isset($GLOBALS['TCA'][$this->getTableName()]['ctrl']['type']))
+            && ($typeField = $GLOBALS['TCA'][$this->getTableName()]['ctrl']['type'])
+        ){
+            $constraints[] = $query->equals($typeField, $recordType);
+        }
+
+        $query->matching($query->logicalAnd(...$constraints));
 		return $query->execute();
 	}
 

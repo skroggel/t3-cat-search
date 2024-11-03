@@ -21,9 +21,9 @@ use TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper;
  * Class SearchFormViewHelper
  *
  * @author Steffen Kroggel <mail@steffenkroggel.de>
- * * @copyright Steffen Kroggel <mail@steffenkroggel.de>
- * * @package Madj2k_CatSearch
- * * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * @copyright Steffen Kroggel <mail@steffenkroggel.de>
+ * @package Madj2k_CatSearch
+ * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class SearchFormViewHelper extends FormViewHelper
 {

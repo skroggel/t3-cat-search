@@ -21,5 +21,6 @@ plugin.tx_catsearch {
 
 	settings {
 
+        sorting = {$plugin.tx_catsearch.settings.sorting}
 	}
 }

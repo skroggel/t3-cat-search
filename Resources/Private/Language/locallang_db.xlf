@@ -7,10 +7,10 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable">
 				<source>Category Search: Filterable</source>
 			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.0">
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.1">
 				<source>Document</source>
 			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.1">
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.2">
 				<source>Product</source>
 			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.title">

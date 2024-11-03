@@ -124,7 +124,8 @@ return [
 				'type' => 'group',
 				'allowed' => 'tx_catsearch_domain_model_filter',
 				'foreign_table' => 'tx_catsearch_domain_model_filter',
-				'foreign_field' => 'type',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1,0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_field' => 'type',
 				'size' => 10,
 				'maxitems' => 9999
 			],

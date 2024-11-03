@@ -1,0 +1,48 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  data-namespace-typo3-fluid="true"
+>
+
+	<f:if condition="{results}">
+		<f:switch expression="{settings.layout}">
+			<f:case value="big"><f:render section="Big" arguments="{results:results, data:data, settings: settings}" /></f:case>
+			<f:defaultCase><f:render section="Default" arguments="{results:results, data:data, settings: settings}" /></f:defaultCase>
+		</f:switch>
+	</f:if>
+
+	<f:comment><!-- ============================================================================== --></f:comment>
+
+	<f:section name="Default">
+
+		<section class="teaser" id="c{data.uid}">
+            <f:for each="{results}" as="result">
+                <div class="teaser-item">
+                    <h3>{result.title}</h3>
+                    <p>{result.teaser}</p>
+                    <f:link.action action="detail" pluginName="Detail" arguments="{result: result}" pageUid="{settings.detailPid}" class="btn">
+                        {f:translate(key:'teaser.readMore.label')}
+                    </f:link.action>                    
+                </div>
+            </f:for>
+		</section>
+
+	</f:section>
+
+	<f:comment><!-- ============================================================================== --></f:comment>
+
+	<f:section name="Big">
+
+        <section class="teaser" id="c{data.uid}">
+            <f:for each="{results}" as="result">
+                <div class="teaser-item">
+                    <h3>{result.title}</h3>
+                    <p>{result.teaser}</p>
+                    <f:link.action action="detail" pluginName="Detail" arguments="{result: result}" pageUid="{settings.detailPid}" class="btn">
+                        {f:translate(key:'teaser.readMore.label')}
+                    </f:link.action>
+                </div>
+            </f:for>
+        </section>
+
+	</f:section>
+
+</html>

@@ -15,13 +15,16 @@ namespace Madj2k\CatSearch\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Doctrine\DBAL\ArrayParameterType;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 
 /**
  * Class TCEMainHook
@@ -113,7 +116,7 @@ class TCEMainHook
                 ($indexTable = $extensionConfig['indexTable'])
                 && ($indexFields = $this->explodeDotNotation($extensionConfig['indexFields']))
             ){
-                $this->indexContent($indexTable, $indexFields);
+                $this->indexContent($indexTable, $indexFields, (bool) ($extensionConfig['showIndexResult'] ?? false));
             }
 
             // flush filter caches
@@ -121,27 +124,41 @@ class TCEMainHook
             $cacheManager->flushCachesByTag('madj2kcatsearch_filteroptions');
 
 		} catch (\Exception $e) {
-			// do nothing
+
+            $message = GeneralUtility::makeInstance(FlashMessage::class,
+                $e->getMessage(),
+                '',
+                ContextualFeedbackSeverity::ERROR,
+                true
+            );
+
+            $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+            $messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+            $messageQueue->addMessage($message);
 		}
 	}
 
-
     /**
-     * Fetch all indexable contents for the given table
+     *  Fetch all indexable contents for the given table
      *
-     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
+     * @param string $table
+     * @param array $indexFields
+     * @param bool $showInfo
+     * @return bool
      * @throws \Doctrine\DBAL\Exception
+     * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      */
     protected function indexContent (
         string $table,
-        array $indexerConfig,
+        array $indexFields,
+        bool $showInfo = true
     ): bool {
 
-        if (count($indexerConfig)) {
+        if (count($indexFields)) {
 
             $selectFields = $this->buildSelectFields(
                 $table,
-                array_keys($indexerConfig)
+                array_keys($indexFields)
             );
 
             /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool*/
@@ -161,9 +178,10 @@ class TCEMainHook
 
             $statement = $queryBuilder->executeQuery();
             $records = $statement->fetchAllAssociative();
+
             foreach ($records as $record) {
 
-                $indexResult = $this->buildIndexResultRecursive($table, $record, $indexerConfig);
+                $indexResult = $this->buildIndexResultRecursive($table, $record, $indexFields);
 
                 // now save indexResult to database - may also be empty after deletions!
                 $queryBuilderUpdate = $connectionPool->getQueryBuilderForTable($table);
@@ -181,6 +199,23 @@ class TCEMainHook
                     ->set('content_index', $indexResult)
                     ->set('content_index_tstamp', time())
                     ->executeStatement();
+
+                if ($showInfo) {
+                    $message = GeneralUtility::makeInstance(FlashMessage::class,
+                        $indexResult,
+                        sprintf(
+                            \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                            'LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:indexHook.contendIndexed',
+                            ), $record['uid']
+                        ),
+                        ContextualFeedbackSeverity::INFO,
+                        true
+                    );
+
+                    $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+                    $messageQueue = $flashMessageService->getMessageQueueByIdentifier();
+                    $messageQueue->addMessage($message);
+                }
             }
 
             return true;
@@ -196,7 +231,7 @@ class TCEMainHook
      * @param string $parentTable
      * @param string $parentColumn
      * @param array $parentRecord
-     * @param array $indexerConfig
+     * @param array $indexFields
      * @return string
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
@@ -205,17 +240,20 @@ class TCEMainHook
         string $parentTable,
         string $parentColumn,
         array $parentRecord,
-        array $indexerConfig,
+        array $indexFields,
 	): string {
 
         $indexResult = '';
-        $tcaConfig = $GLOBALS['TCA'][$parentTable]['columns'][$parentColumn]['config'];
+        $parentColumnTca = $GLOBALS['TCA'][$parentTable]['columns'][$parentColumn];
+        $parentTableTca = $GLOBALS['TCA'][$parentTable];
 
         if (
-            (count($indexerConfig))
-            && (isset($tcaConfig['foreign_table']))
-            && ($table = $tcaConfig['foreign_table'])
+            (count($indexFields))
+            && (isset($parentColumnTca['config']['foreign_table']))
+            && ($table = $parentColumnTca['config']['foreign_table'])
         ) {
+
+            $tableTca = $GLOBALS['TCA'][$table];
 
             /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool*/
             $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
@@ -223,7 +261,7 @@ class TCEMainHook
             // get select fields
             $selectFields = $this->buildSelectFields(
                 $table,
-                array_keys($indexerConfig)
+                array_keys($indexFields)
             );
 
             /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
@@ -232,10 +270,42 @@ class TCEMainHook
                 ->select(...$selectFields)
                 ->from($table);
 
+            $constraints = [];
+            $uidField = 'uid';
+
+            // add language constraint - if the both tables are configured for that
+            if (
+                (isset($parentTableTca['ctrl']['languageField']))
+                && ($parentLanguageField = $parentTableTca['ctrl']['languageField'])
+                && (isset($tableTca['ctrl']['languageField']))
+                && ($languageField = $tableTca['ctrl']['languageField'])
+            ){
+                $constraints[] =
+                    $queryBuilder->expr()->in(
+                        $table . '.' . $languageField,
+                        $queryBuilder->createNamedParameter(
+                            $parentRecord[$parentLanguageField],
+                            Connection::PARAM_INT
+                        )
+                    );
+
+                // if the field is excluded from the translation, we need to check to a
+                // pointer field (e.hg. l10n_parent) in order to get the right translation!
+                if (
+                    (isset($parentColumnTca['l10n_mode']))
+                    && ($parentColumnTca['l10n_mode'] == 'exclude') // exclude is used
+                    && ($parentRecord[$parentLanguageField] > 0) // language is not default
+                    && (isset($tableTca['ctrl']['transOrigPointerField'])) // there is a pointer field in the current table
+                    && ($transOrigPointerField = $tableTca['ctrl']['transOrigPointerField'])
+                ) {
+                    $uidField = $transOrigPointerField;
+                }
+            }
+
             // MM-relation
             if (
-                (isset($tcaConfig['MM']))
-                && ($mmTable = $tcaConfig['MM'])
+                (isset($parentColumnTca['config']['MM']))
+                && ($mmTable = $parentColumnTca['config']['MM'])
             ) {
 
                 $queryBuilder->join(
@@ -253,37 +323,47 @@ class TCEMainHook
                 ->groupBy($table . '.uid')
                 ->orderBy($mmTable  . '.sorting_foreign');
 
-            // n:1-relation with defined foreign_field
+                // add constraint to foreign_uid in foreign_table
+                // this is either the normal uid - or the l10n_parent -field
+                $constraints[] = $queryBuilder->expr()->eq(
+                    $mmTable  . '.uid_foreign',
+                    $table . '.' . $uidField
+                );
+
+            // 1:1-relation with defined foreign_field (IRRE)
+            // in this case we do not need to take care for the translation in a special way!
             } else if (
-                (isset($tcaConfig['foreign_field']))
-                && ($parentUidField = $tcaConfig['foreign_field'])
+                (isset($parentColumnTca['config']['foreign_field']))
+                && ($parentUidField = $parentColumnTca['config']['foreign_field'])
             ){
 
-                $queryBuilder->where(
+                $constraints[] =
                     $queryBuilder->expr()->eq(
                         $parentUidField,
                         $queryBuilder->createNamedParameter(
                             $parentRecord['uid'],
                             \PDO::PARAM_INT
                         )
-                    )
-                );
+                    );
 
-                if ($parentTableField = $tcaConfig['foreign_table_field']) {
-                    $queryBuilder->andWhere(
+                // is there a foreign_table_field defined?
+                if (
+                    (isset($parentColumnTca['config']['foreign_table_field']))
+                    && ($parentTableField = $parentColumnTca['config']['foreign_table_field'])
+                ){
+                    $constraints[] =
                         $queryBuilder->expr()->eq(
                             $parentTableField,
                             $queryBuilder->createNamedParameter(
                                 $parentTable,
                                 \PDO::PARAM_STR
                             )
-                        )
-                    );
+                        );
                 }
 
                 if (
-                    (isset($tcaConfig['foreign_sortby']))
-                    && ($sorting = $tcaConfig['foreign_sortby'])
+                    (isset($parentColumnTca['config']['foreign_sortby']))
+                    && ($sorting = $parentColumnTca['config']['foreign_sortby'])
                 ) {
                     $queryBuilder->orderBy($sorting);
                 }
@@ -292,21 +372,22 @@ class TCEMainHook
             } else {
 
                 $uidList = GeneralUtility::trimExplode(',', ($parentRecord[$parentColumn] ?? ''));
-                $queryBuilder->where(
+                $constraints[] =
                     $queryBuilder->expr()->in(
-                        'uid',
+                        $uidField,
                         $queryBuilder->createNamedParameter(
                             $uidList,
-                            Connection::PARAM_INT_ARRAY
+                            ArrayParameterType::INTEGER
                         )
-                    )
-                );
+                    );
             }
+
+            $queryBuilder->where(...$constraints);
 
             $statement = $queryBuilder->executeQuery();
             $records = $statement->fetchAllAssociative();
             foreach ($records as $record) {
-                $indexResult .= $this->buildIndexResultRecursive($table, $record, $indexerConfig);
+                $indexResult .= $this->buildIndexResultRecursive($table, $record, $indexFields);
             }
         }
 
@@ -319,7 +400,7 @@ class TCEMainHook
      *
      * @param string $table
      * @param array $record
-     * @param array $indexerConfig
+     * @param array $indexFields
      * @return string
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
@@ -327,11 +408,11 @@ class TCEMainHook
     protected function buildIndexResultRecursive (
         string $table,
         array $record,
-        array $indexerConfig
+        array $indexFields
     ): string {
 
         $indexResult = '';
-        foreach ($indexerConfig as $column => $indexSubConfig) {
+        foreach ($indexFields as $column => $indexSubConfig) {
 
             if (count($indexSubConfig)) {
                 $indexResult .= ' ' . $this->indexRelatedContent(
@@ -343,7 +424,7 @@ class TCEMainHook
 
             } else {
                 if ($record[$column]) {
-                    $indexResult .= ' ' . trim(strip_tags($record[$column]));
+                    $indexResult .= ' ' . $this->sanitize($record[$column]);
                 }
             }
         }
@@ -352,13 +433,13 @@ class TCEMainHook
     }
 
 
-	/**
-	 * Returns only existing fields for given table
-	 *
-	 * @param string $table
-	 * @param array $fields
-	 * @return array
-	 */
+    /**
+     * Returns only existing fields for given table
+     *
+     * @param string $table
+     * @param array $fields
+     * @return array
+     */
 	protected function buildSelectFields (string $table, array $fields): array
 	{
 		$cleanedFields = [];
@@ -369,6 +450,9 @@ class TCEMainHook
 		}
 
         $cleanedFields[] = 'uid';
+        if (isset($GLOBALS['TCA'][$table]['ctrl']['languageField'])) {
+            $cleanedFields[] = $GLOBALS['TCA'][$table]['ctrl']['languageField'];
+        }
 		return $cleanedFields;
 	}
 
@@ -400,7 +484,7 @@ class TCEMainHook
      * @return void
      * @see https://stackoverflow.com/questions/9635968/convert-dot-syntax-like-this-that-other-to-multi-dimensional-array-in-php
      */
-    function dotStringToArray(array &$array, string $path, string $separator ='.'): void
+    protected function dotStringToArray(array &$array, string $path, string $separator ='.'): void
     {
         $keys = explode($separator, $path);
         foreach ($keys as $key) {
@@ -409,5 +493,16 @@ class TCEMainHook
 
         $array = [];
     }
+
+
+    /**
+     * @param $string
+     * @return string
+     */
+    protected function sanitize ($string): string
+    {
+        return str_replace('­', '', preg_replace('#&[^;]+;#', '', strip_tags($string)));
+    }
+
 
 }

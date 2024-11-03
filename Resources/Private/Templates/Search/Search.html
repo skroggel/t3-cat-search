@@ -3,21 +3,18 @@
 	  data-namespace-typo3-fluid="true"
 >
 
-	<section class="content-outer" id="c{data.uid}">
+	<section class="search" id="c{data.uid}">
+		<catSearch:searchForm action="search" class="search-form" name="search" object="{search}" section="c{data.uid}" method="GET">
+            <f:render partial="Search/Filters" arguments="{searchOptions: searchOptions, search: search, 
+                                                           data: data, settings: settings}" />
+            <f:render partial="Search/View" arguments="{resultCount: resultCount, searchOptions: searchOptions, search: search, 
+                                                        data: data, settings: settings}" />
+        </catSearch:searchForm>
 
-        <f:debug>{paginator.paginatedItems}</f:debug>
-        
-        
-        <f:comment>
-		<catSearch:searchForm action="search" class="magazine-search-form" name="search" object="{search}" section="c{data.uid}" method="GET">
-			<f:render partial="Search/Filters" arguments="{filterOptions: filterOptions, search: search, data: data, settings: settings}" />
-			<f:render partial="Search/View" arguments="{resultCount: resultCount, filterOptions: filterOptions, search: search, data: data, settings: settings}" />
-		</catSearch:searchForm>
-
-		<f:if condition="{paginator.paginatedItems}">
-			<f:render partial="Search/Results" arguments="{magazines: paginator.paginatedItems, pagination: pagination, search: search, data: data, settings: settings}" />
-		</f:if>
-        </f:comment>
+        <f:if condition="{paginator.paginatedItems}">
+            <f:render partial="Search/Results" arguments="{results: paginator.paginatedItems, pagination: pagination, 
+                                                           search: search, data: data, settings: settings}" />
+        </f:if>
         
 	</section>
 

@@ -15,6 +15,8 @@ namespace Madj2k\CatSearch\Domain\DTO;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
  * Class Search
  *
@@ -38,34 +40,64 @@ final class Search
 	protected int $year = 0;
 
 
+    /**
+     * @var int
+     */
+    protected int $filter1 = 0;
+
+
+    /**
+     * @var int
+     */
+    protected int $filter2 = 0;
+
+
+    /**
+     * @var int
+     */
+    protected int $filter3 = 0;
+
+
+    /**
+     * @var int
+     */
+    protected int $filter4 = 0;
+
+
+    /**
+     * @var int
+     */
+    protected int $filter5 = 0;
+
+
 	/**
 	 * @var array
 	 */
-	protected array $filters1 = [];
+	protected array $multiSelectFilter1 = [];
 
 
     /**
      * @var array
      */
-    protected array $filters2 = [];
+    protected array $multiSelectFilter2 = [];
 
 
     /**
      * @var array
      */
-    protected array $filters3 = [];
+    protected array $multiSelectFilter3 = [];
 
 
     /**
      * @var array
      */
-    protected array $filters4 = [];
+    protected array $multiSelectFilter4 = [];
 
 
     /**
      * @var array
      */
-    protected array $filters5 = [];
+    protected array $multiSelectFilter5 = [];
 
 
     /**
@@ -132,66 +164,42 @@ final class Search
 	}
 
 
-	/**
-	 * Get filter
-	 *
-	 * @return array
-	 */
-	public function getFilters1(): array
-	{
-		return $this->getFilters(1);
-	}
+    /**
+     * Get filter
+     *
+     * @return int
+     */
+    public function getFilter1(): int
+    {
+        return $this->getFilter(1);
+    }
 
 
-	/**
-	 * Set filters
-	 *
-	 * @param int[] $filters
-	 * @return void
-	 */
-	public function setFilters1(array $filters): void
-	{
-        $this->setFilters(1, $filters);
-	}
-
-
-	/**
-	 * Set filter - for single select in multi-select context when coming from teaser-element
-	 *
-	 * @param int $filter
-	 * @return void
-	 */
-	public function setFilter1(int $filter): void
-	{
+    /**
+     * Set filter
+     *
+     * @param int $filter
+     * @return void
+     */
+    public function setFilter1(int $filter): void
+    {
         $this->setFilter(1, $filter);
-	}
+    }
 
 
     /**
      * Get filter
      *
-     * @return array
+     * @return int
      */
-    public function getFilters2(): array
+    public function getFilter2(): int
     {
-        return $this->getFilters(2);
+        return $this->getFilter(2);
     }
 
 
     /**
-     * Set filters
-     *
-     * @param int[] $filters
-     * @return void
-     */
-    public function setFilters2(array $filters): void
-    {
-        $this->setFilters(2, $filters);
-    }
-
-
-    /**
-     * Set filter - for single select in multi-select context when coming from teaser-element
+     * Set filter
      *
      * @param int $filter
      * @return void
@@ -205,28 +213,16 @@ final class Search
     /**
      * Get filter
      *
-     * @return array
+     * @return int
      */
-    public function getFilters3(): array
+    public function getFilter3(): int
     {
-        return $this->getFilters(3);
+        return $this->getFilter(3);
     }
 
 
     /**
-     * Set filters
-     *
-     * @param int[] $filters
-     * @return void
-     */
-    public function setFilters3(array $filters): void
-    {
-        $this->setFilters(3, $filters);
-    }
-
-
-    /**
-     * Set filter - for single select in multi-select context when coming from teaser-element
+     * Set filter
      *
      * @param int $filter
      * @return void
@@ -240,28 +236,16 @@ final class Search
     /**
      * Get filter
      *
-     * @return array
+     * @return int
      */
-    public function getFilters4(): array
+    public function getFilter4(): int
     {
-        return $this->getFilters(4);
+        return $this->getFilter(4);
     }
 
 
     /**
-     * Set filters
-     *
-     * @param int[] $filters
-     * @return void
-     */
-    public function setFilters4(array $filters): void
-    {
-        $this->setFilters(4, $filters);
-    }
-
-
-    /**
-     * Set filter - for single select in multi-select context when coming from teaser-element
+     * Set filter
      *
      * @param int $filter
      * @return void
@@ -275,28 +259,16 @@ final class Search
     /**
      * Get filter
      *
-     * @return array
+     * @return int
      */
-    public function getFilters5(): array
+    public function getFilter5(): int
     {
-        return $this->getFilters(5);
+        return $this->getFilter(5);
     }
 
 
     /**
-     * Set filters
-     *
-     * @param int[] $filters
-     * @return void
-     */
-    public function setFilters5(array $filters): void
-    {
-        $this->setFilters(5, $filters);
-    }
-
-
-    /**
-     * Set filter - for single select in multi-select context when coming from teaser-element
+     * Set filter
      *
      * @param int $filter
      * @return void
@@ -308,13 +280,117 @@ final class Search
 
 
     /**
-     * Get filters
+	 * Get filter
+	 *
+	 * @return array
+	 */
+	public function getMultiSelectFilter1(): array
+	{
+		return $this->getMultiSelectFilter(1);
+	}
+
+
+	/**
+	 * Set filters
+	 *
+	 * @param int[] $filter
+	 * @return void
+	 */
+	public function setMultiSelectFilter1(array $filter): void
+	{
+        $this->setMultiSelectFilter(1, $filter);
+	}
+
+
+    /**
+     * Get filter
      *
      * @return array
      */
-    public function getAllFilters(): array
+    public function getMultiSelectFilter2(): array
     {
-        return array_merge($this->filters1, $this->filters2, $this->filters3, $this->filters4, $this->filters5);
+        return $this->getMultiSelectFilter(2);
+    }
+
+
+    /**
+     * Set filters
+     *
+     * @param int[] $filter
+     * @return void
+     */
+    public function setMultiSelectFilter2(array $filter): void
+    {
+        $this->setMultiSelectFilter(2, $filter);
+    }
+
+
+    /**
+     * Get filter
+     *
+     * @return array
+     */
+    public function getMultiSelectFilter3(): array
+    {
+        return $this->getMultiSelectFilter(3);
+    }
+
+
+    /**
+     * Set filters
+     *
+     * @param int[] $filter
+     * @return void
+     */
+    public function setMultiSelectFilter3(array $filter): void
+    {
+        $this->setMultiSelectFilter(3, $filter);
+    }
+
+
+    /**
+     * Get filter
+     *
+     * @return array
+     */
+    public function getMultiSelectFilter4(): array
+    {
+        return $this->getMultiSelectFilter(4);
+    }
+
+
+    /**
+     * Set filters
+     *
+     * @param int[] $filter
+     * @return void
+     */
+    public function setMultiSelectFilter4(array $filter): void
+    {
+        $this->setMultiSelectFilter(4, $filter);
+    }
+
+
+    /**
+     * Get filter
+     *
+     * @return array
+     */
+    public function getMultiSelectFilter5(): array
+    {
+        return $this->getMultiSelectFilter(5);
+    }
+
+
+    /**
+     * Set filters
+     *
+     * @param int[] $filter
+     * @return void
+     */
+    public function setMultiSelectFilter5(array $filter): void
+    {
+        $this->setMultiSelectFilter(5, $filter);
     }
 
 
@@ -394,7 +470,7 @@ final class Search
 	 */
 	public function getIsActive(): bool
 	{
-		if (count($this->getAllFilters()) > 1 || $this->getTextQuery() || $this->getYear() ) {
+		if (count($this->getAllFilters()) > 0 || $this->getTextQuery() || $this->getYear() ) {
 			return true;
 		}
 
@@ -429,40 +505,73 @@ final class Search
 				$this->$property = '';
 				return true;
 			}
-		}
+
+		} else if ($property == '_filters') {
+            foreach (range(1,5) as $number) {
+                $this->unsetProperty('filter' . $number, $value);
+                $this->unsetProperty('MultiSelectFilter' . $number, $value);
+            }
+        }
+
 		return false;
 	}
+
+
+    /**
+     * Get all single filters
+     *
+     * @return array
+     */
+    public function getAllSingleFilters(): array
+    {
+        $allFilters = [];
+        foreach (range(1,5) as $number) {
+            $property = 'filter' . $number;
+            if ($this->$property) {
+                $allFilters[] = $this->$property;
+            }
+        }
+
+        return $allFilters;
+    }
+
+
+    /**
+     * Get filters
+     *
+     * @return array
+     */
+    public function getAllFilters(): array
+    {
+        $allFilters = array_merge(
+            $this->multiSelectFilter1,
+            $this->multiSelectFilter2,
+            $this->multiSelectFilter3,
+            $this->multiSelectFilter4,
+            $this->multiSelectFilter5
+        );
+
+        foreach (range(1,5) as $number) {
+            $property = 'filter' . $number;
+            if ($this->$property) {
+                $allFilters[] = $this->$property;
+            }
+        }
+
+        return $allFilters;
+    }
 
 
     /**
      * Global getter for filters
      *
      * @param int $number
-     * @return array
+     * @return int
      */
-    protected function getFilters (int $number): array
+    protected function getFilter (int $number): int
     {
-        $property = 'filters' . $number;
+        $property = 'filter' . $number;
         return $this->$property;
-    }
-
-
-    /**
-     * Global setter for filters
-     *
-     * @param int $number
-     * @param array $filters
-     * @return void
-     */
-    protected function setFilters (int $number, array $filters): void
-    {
-        // we allow no zero-value here
-        if (($key = array_search(0, $filters)) !== false) {
-            unset($filters[$key]);
-        }
-
-        $property = 'filters' . $number;
-        $this->$property = $filters;
     }
 
 
@@ -472,11 +581,43 @@ final class Search
      * @param int $number
      * @param int $filter
      * @return void
-     */
+    */
     protected function setFilter (int $number, int $filter): void
     {
-        $property = 'filters' . $number;
-        $this->$property[] = $filter;
+        $property = 'filter' . $number;
+        $this->$property = $filter;
+    }
+
+
+    /**
+     * Global getter for multiSelect-select filters
+     *
+     * @param int $number
+     * @return array
+     */
+    protected function getMultiSelectFilter (int $number): array
+    {
+        $property = 'filter' . $number;
+        return $this->$property;
+    }
+
+
+    /**
+     * Global setter for multiSelect-select filters
+     *
+     * @param int $number
+     * @param array $filter
+     * @return void
+     */
+    protected function setMultiSelectFilter (int $number, array $filter): void
+    {
+        // we allow no zero-value here
+        if (($key = array_search(0, $filter)) !== false) {
+            unset($filter[$key]);
+        }
+
+        $property = 'multiSelectFilter' . $number;
+        $this->$property = $filter;
     }
 
 }

@@ -3,13 +3,25 @@
 	<file source-language="en" datatype="plaintext">
 		<body>
 
+			<!-- TCA-Hook -->
+			<trans-unit id="indexHook.contendIndexed">
+				<source>The following content was indexed (record: %s):</source>
+				<target>Der folgende Inhalt wurde indexiert (Datensatz: %s):</target>
+			</trans-unit>
+
+
+			<!-- extConf -->
 			<trans-unit id="extConf.fulltextIndexTable">
-				<source>Table for fulltext indexing</source>
-				<target>Tabelle für Volltext-Indexierung</target>
+				<source>Basis-Table for fulltext indexing</source>
+				<target>Basis-Tabelle für Volltext-Indexierung</target>
 			</trans-unit>
 			<trans-unit id="extConf.fulltextIndexFields">
-				<source>Fields for fulltext indexing</source>
-				<target>Felder für Volltext-Indexierung</target>
+				<source>Fields for fulltext indexing. Use dot-notation to refer tu subtables (and subtables of the subtables). The title- and teaser-field are searched separately.</source>
+				<target>Felder für Volltext-Indexierung. Punkt-Notation verwenden, um auf Untertabellen (und Untertabellen der Untertabellen) zu verweisen. Die Felder title und teaser werden separat durchsucht.</target>
+			</trans-unit>
+			<trans-unit id="extConf.showIndexResult">
+				<source>Show result of indexing in backend</source>
+				<target>Zeige Indexierungsergebnis im Backend an</target>
 			</trans-unit>
 
 
@@ -22,12 +34,48 @@
 
 			<!-- Flexforms -->
 			<trans-unit id="flexform.tx_catsearch_search.title">
-				<source>Category Search</source>
-				<target>Kategorien-Suche</target>
+				<source>CatSearch</source>
+				<target>CatSearch</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.header">
+				<source>Header</source>
+				<target>Überschrift</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType">
+				<source>Record Type</source>
+				<target>Datensatzart</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.0">
+				<source>All</source>
+				<target>Alle</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.1">
+				<source>Only Documents</source>
+				<target>Nur Dokumente</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.2">
+				<source>Only Products</source>
+				<target>Nur Produkte</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showTextQuery">
+				<source>Show Freetext-Search</source>
+				<target>Zeige Freitext-Suche</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showYear">
+				<source>Show Year-Filter</source>
+				<target>Zeige Jahres-Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showTags">
+				<source>Show Tags</source>
+				<target>Zeige Tags</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filter">
+				<source>Filter</source>
+				<target>Filter</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterType1">
 				<source>Filter Type 1</source>
-				<target>Filter Typ </target>
+				<target>Filter Typ 1</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterType2">
 				<source>Filter Type 2</source>
@@ -45,16 +93,40 @@
 				<source>Filter Type 5</source>
 				<target>Filter Typ 5</target>
 			</trans-unit>
+			<trans-unit id="flexform.settings.searchPid">
+				<source>Page with Search</source>
+				<target>Seite mit Suche</target>
+			</trans-unit>
 			<trans-unit id="flexform.settings.detailPid">
 				<source>Page with Detail-View</source>
 				<target>Seite mit Detailansicht</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout">
+				<source>Layout</source>
+				<target>Darstellung</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout.default">
+				<source>Default</source>
+				<target>Standard</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout.big">
+				<source>Big</source>
+				<target>Groß</target>
 			</trans-unit>
 
 
 			<!-- Plugins -->
 			<trans-unit id="plugin.tx_catsearch_search.title">
-				<source>Category Search Search</source>
-				<target>Kategorien-Suche: Suche</target>
+				<source>CatSearch: Search</source>
+				<target>CatSearch: Suche</target>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_teaserfiltered.title">
+				<source>CatSearch: Filterable Teaser</source>
+				<target>CatSearch: Filterbarer Teaser</target>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_detail.title">
+				<source>CatSearch: Detail-View</source>
+				<target>CatSearch: Detailansicht</target>
 			</trans-unit>
 
 		</body>

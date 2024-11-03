@@ -10,7 +10,82 @@
 				</sheetTitle>
 				<type>array</type>
 				<el>
-					<settings.filterType1>
+                    <settings.header>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.header
+                        </label>
+                        <config>
+                            <type>text</type>
+                            <cols>30</cols>
+                            <rows>3</rows>
+                        </config>
+                    </settings.header>
+                    <settings.recordType>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType.0</numIndex>
+                                    <numIndex index="1">0</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType.1</numIndex>
+                                    <numIndex index="1">1</numIndex>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType.2</numIndex>
+                                    <numIndex index="1">2</numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.recordType>
+                    <settings.showTextQuery>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showTextQuery
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showTextQuery>
+                    <settings.showYear>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showYear
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showYear>
+                    <settings.showTags>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showTags
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showTags>
+                    <settings.filterType1>
 						<label>
 							LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType1
 						</label>

@@ -123,7 +123,7 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_catsearch_domain_model_filtertype',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_filtertype.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1,0)',
+				'foreign_table_where' => 'AND tx_catsearch_domain_model_filtertype.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1,0) AND tx_catsearch_domain_model_filtertype.hidden = 0 AND tx_catsearch_domain_model_filtertype.deleted = 0 ORDER BY tx_catsearch_domain_model_filtertype.title',
 				'minitems' => 1,
 			],
 		],
@@ -135,7 +135,7 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_catsearch_domain_model_filterable',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND (tx_catsearch_domain_model_filterable.sys_language_uid = -1 OR tx_catsearch_domain_model_filterable.sys_language_uid = ###REC_FIELD_sys_language_uid###) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY title',
+				'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
 				'MM' => 'tx_catsearch_filterable_filter_mm',
 				'MM_opposite_field' => 'filters'
 			],

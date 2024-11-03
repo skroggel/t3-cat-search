@@ -54,10 +54,10 @@ interface SearchControllerInterface
 	 * action removeSearchFilter
 	 *
 	 * @param string $property
-	 * @param int $value
+	 * @param string $value
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
-	public function removeSearchFilterAction(string $property, int $value = 0): ResponseInterface;
+	public function removeSearchFilterAction(string $property, string $value = ''): ResponseInterface;
 
 
 	/**

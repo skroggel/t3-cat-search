@@ -70,13 +70,13 @@ CREATE TABLE tx_catsearch_domain_model_filtertype
 
 CREATE TABLE tx_catsearch_domain_model_filter
 (
-	uid   int(11) NOT NULL auto_increment,
+	uid         int(11) NOT NULL auto_increment,
 
-	title varchar(255) DEFAULT '' NOT NULL,
-	type  int(11) unsigned DEFAULT '0',
-	items int(11) unsigned DEFAULT '0',
+	title       varchar(255) DEFAULT '' NOT NULL,
+	type        int(11) unsigned DEFAULT '0',
+	filterables int(11) unsigned DEFAULT '0',
 
 	PRIMARY KEY (uid),
-	KEY   parent (pid),
+	KEY         parent (pid),
 	KEY language (l10n_parent,sys_language_uid)
 );

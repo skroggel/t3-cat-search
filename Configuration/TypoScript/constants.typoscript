@@ -14,4 +14,10 @@ plugin.tx_catsearch {
 	persistence {
 	    storagePid =
 	}
+
+	settings {
+
+		# cat=plugin.tx_catsearch//a; type=string; label=Sorting options (have to be existing fields in the table)
+	    sorting = title#asc
+	}
 }
