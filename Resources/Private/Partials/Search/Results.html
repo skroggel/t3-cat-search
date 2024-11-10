@@ -2,11 +2,6 @@
       data-namespace-typo3-fluid="true"
 >
 
-    <f:variable name="section" value="Default" />
-    <f:if condition="{settings.layout} == 'big'">
-        <f:variable name="section" value="Big" />
-    </f:if>
-
     <f:if condition="{results}">
         <div class="catsearch-results variant-{settings.layout}">
             <div class="container-xxl">
@@ -15,7 +10,6 @@
                         <div class="catsearch-result-list">
                             <f:for each="{results}" as="item">
                                 <f:render partial="Search/Results/Item" 
-                                          section="{section}" 
                                           arguments="{item: item, data: data, settings: settings, 
                                                       settingsForLayout: settingsForLayout}" />
                             </f:for>

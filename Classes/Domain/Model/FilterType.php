@@ -34,6 +34,11 @@ class FilterType extends AbstractEntity
 	protected string $title = '';
 
 
+    /**
+     * @var string
+     */
+    protected string $titleLong = '';
+
 	/**
 	 * filters
 	 *
@@ -71,6 +76,39 @@ class FilterType extends AbstractEntity
 	{
 		$this->title = $title;
 	}
+
+
+    /**
+     * Gets the titleLong
+     *
+     * @return string
+     */
+    public function getTitleLong(): string
+    {
+        return $this->titleLong;
+    }
+
+
+    /**
+     * Sets the titleLong
+     *
+     * @param string $titleLong titleLong
+     */
+    public function setTitleLong(string $titleLong): void
+    {
+        $this->titleLong = $titleLong;
+    }
+
+
+    /**
+     * Gets the combined title
+     *
+     * @return string
+     */
+    public function getTitleCombined(): string
+    {
+        return $this->titleLong ?: $this->title;
+    }
 
 
 	/**

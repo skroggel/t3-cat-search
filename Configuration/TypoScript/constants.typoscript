@@ -46,55 +46,22 @@ plugin.tx_catsearch {
 
 
 plugin.tx_catsearch_search < plugin.tx_catsearch
-plugin.tx_catsearch_search  {
-    view {
-        pluginNamespace = tx_catsearch_search
-    }
-
+plugin.tx_catsearch_search {
     settings {
 
-        // override settings by layout-key
-        layoutOverride {
-            default {
-                item {
-                    media {
-                        image {
-                            dimensions {
-
-                                # cat=plugin.tx_catsearch//a; type=integer; label=Max-width for image in search list
-                                maxWidth = 590
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
-
 plugin.tx_catsearch_searchrelated < plugin.tx_catsearch
-plugin.tx_catsearch_searchrelated  {
-    view {
-        pluginNamespace = tx_catsearch_searchreleated
-    }
-
+plugin.tx_catsearch_searchrelated {
     settings {
 
-        // override settings by layout-key
-        layoutOverride {
-            default {
-                item {
-                    media {
-                        image {
-                            dimensions {
-                                # cat=plugin.tx_catsearch//a; type=integer; label=Max-width for image in releated list
-                                maxWidth = 250
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    }
+}
+
+plugin.tx_catsearch_detail < plugin.tx_catsearch
+plugin.tx_catsearch_detail {
+    settings {
+
     }
 }

@@ -49,14 +49,14 @@ plugin.tx_catsearch_search  {
 
     settings {
 
-        // override settings by layout-key
+        // EXAMPLE: override settings by layout-key
         layoutOverride {
             default {
                 item {
                     media {
                         image {
                             dimensions {
-                                maxWidth = {$plugin.tx_catsearch_search.settings.layoutOverride.default.item.media.image.dimensions.maxWidth}
+                                maxWidth = 590
                             }
                         }
                     }
@@ -76,19 +76,18 @@ plugin.tx_catsearch_searchrelated  {
 
     settings {
 
-        // override settings by layout-key
-        layoutOverride {
-            default {
-                item {
-                    media {
-                        image {
-                            dimensions {
-                                maxWidth = {$plugin.tx_catsearch_searchreleated.settings.layoutOverride.default.item.media.image.dimensions.maxWidth}
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    }
+}
+
+
+plugin.tx_catsearch_detail < plugin.tx_catsearch
+plugin.tx_catsearch_detail {
+
+    view {
+        pluginNamespace = tx_catsearch_searchreleated
+    }
+
+    settings {
+
     }
 }

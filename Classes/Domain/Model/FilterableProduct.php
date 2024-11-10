@@ -45,7 +45,25 @@ class FilterableProduct extends Filterable
     /**
      * @var string
      */
+    protected string $header3 = '';
+
+
+    /**
+     * @var string
+     */
     protected string $subheader = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $subheader2 = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $subheader3 = '';
 
 
     /**
@@ -75,6 +93,18 @@ class FilterableProduct extends Filterable
     /**
      * @var string
      */
+    protected string $applications = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $highlights = '';
+
+
+    /**
+     * @var string
+     */
     protected string $details = '';
 
 
@@ -89,6 +119,12 @@ class FilterableProduct extends Filterable
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|null
      */
     protected ?ObjectStorage $downloads = null;
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|null
+     */
+    protected ?ObjectStorage $dataSheets = null;
 
 
     /**
@@ -124,6 +160,7 @@ class FilterableProduct extends Filterable
     {
         parent::__construct();
         $this->downloads = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->dataSheets = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->mediaFiles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->relatedFilterableDocuments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->relatedFilterableAccessories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -179,6 +216,30 @@ class FilterableProduct extends Filterable
 
 
     /**
+     * Returns the header3
+     *
+     * @return string
+     */
+    public function getHeader3(): string
+    {
+        return $this->header3;
+    }
+
+
+    /**
+     * Sets the header3
+     *
+     * @param string $header3
+     * @return void
+     */
+    public function setHeader3(string $header3): void
+    {
+        $this->header3 = $header3;
+    }
+
+
+
+    /**
      * Returns the subheader
      *
      * @return string
@@ -202,6 +263,52 @@ class FilterableProduct extends Filterable
 
 
     /**
+     * Returns the subheader2
+     *
+     * @return string
+     */
+    public function getSubheader2(): string
+    {
+        return $this->subheader2;
+    }
+
+
+    /**
+     * Sets the subheader2
+     *
+     * @param string $subheader2
+     * @return void
+     */
+    public function setSubheader2(string $subheader2): void
+    {
+        $this->subheader2 = $subheader2;
+    }
+
+
+    /**
+     * Returns the subheader3
+     *
+     * @return string
+     */
+    public function getSubheader3(): string
+    {
+        return $this->subheader3;
+    }
+
+
+    /**
+     * Sets the subheader3
+     *
+     * @param string $subheader3
+     * @return void
+     */
+    public function setSubheader3(string $subheader3): void
+    {
+        $this->subheader3 = $subheader3;
+    }
+
+
+    /**w
      * Returns the description2
      *
      * @return string
@@ -292,6 +399,53 @@ class FilterableProduct extends Filterable
     {
         $this->options = $options;
     }
+
+
+    /**
+     * Returns the applications
+     *
+     * @return string
+     */
+    public function getApplications(): string
+    {
+        return $this->applications;
+    }
+
+
+    /**
+     * Sets the applications
+     *
+     * @param string $applications
+     * @return void
+     */
+    public function setApplications(string $applications): void
+    {
+        $this->applications = $applications;
+    }
+
+
+    /**
+     * Returns the Highlights
+     *
+     * @return string
+     */
+    public function getHighlights(): string
+    {
+        return $this->highlights;
+    }
+
+
+    /**
+     * Sets the Highlights
+     *
+     * @param string $highlights
+     * @return void
+     */
+    public function setHighlights(string $highlights): void
+    {
+        $this->highlights = $highlights;
+    }
+
 
 
     /**
@@ -386,6 +540,52 @@ class FilterableProduct extends Filterable
         $this->downloads = $downloads;
     }
 
+
+    /**
+     * Adds a dataSheet
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet
+     * @return void
+     */
+    public function addDataSheet(\TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet): void
+    {
+        $this->dataSheets->attach($dataSheet);
+    }
+
+
+    /**
+     * Removes a dataSheet
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet
+     * @return void
+     */
+    public function removeDataSheet(\TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet): void
+    {
+        $this->dataSheets->detach($dataSheet);
+    }
+
+
+    /**
+     * Returns the dataSheets
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $dataSheets
+     */
+    public function getDataSheets(): ObjectStorage
+    {
+        return $this->dataSheets;
+    }
+
+
+    /**
+     * Sets the dataSheets
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $dataSheets
+     * @return void
+     */
+    public function setDataSheets(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $dataSheets): void
+    {
+        $this->dataSheets = $dataSheets;
+    }
 
     /**
      * Adds a mediaFile

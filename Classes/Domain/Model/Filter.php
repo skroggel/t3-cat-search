@@ -34,7 +34,13 @@ class Filter extends AbstractEntity
 	protected string $title = '';
 
 
-	/**
+    /**
+     * @var string
+     */
+    protected string $titleLong = '';
+
+
+    /**
 	 * @var \Madj2k\CatSearch\Domain\Model\FilterType|null
 	 */
 	protected ?FilterType $type = null;
@@ -77,7 +83,40 @@ class Filter extends AbstractEntity
 	}
 
 
-	/**
+    /**
+     * Gets the titleLong
+     *
+     * @return string
+     */
+    public function getTitleLong(): string
+    {
+        return $this->titleLong;
+    }
+
+
+    /**
+     * Sets the titleLong
+     *
+     * @param string $titleLong titleLong
+     */
+    public function setTitleLong(string $titleLong): void
+    {
+        $this->titleLong = $titleLong;
+    }
+
+
+    /**
+     * Gets the combined title
+     *
+     * @return string
+     */
+    public function getTitleCombined(): string
+    {
+        return $this->titleLong ?: $this->title;
+    }
+
+
+    /**
 	 * Returns the filterType
 	 *
 	 * @return \Madj2k\CatSearch\Domain\Model\FilterType|null

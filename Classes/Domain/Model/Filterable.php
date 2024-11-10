@@ -37,6 +37,12 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
+     * @var int
+     */
+    protected int $subType = 0;
+
+
+    /**
      * @var string
      */
     protected string $slug = '';
@@ -134,6 +140,29 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     public function setRecordType(int $recordType): void
     {
         $this->recordType = $recordType;
+    }
+
+
+    /**
+     * Returns the subType
+     *
+     * @return int
+     */
+    public function getSubType(): int
+    {
+        return $this->subType;
+    }
+
+
+    /**
+     * Sets the subType
+     *
+     * @param int $subType
+     * @return void
+     */
+    public function setSubType(int $subType): void
+    {
+        $this->subType = $subType;
     }
 
 

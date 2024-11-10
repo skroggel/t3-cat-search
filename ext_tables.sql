@@ -5,6 +5,8 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 (
 	uid                            int(11) NOT NULL auto_increment,
 	record_type                    int(4) NOT NULL DEFAULT '0',
+	sub_type                       int(4) NOT NULL DEFAULT '0',
+
 	title                          varchar(255) DEFAULT '' NOT NULL,
 	title_cleaned                  varchar(255) DEFAULT '' NOT NULL,
 	slug                           varchar(2048),
@@ -14,12 +16,17 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 	teaser                         text,
 	header                         varchar(255) DEFAULT '' NOT NULL,
 	header2                        varchar(255) DEFAULT '' NOT NULL,
+	header3                        varchar(255) DEFAULT '' NOT NULL,
 	subheader                      varchar(255) DEFAULT '' NOT NULL,
+	subheader2                     varchar(255) DEFAULT '' NOT NULL,
+	subheader3                     varchar(255) DEFAULT '' NOT NULL,
 	description                    text,
 	description2                   text,
 	description3                   text,
 	options                        text,
+	applications                   text,
 	features                       text,
+	highlights                     text,
 	details                        text,
 
 	filters                        int(11) unsigned DEFAULT '0',
@@ -32,6 +39,7 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 
 	download                       int(11) unsigned DEFAULT '0' NOT NULL,
 	downloads                      varchar(255) DEFAULT '' NOT NULL,
+	data_sheets                    varchar(255) DEFAULT '' NOT NULL,
 
 	media_files                    varchar(255) DEFAULT '' NOT NULL,
 
@@ -61,6 +69,7 @@ CREATE TABLE tx_catsearch_domain_model_filtertype
 	uid              int(11) NOT NULL auto_increment,
 
 	title            varchar(255) DEFAULT '' NOT NULL,
+	title_long       varchar(255) DEFAULT '' NOT NULL,
 	filters          int(11) unsigned DEFAULT '0',
 
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
@@ -76,6 +85,8 @@ CREATE TABLE tx_catsearch_domain_model_filter
 	uid         int(11) NOT NULL auto_increment,
 
 	title       varchar(255) DEFAULT '' NOT NULL,
+	title_long  varchar(255) DEFAULT '' NOT NULL,
+
 	type        int(11) unsigned DEFAULT '0',
 	filterables int(11) unsigned DEFAULT '0',
 

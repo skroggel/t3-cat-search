@@ -32,7 +32,7 @@ return [
     'types' => [
         // document
         '1' => [
-            'showitem' => 'record_type,--palette--;;main,
+            'showitem' => 'record_type,--palette--;;main_document,
             --div--;' . $ll . 'tab.description,--palette--;;description_document,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_document,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_document,
@@ -43,8 +43,9 @@ return [
         ],
         // product
         '2' => [
-            'showitem' => 'record_type,--palette--;;main,
+            'showitem' => 'record_type,--palette--;;main_product,
             --div--;' . $ll . 'tab.description,--palette--;;description_product,
+            --div--;' . $ll . 'tab.description2,--palette--;;description2_product,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_product,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_product,
             --div--;' . $ll . 'tab.filter,--palette--;;filter,
@@ -54,7 +55,7 @@ return [
         ],
         // accessory
         '3' => [
-            'showitem' => 'record_type,--palette--;;main,
+            'showitem' => 'record_type,--palette--;;main_product,
             --div--;' . $ll . 'tab.description,--palette--;;description_product,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_product,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_accessory,
@@ -65,9 +66,25 @@ return [
         ],
     ],
     'palettes' => [
-        'main' => [
+        'main_document' => [
             'label' => $ll . 'palette.main',
             'showitem' => '
+                sub_type,
+                --linebreak--,
+				title,
+				--linebreak--,
+				title_cleaned,
+				--linebreak--,
+				slug,
+				--linebreak--,
+				subtitle,
+				',
+        ],
+        'main_product' => [
+            'label' => $ll . 'palette.main',
+            'showitem' => '
+                sub_type,
+                --linebreak--,
 				title,
 				--linebreak--,
 				title_cleaned,
@@ -95,14 +112,23 @@ return [
 				teaser,
 				--linebreak--,
 				header,
-				--linebreak--,
-				header2,
-				--linebreak--,
+                --linebreak--,
 				subheader,
 				--linebreak--,
-				description,
-				--linebreak--,
+				description,'
+        ],
+        'description2_product' => [
+            'label' => $ll . 'palette.description2',
+            'showitem' => '
+				header2,
+                --linebreak--,
+				subheader2,
+                --linebreak--,
 				description2,
+				--linebreak--,
+				header3,
+                --linebreak--,
+				subheader3,
 				--linebreak--,
 				description3',
         ],
@@ -117,10 +143,14 @@ return [
 				publish_date,
                 --linebreak--,
                 product_number,
+                --linebreak--,
+				highlights,
 				--linebreak--,
 				features,
 				--linebreak--,
 				options,
+				--linebreak--,
+				applications,
 				--linebreak--,
 				details',
         ],
@@ -141,6 +171,8 @@ return [
                 images,
                 --linebreak--,
 				downloads,
+				--linebreak--,
+				data_sheets,
 				--linebreak--,
 				media_files',
         ],
@@ -281,6 +313,24 @@ return [
                 'maxitems' => 1,
             ],
         ],
+        'sub_type' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll . 'tx_catsearch_domain_model_filterable.sub_type',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [
+                        'label' => $ll . 'tx_catsearch_domain_model_filterable.sub_type.0',
+                        'value' => 0,
+                    ],
+                ],
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 1,
+            ],
+        ],
         'title' => [
             'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.title',
@@ -336,9 +386,36 @@ return [
                 'eval' => 'trim',
             ]
         ],
+        'header3' => [
+            'exclude' => true,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.header3',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+            ]
+        ],
         'subheader' => [
             'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.subheader',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+            ]
+        ],
+        'subheader2' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.subheader2',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+            ]
+        ],
+        'subheader3' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.subheader3',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -392,6 +469,28 @@ return [
         'options' => [
             'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.options',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 10,
+                'eval' => 'trim',
+                'enableRichtext' => true,
+            ],
+        ],
+        'applications' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.applications',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 10,
+                'eval' => 'trim',
+                'enableRichtext' => true,
+            ],
+        ],
+        'highlights' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.highlights',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -490,6 +589,15 @@ return [
         'downloads' => [
             'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.downloads',
+            'config' => [
+                'type' => 'file',
+                'allowed' => ['pdf,doc,docx,xls,xlsx,ppt,pptx,zip'],
+                'maxitems' => 9999,
+            ]
+        ],
+        'data_sheets' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.data_sheets',
             'config' => [
                 'type' => 'file',
                 'allowed' => ['pdf,doc,docx,xls,xlsx,ppt,pptx,zip'],

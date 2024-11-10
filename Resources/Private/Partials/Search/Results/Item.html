@@ -1,27 +1,29 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true"
 >
+    <f:variable name="section" value="Default" />
+    <f:comment><!-- 
+            <f:if condition="{settings.layout} == 'big'">
+                <f:variable name="section" value="Big" />
+            </f:if>
+    --></f:comment>
+    
+    <f:render section="{section}" arguments="{_all}"/>
+    
+    <f:comment><!-- ============================================================================== --></f:comment>
+
 
     <f:section name="Default">
         <div class="catsearch-result-item">
             <h3>Default: {item.title}</h3>
             <p>{item.teaser}</p>
 
-            <f:link.action action="detail" pageUid="{settings.detailPid}" arguments="{item: item}"  class="catsearch-result-cta">
+            <f:link.action action="detail" pluginName="Detail"  
+                           pageUid="{settings.detailPid}" 
+                           arguments="{item: item}"  
+                           class="catsearch-result-cta"
+            >
                 {f:translate(key:'search.result-item.show.label')}
-            </f:link.action>
-        </div>
-    </f:section>
-
-    <f:comment><!-- ============================================================================== --></f:comment>
-
-    <f:section name="Big">
-        <div class="catsearch-result-item">
-            <h3>Big: {item.title}</h3>
-            <p>{item.teaser}</p>
-
-            <f:link.action action="detail" pageUid="{settings.detailPid}" arguments="{item: item}" class="catsearch-result-cta">
-                   {f:translate(key:'search.result-item.show.label')}
             </f:link.action>
         </div>
     </f:section>

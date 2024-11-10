@@ -27,13 +27,9 @@
                 <div class="row">
                     <div class="col-12">
                         <f:for each="{results}" as="item">
-                            <div class="catsearch-related-item">
-                                <h3>{item.title}</h3>
-                                <p>{item.teaser}</p>
-                                <f:link.action action="detail" pluginName="Detail" arguments="{item: item}" pageUid="{settings.detailPid}" class="btn">
-                                    {f:translate(key:'teaser.readMore.label')}
-                                </f:link.action>
-                            </div>
+                            <f:render partial="SearchRelated/Item"
+                                      arguments="{item: item, data: data, settings: settings, 
+                                                  settingsForLayout: settingsForLayout}" />
                         </f:for>
                     </div>
                 </div>
@@ -54,13 +50,9 @@
                 <div class="row">
                     <div class="col-12">
                         <f:for each="{results}" as="item">
-                            <div class="catsearch-related-item">
-                                <h3>{item.title}</h3>
-                                <p>{item.teaser}</p>
-                                <f:link.action action="detail" pluginName="Detail" arguments="{item: item}" pageUid="{settings.detailPid}" class="btn">
-                                    {f:translate(key:'teaser.readMore.label')}
-                                </f:link.action>
-                            </div>
+                            <f:render partial="SearchRelated/Item"
+                                      arguments="{item: item, data: data, settings: settings, 
+                                                  settingsForLayout: settingsForLayout}" />
                         </f:for>
                     </div>
                 </div>

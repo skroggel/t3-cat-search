@@ -12,15 +12,11 @@
 				<source>Description</source>
 				<target>Beschreibung</target>
 			</trans-unit>
-			<trans-unit id="palette.description">
-				<source>Description</source>
-				<target>Beschreibung</target>
+			<trans-unit id="tab.description2">
+				<source>Further Description</source>
+				<target>Weitere Beschreibung</target>
 			</trans-unit>
 			<trans-unit id="tab.filter">
-				<source>Filter Categories</source>
-				<target>Filter-Kategorien</target>
-			</trans-unit>
-			<trans-unit id="palette.filter">
 				<source>Filter Categories</source>
 				<target>Filter-Kategorien</target>
 			</trans-unit>
@@ -28,21 +24,35 @@
 				<source>Meta-Information</source>
 				<target>Meta-Informationen</target>
 			</trans-unit>
-			<trans-unit id="palette.meta">
-				<source>Meta-Information</source>
-				<target>Meta-Informationen</target>
-			</trans-unit>
 			<trans-unit id="tab.relations">
-				<source>Relations</source>
-				<target>Beziehungen</target>
-			</trans-unit>
-			<trans-unit id="palette.relations">
 				<source>Relations</source>
 				<target>Beziehungen</target>
 			</trans-unit>
 			<trans-unit id="tab.media">
 				<source>Media</source>
 				<target>Medien</target>
+			</trans-unit>
+
+
+			<trans-unit id="palette.description">
+				<source>Description</source>
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="palette.description2">
+				<source>Further Description</source>
+				<target>Weitere Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="palette.filter">
+				<source>Filter Categories</source>
+				<target>Filter-Kategorien</target>
+			</trans-unit>
+			<trans-unit id="palette.meta">
+				<source>Meta-Information</source>
+				<target>Meta-Informationen</target>
+			</trans-unit>
+			<trans-unit id="palette.relations">
+				<source>Relations</source>
+				<target>Beziehungen</target>
 			</trans-unit>
 			<trans-unit id="palette.media">
 				<source>Media</source>
@@ -70,6 +80,14 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.3">
 				<source>Accessory</source>
 				<target>Zubehör</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.sub_type">
+				<source>Type</source>
+				<target>Art</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.sub_type.0">
+				<source>Default</source>
+				<target>Standard</target>
 			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.title">
 				<source>Title</source>
@@ -99,9 +117,21 @@
 				<source>Header 2</source>
 				<target>Überschrift 2</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.header3">
+				<source>Header 3</source>
+				<target>Überschrift 3</target>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.subheader">
 				<source>Subheader</source>
 				<target>Unterüberschrift</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.subheader2">
+				<source>Subheader 2</source>
+				<target>Unterüberschrift 2</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.subheader3">
+				<source>Subheader 3</source>
+				<target>Unterüberschrift 3</target>
 			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.description">
 				<source>Description</source>
@@ -122,6 +152,14 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.options">
 				<source>Options</source>
 				<target>Optionen</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.applications">
+				<source>Applications</source>
+				<target>Anwendungen</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.highlights">
+				<source>Highlights</source>
+				<target>Highlights</target>
 			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.details">
 				<source>Technical Details</source>
@@ -154,6 +192,10 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.download">
 				<source>Download</source>
 				<target>Download</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.data_sheets">
+				<source>Data Sheets</source>
+				<target>Datenblätter</target>
 			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.media_files">
 				<source>Media</source>
@@ -198,6 +240,10 @@
 				<source>Title</source>
 				<target>Titel</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filter.title_long">
+				<source>Title (long)</source>
+				<target>Titel (lang)</target>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filter.type">
 				<source>Filter Type</source>
 				<target>Filter Typ</target>
@@ -216,6 +262,10 @@
 			<trans-unit id="tx_catsearch_domain_model_filtertype.title">
 				<source>Title</source>
 				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filtertype.title_long">
+				<source>Title (long)</source>
+				<target>Titel (lang)</target>
 			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filtertype.filters">
 				<source>Filters</source>

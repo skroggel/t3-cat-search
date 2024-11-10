@@ -30,6 +30,40 @@ interface FilterableInterface
 {
 
     /**
+     * Returns the recordType
+     *
+     * @return int
+     */
+    public function getRecordType(): int;
+
+
+    /**
+     * Sets the recordType
+     *
+     * @param int $recordType
+     * @return void
+     */
+    public function setRecordType(int $recordType): void;
+
+
+    /**
+     * Returns the subType
+     *
+     * @return int
+     */
+    public function getSubType(): int;
+
+
+    /**
+     * Sets the subType
+     *
+     * @param int $subType
+     * @return void
+     */
+    public function setSubType(int $subType): void;
+
+
+    /**
      * Returns the publishDate
      *
      * @return int

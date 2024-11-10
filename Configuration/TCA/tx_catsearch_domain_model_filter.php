@@ -25,7 +25,7 @@ return [
 		'iconfile' => 'EXT:cat_search/Resources/Public/Icons/tx_catsearch_domain_model_filter.svg',
 	],
 	'types' => [
-		'1' => ['showitem' => 'title, type, filterables,
+		'1' => ['showitem' => 'title, title_long, type, filterables,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
 		],
@@ -117,6 +117,15 @@ return [
 				'eval' => 'trim,required'
 			],
 		],
+        'title_long' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filter.title_long',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
 		'type' => [
 			'exclude' => false,
 			'label' => $ll .'tx_catsearch_domain_model_filter.type',
