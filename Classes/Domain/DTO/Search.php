@@ -155,12 +155,12 @@ final class Search
 	/**
 	 * Set year
 	 *
-	 * @param int $year
+	 * @param int|null $year
 	 * @return void
 	 */
-	public function setYear(int $year): void
+	public function setYear(?int $year): void
 	{
-		$this->year = $year;
+		$this->year = (int) $year;
 	}
 
 
@@ -201,10 +201,10 @@ final class Search
     /**
      * Set filter
      *
-     * @param int $filter
+     * @param int|null $filter
      * @return void
      */
-    public function setFilter2(int $filter): void
+    public function setFilter2(?int $filter): void
     {
         $this->setFilter(2, $filter);
     }
@@ -509,7 +509,7 @@ final class Search
 		} else if ($property == '_filters') {
             foreach (range(1,5) as $number) {
                 $this->unsetProperty('filter' . $number, $value);
-                $this->unsetProperty('MultiSelectFilter' . $number, $value);
+                $this->unsetProperty('multiSelectFilter' . $number, $value);
             }
         }
 
@@ -532,6 +532,22 @@ final class Search
             }
         }
 
+        return $allFilters;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getAllMultiSelectFilters(): array
+    {
+        $allFilters = [];
+        foreach (range(1,5) as $number) {
+            $property = 'multiSelectFilter' . $number;
+            if ($this->$property) {
+                $allFilters[] = $this->$property;
+            }
+        }
         return $allFilters;
     }
 
@@ -579,13 +595,13 @@ final class Search
      * Global setter for filter
      *
      * @param int $number
-     * @param int $filter
+     * @param ?int $filter
      * @return void
     */
-    protected function setFilter (int $number, int $filter): void
+    protected function setFilter (int $number, ?int $filter): void
     {
         $property = 'filter' . $number;
-        $this->$property = $filter;
+        $this->$property = (int) $filter;
     }
 
 
@@ -597,7 +613,7 @@ final class Search
      */
     protected function getMultiSelectFilter (int $number): array
     {
-        $property = 'filter' . $number;
+        $property = 'multiSelectFilter' . $number;
         return $this->$property;
     }
 

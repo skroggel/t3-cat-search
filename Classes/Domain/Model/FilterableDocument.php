@@ -36,6 +36,22 @@ class FilterableDocument extends Filterable
     protected ?FileReference $download = null;
 
 
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|null
+     */
+    protected ?ObjectStorage $relatedFilterableProducts = null;
+
+
+    /**
+     *
+     * __construct
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->relatedFilterableProducts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
 
     /**
      * Returns the download
@@ -58,5 +74,53 @@ class FilterableDocument extends Filterable
     {
         $this->download = $download;
     }
+
+
+    /**
+     * Adds a relatedFilterableProduct
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct
+     * @return void
+     */
+    public function addRelatedFilterableProduct(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct): void
+    {
+        $this->relatedFilterableProducts->attach($relatedFilterableProduct);
+    }
+
+
+    /**
+     * Removes a relatedFilterableProduct
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct
+     * @return void
+     */
+    public function removeRelatedFilterableProduct(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct): void
+    {
+        $this->relatedFilterableProducts->detach($relatedFilterableProduct);
+    }
+
+
+    /**
+     * Returns the relatedFilterableProducts
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts
+     */
+    public function getRelatedFilterableProductProducts(): ObjectStorage
+    {
+        return $this->relatedFilterableProducts;
+    }
+
+
+    /**
+     * Sets the relatedFilterableProducts
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts
+     * @return void
+     */
+    public function setRelatedFilterableProductProducts(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableProducts): void
+    {
+        $this->relatedFilterableProducts = $relatedFilterableProducts;
+    }
+
 
 }

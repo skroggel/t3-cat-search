@@ -37,10 +37,26 @@
 				<source>CatSearch</source>
 				<target>CatSearch</target>
 			</trans-unit>
-			<trans-unit id="flexform.settings.header">
-				<source>Header</source>
-				<target>Überschrift</target>
+
+
+			<trans-unit id="flexform.tab.common">
+				<source>Common</source>
+				<target>Allgemein</target>
 			</trans-unit>
+			<trans-unit id="flexform.tab.preset">
+				<source>Preset</source>
+				<target>Voreinstellungen</target>
+			</trans-unit>
+			<trans-unit id="flexform.tab.filters">
+				<source>Shown filters for search</source>
+				<target>Angezeigte Filter für Suche</target>
+			</trans-unit>
+			<trans-unit id="flexform.tab.view">
+				<source>View</source>
+				<target>Ansicht</target>
+			</trans-unit>
+
+
 			<trans-unit id="flexform.settings.recordType">
 				<source>Record Type</source>
 				<target>Datensatzart</target>
@@ -57,41 +73,57 @@
 				<source>Only Products</source>
 				<target>Nur Produkte</target>
 			</trans-unit>
-			<trans-unit id="flexform.settings.showTextQuery">
-				<source>Show Freetext-Search</source>
-				<target>Zeige Freitext-Suche</target>
-			</trans-unit>
-			<trans-unit id="flexform.settings.showYear">
-				<source>Show Year-Filter</source>
-				<target>Zeige Jahres-Filter</target>
-			</trans-unit>
-			<trans-unit id="flexform.settings.showTags">
-				<source>Show Tags</source>
-				<target>Zeige Tags</target>
+			<trans-unit id="flexform.settings.recordType.3">
+				<source>Only Accessory</source>
+				<target>Nur Zubehör</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filter">
 				<source>Filter</source>
 				<target>Filter</target>
 			</trans-unit>
+			<trans-unit id="flexform.settings.filterExclude">
+				<source>Filter (exclude)</source>
+				<target>Filter (ausschließen)</target>
+			</trans-unit>
 			<trans-unit id="flexform.settings.filterType1">
 				<source>Filter Type 1</source>
 				<target>Filter Typ 1</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType1AllowMultiple">
+				<source>Allow multiple select for filter 1</source>
+				<target>Mehrfachauswahl für Filter 1 erlauben</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterType2">
 				<source>Filter Type 2</source>
 				<target>Filter Typ 2</target>
 			</trans-unit>
+			<trans-unit id="flexform.settings.filterType2AllowMultiple">
+				<source>Allow multiple select for filter 2</source>
+				<target>Mehrfachauswahl für Filter 2 erlauben</target>
+			</trans-unit>
 			<trans-unit id="flexform.settings.filterType3">
 				<source>Filter Type 3</source>
 				<target>Filter Typ 3</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType3AllowMultiple">
+				<source>Allow multiple select for filter 3</source>
+				<target>Mehrfachauswahl für Filter 3 erlauben</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterType4">
 				<source>Filter Type 4</source>
 				<target>Filter Typ 4</target>
 			</trans-unit>
+			<trans-unit id="flexform.settings.filterType4AllowMultiple">
+				<source>Allow multiple select for filter 4</source>
+				<target>Mehrfachauswahl für Filter 4 erlauben</target>
+			</trans-unit>
 			<trans-unit id="flexform.settings.filterType5">
 				<source>Filter Type 5</source>
 				<target>Filter Typ 5</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType5AllowMultiple">
+				<source>Allow multiple select for filter 5</source>
+				<target>Mehrfachauswahl für Filter 5 erlauben</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.searchPid">
 				<source>Page with Search</source>
@@ -113,12 +145,44 @@
 				<source>Big</source>
 				<target>Groß</target>
 			</trans-unit>
+			<trans-unit id="flexform.settings.maxResults">
+				<source>Maximum number of results</source>
+				<target>Maximale Anzahl an Ergebnissen</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.maxResultsPerPage">
+				<source>Maximum number of results per Page</source>
+				<target>Maximale Anzahl an Ergebnissen je Seite</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.maxPages">
+				<source>Maximum number of pages shown</source>
+				<target>Maximale Anzahl an Seiten</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.hidePagination">
+				<source>Hide pagination</source>
+				<target>Pagination ausblenden</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByTextQuery">
+				<source>Show Freetext-Search</source>
+				<target>Zeige Freitext-Suche</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByYear">
+				<source>Show Year-Filter</source>
+				<target>Zeige Jahres-Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showTags">
+				<source>Show Tags</source>
+				<target>Zeige Tags</target>
+			</trans-unit>
 
 
 			<!-- Plugins -->
 			<trans-unit id="plugin.tx_catsearch_search.title">
 				<source>CatSearch: Search</source>
 				<target>CatSearch: Suche</target>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_searchrelated.title">
+				<source>CatSearch: Search – Related Elements</source>
+				<target>CatSearch: Suche – Verwandte Elemente</target>
 			</trans-unit>
 			<trans-unit id="plugin.tx_catsearch_teaserfiltered.title">
 				<source>CatSearch: Filterable Teaser</source>

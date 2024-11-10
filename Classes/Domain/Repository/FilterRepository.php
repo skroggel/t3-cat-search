@@ -29,7 +29,13 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 class FilterRepository extends AbstractRepository implements FilterRepositoryInterface
 {
 
-	/**
+    /**
+     * @const string
+     */
+    const string FIELD_FILTERABLE = 'filterables';
+
+
+    /**
 	 * @var array
 	 */
 	protected $defaultOrderings = [
@@ -55,20 +61,21 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 	}
 
 
-	/**
-	 * Find all filters that are used with Filterables
-	 *
-	 * @param int $languageUid
-	 * @param int $typeUid
-	 * @return array
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-	 */
-	public function findAllAssignedByLanguageAndType(int $languageUid = 0, int $typeUid = 0): array
+    /**
+     * Find all filters that are used with filterables
+     *
+     * @param int $languageUid
+     * @param int $typeUid
+     * @param $settings
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+	public function findAllAssignedByLanguageAndType(int $languageUid, int $typeUid, $settings): array
 	{
 		$query = $this->createQuery();
 
-		$localField = 'filterables';
+		$localField = self::FIELD_FILTERABLE;
 		$constraints = [
 			$query->logicalNot(
 				$query->equals($localField . '.uid', null),
@@ -87,6 +94,14 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 				$query->greaterThanOrEqual($localField . '.endtime', time()),
 			),
 		];
+
+        // filter by recordType
+        if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {
+            $constraints[] = $query->equals(
+                $localField . '.' .$recordTypeFilter['field'],
+                $recordTypeFilter['value']
+            );
+        }
 
 		// check on language-level for 'l10n_mode' => 'exclude'
 		$l10nMode = $GLOBALS['TCA'][$this->getTableName()]['columns'][$localField]['l10n_mode'] ?? '';

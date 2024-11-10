@@ -5,6 +5,8 @@ return [
 	'ctrl' => [
 		'title' => $ll .'tx_catsearch_domain_model_filter',
 		'label' => 'title',
+        'label_alt' => 'type',
+        'label_alt_force' => true,
 		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => true,
 		'default_sortby' => 'ORDER BY title ASC',
@@ -19,7 +21,7 @@ return [
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		],
-		'searchFields' => 'title',
+		'searchFields' => 'title, type',
 		'iconfile' => 'EXT:cat_search/Resources/Public/Icons/tx_catsearch_domain_model_filter.svg',
 	],
 	'types' => [

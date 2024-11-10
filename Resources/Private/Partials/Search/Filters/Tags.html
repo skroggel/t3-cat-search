@@ -10,7 +10,7 @@
             <span>{f:translate(key:'search.tags.reset.label')}</span>
         </f:link.action>
 
-        <ul class="filter-tag-list">
+        <ul class="catsearch-tag-list">
             <f:for each="{search.allFilters}" as="filterId">
                 <f:render partial="Search/Filters/Tags/Item" 
                           arguments="{property: '_filters', value: filterId, label: '{filtersCombined.{filterId}}'}" />

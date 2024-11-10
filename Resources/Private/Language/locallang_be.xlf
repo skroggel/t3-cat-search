@@ -29,12 +29,20 @@
 
 
 			<!-- Flexforms -->
-			<trans-unit id="flexform.tx_catsearch_search.title">
-				<source>CatSearch</source>
+			<trans-unit id="flexform.tab.common">
+				<source>Common</source>
 			</trans-unit>
-			<trans-unit id="flexform.settings.header">
-				<source>Header</source>
+			<trans-unit id="flexform.tab.preset">
+				<source>Preset</source>
 			</trans-unit>
+			<trans-unit id="flexform.tab.filters">
+				<source>Shown filters for search</source>
+			</trans-unit>
+			<trans-unit id="flexform.tab.view">
+				<source>View</source>
+			</trans-unit>
+
+
 			<trans-unit id="flexform.settings.recordType">
 				<source>Record Type</source>
 			</trans-unit>
@@ -47,10 +55,13 @@
 			<trans-unit id="flexform.settings.recordType.2">
 				<source>Only Products</source>
 			</trans-unit>
-			<trans-unit id="flexform.settings.showTextQuery">
+			<trans-unit id="flexform.settings.recordType.3">
+				<source>Only Accessory</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByTextQuery">
 				<source>Show Freetext-Search</source>
 			</trans-unit>
-			<trans-unit id="flexform.settings.showYear">
+			<trans-unit id="flexform.settings.showFilterByYear">
 				<source>Show Year-Filter</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.showTags">
@@ -58,6 +69,9 @@
 			</trans-unit>
 			<trans-unit id="flexform.settings.filter">
 				<source>Filter</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterExclude">
+				<source>Filter (exclude)</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterType1">
 				<source>Filter Type 1</source>
@@ -89,7 +103,15 @@
 			<trans-unit id="flexform.settings.layout.big">
 				<source>Big</source>
 			</trans-unit>
-
+			<trans-unit id="flexform.settings.maxResults">
+				<source>Maximum number of results</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.maxResultsPerPage">
+				<source>Maximum number of results per Page</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.maxPages">
+				<source>Maximum number of pages shown</source>
+			</trans-unit>
 
 			<!-- Plugins -->
 			<trans-unit id="plugin.tx_catsearch_search.title">

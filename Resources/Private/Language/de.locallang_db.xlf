@@ -67,6 +67,10 @@
 				<source>Product</source>
 				<target>Produkt</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.record_type.3">
+				<source>Accessory</source>
+				<target>Zubehör</target>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.title">
 				<source>Title</source>
 				<target>Titel</target>
@@ -171,6 +175,10 @@
 				<source>Releated Products</source>
 				<target>Verwandte Produkte</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.related_filterable_accessories">
+				<source>Assessories</source>
+				<target>Zubehör</target>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.filters">
 				<source>Filters</source>
 				<target>Filter</target>
@@ -194,9 +202,9 @@
 				<source>Filter Type</source>
 				<target>Filter Typ</target>
 			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_filter.items">
-				<source>Items</source>
-				<target>Items</target>
+			<trans-unit id="tx_catsearch_domain_model_filter.filterables">
+				<source>Filterables</source>
+				<target>Filterables</target>
 			</trans-unit>
 
 

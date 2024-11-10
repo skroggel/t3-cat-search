@@ -6,7 +6,7 @@
 		<sDEF>
 			<ROOT>
 				<sheetTitle>
-					LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.title
+                    LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.common
 				</sheetTitle>
 				<type>array</type>
 				<el>
@@ -31,5 +31,34 @@
 				</el>
 			</ROOT>
 		</sDEF>
-	</sheets>
+        <view>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.view
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.layout>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout.default</numIndex>
+                                    <numIndex index="1">default</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout.big</numIndex>
+                                    <numIndex index="1">big</numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.layout>
+                </el>
+            </ROOT>
+        </view>
+    </sheets>
 </T3DataStructure>

@@ -1,14 +1,18 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 	  data-namespace-typo3-fluid="true"
 >
-    <div class="search-view">
-        <div class="container">
+    <div class="catsearch-view variant-{settings.layout}">
+        <div class="container-xxl">
             <div class="row">
                 <div class="col-12">
-                    <f:render partial="Search/View/ResultsCount" arguments="{resultCount: resultCount, search: search, data: data, settings: settings}" />
+                    <f:render partial="Search/View/ResultCount" 
+                              arguments="{resultCount: resultCount, search: search, data: data, 
+                                          settings: settings, settingsForLayout: settingsForLayout}" />
                 </div>
                 <div class="col-12">
-                    <f:render partial="Search/View/Sorting" arguments="{searchOptions: searchOptions, search: search, data: data, settings: settings}" />
+                    <f:render partial="Search/View/Sorting" 
+                              arguments="{searchOptions: searchOptions, search: search, data: data, 
+                                          settings: settings, settingsForLayout: settingsForLayout}" />
                 </div>
             </div>
         </div>

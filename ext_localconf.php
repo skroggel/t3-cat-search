@@ -25,7 +25,18 @@ call_user_func(
                 \Madj2k\CatSearch\Controller\SearchController::class => 'teaserFiltered'
             ],
             [
-                \Madj2k\CatSearch\Controller\SearchController::class => 'teaserFiltered'
+                \Madj2k\CatSearch\Controller\SearchController::class => ''
+            ],
+        );
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'SearchRelated',
+            [
+                \Madj2k\CatSearch\Controller\SearchController::class => 'searchRelated'
+            ],
+            [
+                \Madj2k\CatSearch\Controller\SearchController::class => 'searchRelated'
             ],
         );
 

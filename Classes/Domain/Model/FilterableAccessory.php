@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Madj2k\CatSearch\Domain\Repository;
+namespace Madj2k\CatSearch\Domain\Model;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,30 +15,16 @@ namespace Madj2k\CatSearch\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
-
 /**
- * Class FilterRepositoryInterface
+ * Class FilterableAccessory
  *
  * @author Steffen Kroggel <mail@steffenkroggel.de>
  * @copyright Steffen Kroggel <mail@steffenkroggel.de>
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-interface FilterRepositoryInterface
+class FilterableAccessory extends FilterableProduct
 {
 
 
-    /**
-     * Find all filters that are used with filterables
-     *
-     * @param int $languageUid
-     * @param int $typeUid = 0
-     * @param array $settings
-     * @return array
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     */
-	public function findAllAssignedByLanguageAndType(int $languageUid, int $typeUid, array $settings): array;
 }

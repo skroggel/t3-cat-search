@@ -10,6 +10,15 @@ mod.wizards.newContentElement.wizardItems.catSearch {
 				list_type = catsearch_search
 			}
 		}
+		searchRelated {
+			iconIdentifier = catsearch-plugin-searchrelated
+			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_searchrelated.title
+			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_searchrelated.description
+			tt_content_defValues {
+				CType = list
+				list_type = catsearch_searchrelated
+			}
+		}
         teaserFiltered {
 			iconIdentifier = catsearch-plugin-teaserfiltered
 			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_teaserfiltered.title

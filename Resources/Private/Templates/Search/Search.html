@@ -3,17 +3,22 @@
 	  data-namespace-typo3-fluid="true"
 >
 
-	<section class="search" id="c{data.uid}">
+	<section class="catsearch variant-{settings.layout}" id="c{data.uid}">
+
+        <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+        
 		<catSearch:searchForm action="search" class="search-form" name="search" object="{search}" section="c{data.uid}" method="GET">
             <f:render partial="Search/Filters" arguments="{searchOptions: searchOptions, search: search, 
-                                                           data: data, settings: settings}" />
+                                                           data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+            
             <f:render partial="Search/View" arguments="{resultCount: resultCount, searchOptions: searchOptions, search: search, 
-                                                        data: data, settings: settings}" />
+                                                        data: data, settings: settings, settingsForLayout: settingsForLayout}" />
         </catSearch:searchForm>
 
         <f:if condition="{paginator.paginatedItems}">
             <f:render partial="Search/Results" arguments="{results: paginator.paginatedItems, pagination: pagination, 
-                                                           search: search, data: data, settings: settings}" />
+                                                           search: search, data: data, settings: settings, 
+                                                           settingsForLayout: settingsForLayout}" />
         </f:if>
         
 	</section>

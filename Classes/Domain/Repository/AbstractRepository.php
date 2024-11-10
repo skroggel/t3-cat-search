@@ -30,7 +30,13 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
-	/**
+    /**
+     * @const string
+     */
+    const string TABLE_FILTERABLE = 'tx_catsearch_domain_model_filterable';
+
+
+    /**
 	 * @var \TYPO3\CMS\Core\Database\ConnectionPool|null
 	 */
 	protected ?ConnectionPool $connectionPool = null;
@@ -72,4 +78,31 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
 		return $this->tableName;
 	}
+
+
+    /**
+     * @param array $settings
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    protected function getRecordTypeFilter(array $settings): array
+    {
+
+        $tableName = self::TABLE_FILTERABLE;
+
+        // filter by recordType
+        if (
+            (isset($settings['recordType']))
+            && ($recordType = $settings['recordType'])
+            && (isset($GLOBALS['TCA'][$tableName]['ctrl']['type']))
+            && ($typeField = $GLOBALS['TCA'][$tableName]['ctrl']['type'])
+        ){
+            return [
+                'field' => $typeField,
+                'value' => $recordType
+            ];
+        }
+
+        return [];
+    }
 }

@@ -31,6 +31,12 @@
 			<trans-unit id="search.results.countSingle.label">
 				<source>result found</source>
 			</trans-unit>
+			<trans-unit id="search.results.countNone.label">
+				<source>Unfortunatelly there could no matching results be found.</source>
+			</trans-unit>
+			<trans-unit id="search.result-item.show.label">
+				<source>Show more</source>
+			</trans-unit>
 			<trans-unit id="search.sorting.label">
 				<source>Sort by:</source>
 			</trans-unit>

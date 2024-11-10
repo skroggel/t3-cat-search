@@ -45,9 +45,10 @@ interface FilterableRepositoryInterface
      * Get all used years grouped
      *
      * @param int $languageUid
+     * @param array $settings
      * @return array
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function findAllYearsAssigned(int $languageUid = 0): array;
+    public function findAllYearsAssigned(int $languageUid, array $settings): array;
 }

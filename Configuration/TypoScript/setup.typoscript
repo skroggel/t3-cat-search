@@ -16,11 +16,79 @@ plugin.tx_catsearch {
 	}
 
 	persistence {
+	    // in order to let the backend page-field to take effect, we have to remove this out completely
+        // storagePid >
+
 		storagePid = {$plugin.tx_catsearch.persistence.storagePid}
 	}
 
 	settings {
 
         sorting = {$plugin.tx_catsearch.settings.sorting}
+
+        maxResults = {$plugin.tx_catsearch.settings.maxResults}
+        maxResultsPerPage = {$plugin.tx_catsearch.settings.maxResultsPerPage}
+        maxPages = {$plugin.tx_catsearch.settings.maxPages}
+        disablePagination = {$plugin.tx_catsearch.settings.maxPages}
+
+        showFilterByTextQuery = {$plugin.tx_catsearch.settings.showFilterByTextQuery}
+        showFilterByYear = {$plugin.tx_catsearch.settings.showFilterByYear}
+        showTags = {$plugin.tx_catsearch.settings.showTags}
+
+        layout = {$plugin.tx_catsearch.settings.layout}
 	}
+}
+
+
+plugin.tx_catsearch_search < plugin.tx_catsearch
+plugin.tx_catsearch_search  {
+
+    view {
+        pluginNamespace = tx_catsearch_search
+    }
+
+    settings {
+
+        // override settings by layout-key
+        layoutOverride {
+            default {
+                item {
+                    media {
+                        image {
+                            dimensions {
+                                maxWidth = {$plugin.tx_catsearch_search.settings.layoutOverride.default.item.media.image.dimensions.maxWidth}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+plugin.tx_catsearch_searchrelated < plugin.tx_catsearch
+plugin.tx_catsearch_searchrelated  {
+
+    view {
+        pluginNamespace = tx_catsearch_searchreleated
+    }
+
+    settings {
+
+        // override settings by layout-key
+        layoutOverride {
+            default {
+                item {
+                    media {
+                        image {
+                            dimensions {
+                                maxWidth = {$plugin.tx_catsearch_searchreleated.settings.layoutOverride.default.item.media.image.dimensions.maxWidth}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

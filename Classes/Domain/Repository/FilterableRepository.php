@@ -47,56 +47,71 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 	];
 
 
-	/**
-	 * Find all by given search-object
-	 *
-	 * @param \Madj2k\CatSearch\Domain\DTO\Search $search
-	 * @param array $settings
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-	 */
+    /**
+     * Find all by given search-object
+     *
+     * @param \Madj2k\CatSearch\Domain\DTO\Search $search
+     * @param array $settings
+         * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
 	public function findBySearch(Search $search, array $settings): QueryResultInterface
 	{
 		$query = $this->createQuery();
 		$constraints = [];
 
-        // filter by documentType
-        if (
-            (isset($settings['recordType']))
-            && ($recordType = $settings['recordType'])
-            && (isset($GLOBALS['TCA'][$this->getTableName()]['ctrl']['type']))
-            && ($typeField = $GLOBALS['TCA'][$this->getTableName()]['ctrl']['type'])
-        ){
-            $constraints[] = $query->equals($typeField, $recordType);
+        // filter by recordType
+        if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {
+            $constraints[] = $query->equals($recordTypeFilter['field'], $recordTypeFilter['value']);
         }
 
 		// get all single filters. We use AND here
 		if ($filters = $search->getAllSingleFilters()) {
 			foreach ($filters as $filter) {
-				if ($filter != 0){
+				if ($filter){
 					$constraints[] = $query->contains('filters', $filter);
 				}
 			}
 		}
 
-        // add multiple filters - but with OR-constrain!
-        foreach (range(1,5) as $number) {
-            $getter = 'getFilterMultiple' . $number;
-            if (
-                (method_exists($search, $getter))
-                && ($filters = $search->$getter())
-            ){
+        // add multiple filters and pre-filter - but with OR-constrain!
+        $filters = $search->getAllMultiSelectFilters();
+        if ((isset($settings['filter']))
+            && ($preFilter = GeneralUtility::trimExplode(',', $settings['filter'], true))
+        ){
+            $filters[] = $preFilter;
+        }
+
+        if ($filters) {
+            foreach ($filters as $filter) {
+
                 $subConstraints = [];
-                foreach ($filters as $filter) {
-                    if ($filter != 0){
-                        $subConstraints[] = $query->contains('filters', $filter);
+                foreach ($filter as $filterValue) {
+                    if ($filterValue) {
+                        $subConstraints[] = $query->contains('filters', $filterValue);
                     }
                 }
 
-                if (!empty($subConstraints)){
+                if (!empty($subConstraints)) {
                     $constraints[] = $query->logicalOr(...$subConstraints);
                 }
+            }
+        }
+
+        // exclude-filter
+        if ((isset($settings['filterExclude']))
+            && ($filters = GeneralUtility::trimExplode(',', $settings['filterExclude'], true))
+        ){
+            $subConstraints = [];
+            foreach ($filters as $filter) {
+                if ($filter){
+                    $subConstraints[] = $query->contains('filters', $filter);
+                }
+            }
+
+            if (!empty($subConstraints)){
+                $constraints[] = $query->logicalNot(...$subConstraints);
             }
         }
 
@@ -128,10 +143,17 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 			}
 
 			$query->setOrderings([
-					$orderColumn => $orderDirection
-				]
-			);
+                $orderColumn => $orderDirection
+			]);
 		}
+
+        // add limit if configured
+        if (
+            (isset($settings['maxResults'])
+            && ($settings['maxResults'] > 0))
+        ){
+            $query->setLimit((int) $settings['maxResults']);
+        }
 
 		$query->matching($query->logicalAnd(...$constraints));
 		return $query->execute();
@@ -151,7 +173,10 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 	{
 
 		$query = $this->createQuery();
-		if ($limit = intval($settings[$settings['layout']]['limit'])) {
+		if (
+            (isset($settings[$settings['layout']]['limit']))
+            && ($limit = intval($settings[$settings['layout']]['limit']))
+        ){
 			$query->setLimit($limit);
 		}
 
@@ -159,14 +184,9 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
             $query->contains('filters', $filter)
         ];
 
-        // filter by documentType
-        if (
-            (isset($settings['recordType']))
-            && ($recordType = $settings['recordType'])
-            && (isset($GLOBALS['TCA'][$this->getTableName()]['ctrl']['type']))
-            && ($typeField = $GLOBALS['TCA'][$this->getTableName()]['ctrl']['type'])
-        ){
-            $constraints[] = $query->equals($typeField, $recordType);
+        // filter by recordType
+        if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {
+            $constraints[] = $query->equals($recordTypeFilter['field'], $recordTypeFilter['value']);
         }
 
         $query->matching($query->logicalAnd(...$constraints));
@@ -178,11 +198,12 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
      * Get all used years grouped
      *
      * @param int $languageUid
+     * @param array $settings
      * @return array
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function findAllYearsAssigned(int $languageUid = 0): array
+    public function findAllYearsAssigned(int $languageUid, array $settings): array
     {
         $tableName = $this->getTableName();
 
@@ -202,6 +223,16 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
                 )
             )
             ->groupBy($this->searchYearField);
+
+        // filter by recordType
+        if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq(
+                    $recordTypeFilter['field'],
+                    $queryBuilder->createNamedParameter($recordTypeFilter['value'], \PDO::PARAM_INT)
+                )
+            );
+        }
 
         $statement = $queryBuilder->executeQuery();
         $results = $statement->fetchAllAssociative();

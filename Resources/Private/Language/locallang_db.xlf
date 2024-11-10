@@ -43,8 +43,8 @@
 			<trans-unit id="tx_catsearch_domain_model_filter.type">
 				<source>Filter Type</source>
 			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_filter.items">
-				<source>Items</source>
+			<trans-unit id="tx_catsearch_domain_model_filter.filterables">
+				<source>Filterables</source>
 			</trans-unit>
 
 

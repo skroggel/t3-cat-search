@@ -5,7 +5,7 @@ call_user_func(
 	function($extensionKey)
 	{
 
-		foreach(['Search', 'TeaserFiltered', 'Detail'] as $plugin) {
+		foreach(['Search', 'SearchRelated', 'TeaserFiltered', 'Detail'] as $plugin) {
 			$pluginSignature = \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 				$extensionKey,
 				$plugin,
@@ -29,7 +29,7 @@ call_user_func(
 			$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'] = [];
 		}
 
-		$excludeList = 'header,header_layout,header_position,header_link,date,subheader,layout,frame_class,space_before_class,space_after_class,sectionIndex,linkToTop,recursive';
+		$excludeList = 'header_position,header_link,date,layout,frame_class,space_before_class,space_after_class,sectionIndex,linkToTop,recursive';
 		// $excludeList .= ',pages';
 		foreach ($pluginList as $plugin) {
 			$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'] = array_merge(

@@ -104,6 +104,19 @@ class FilterableProduct extends Filterable
 
 
     /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|null
+     */
+    protected ?ObjectStorage $relatedFilterableAccessories = null;
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|null
+     */
+    protected ?ObjectStorage $relatedFilterableProducts = null;
+
+
+
+    /**
      *
      * __construct
      */
@@ -113,7 +126,8 @@ class FilterableProduct extends Filterable
         $this->downloads = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->mediaFiles = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->relatedFilterableDocuments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-
+        $this->relatedFilterableAccessories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->relatedFilterableProducts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
 
@@ -465,5 +479,101 @@ class FilterableProduct extends Filterable
     {
         $this->relatedFilterableDocuments = $relatedFilterableDocuments;
     }
+
+
+
+    /**
+     * Adds a relatedFilterableAccessory
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory
+     * @return void
+     */
+    public function addRelatedFilterableAccessory(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory): void
+    {
+        $this->relatedFilterableAccessories->attach($relatedFilterableAccessory);
+    }
+
+
+    /**
+     * Removes a relatedFilterableAccessory
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory
+     * @return void
+     */
+    public function removeRelatedFilterableAccessory(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory): void
+    {
+        $this->relatedFilterableAccessories->detach($relatedFilterableAccessory);
+    }
+
+
+    /**
+     * Returns the relatedFilterableAccessories
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableAccessorys
+     */
+    public function getRelatedFilterableAccessoryAccessories(): ObjectStorage
+    {
+        return $this->relatedFilterableAccessories;
+    }
+
+
+    /**
+     * Sets the relatedFilterableAccessories
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableAccessories
+     * @return void
+     */
+    public function setRelatedFilterableAccessoryAccessories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableAccessories): void
+    {
+        $this->relatedFilterableAccessories = $relatedFilterableAccessories;
+    }
+
+
+    /**
+     * Adds a relatedFilterableProduct
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct
+     * @return void
+     */
+    public function addRelatedFilterableProduct(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct): void
+    {
+        $this->relatedFilterableProducts->attach($relatedFilterableProduct);
+    }
+
+
+    /**
+     * Removes a relatedFilterableProduct
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct
+     * @return void
+     */
+    public function removeRelatedFilterableProduct(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct): void
+    {
+        $this->relatedFilterableProducts->detach($relatedFilterableProduct);
+    }
+
+
+    /**
+     * Returns the relatedFilterableProducts
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts
+     */
+    public function getRelatedFilterableProductProducts(): ObjectStorage
+    {
+        return $this->relatedFilterableProducts;
+    }
+
+
+    /**
+     * Sets the relatedFilterableProducts
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts
+     * @return void
+     */
+    public function setRelatedFilterableProductProducts(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableProducts): void
+    {
+        $this->relatedFilterableProducts = $relatedFilterableProducts;
+    }
+
 
 }

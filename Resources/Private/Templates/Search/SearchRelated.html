@@ -9,9 +9,8 @@
                           arguments="{results:results, data:data, settings: settings, settingsForLayout: settingsForLayout}" />
             </f:case>
 			<f:defaultCase>
-                <f:render 
-                    section="Default" 
-                    arguments="{results:results, data:data, settings: settings, settingsForLayout: settingsForLayout}" />
+                <f:render section="Default" 
+                          arguments="{results:results, data:data, settings: settings, settingsForLayout: settingsForLayout}" />
             </f:defaultCase>
 		</f:switch>
 	</f:if>
@@ -20,20 +19,20 @@
 
 	<f:section name="Default">
 
-		<section class="catsearch-teaser" id="c{data.uid}">
+		<section class="catsearch-related" id="c{data.uid}">
 
             <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
 
             <div class="container-xxl">
                 <div class="row">
                     <div class="col-12">
-                        <f:for each="{results}" as="result">
-                            <div class="catsearch-teaser-item">
+                        <f:for each="{results}" as="item">
+                            <div class="catsearch-related-item">
                                 <h3>{item.title}</h3>
                                 <p>{item.teaser}</p>
                                 <f:link.action action="detail" pluginName="Detail" arguments="{item: item}" pageUid="{settings.detailPid}" class="btn">
                                     {f:translate(key:'teaser.readMore.label')}
-                                </f:link.action>               
+                                </f:link.action>
                             </div>
                         </f:for>
                     </div>
@@ -47,7 +46,7 @@
 
 	<f:section name="Big">
 
-        <section class="catsearch-teaser" id="c{data.uid}">
+        <section class="catsearch-related" id="c{data.uid}">
 
             <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
 
@@ -55,7 +54,7 @@
                 <div class="row">
                     <div class="col-12">
                         <f:for each="{results}" as="item">
-                            <div class="catsearch-teaser-item">
+                            <div class="catsearch-related-item">
                                 <h3>{item.title}</h3>
                                 <p>{item.teaser}</p>
                                 <f:link.action action="detail" pluginName="Detail" arguments="{item: item}" pageUid="{settings.detailPid}" class="btn">

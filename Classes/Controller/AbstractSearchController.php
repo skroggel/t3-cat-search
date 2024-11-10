@@ -107,6 +107,18 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	protected function initializeView(): void
 	{
 		$this->view->assign('data', $this->request->getAttribute('currentContentObject')->data);
+
+        // set layout specific settings in separate array
+        if (
+            ($layout = $this->settings['layout'])
+            && (isset($this->settings['layoutOverride'][$layout]))
+            && (is_array($this->settings['layoutOverride'][$layout]))
+        ){
+            $settings = $this->settings['layoutOverride'][$layout];
+            unset($this->settings['layoutOverride']);
+            $this->view->assign('settings', $this->settings);
+            $this->view->assign('settingsForLayout', array_merge($this->settings, $settings));
+        }
 	}
 
 
@@ -145,7 +157,6 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
     public function teaserFilteredAction(): ResponseInterface
     {
         $results = $this->filterableRepository->findByFilter(intval($this->settings['filter']), $this->settings);
-
         $this->view->assignMultiple([
             'results' => $results
         ]);
@@ -154,18 +165,44 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
     }
 
 
-
     /**
      * action detail
      *
-     * @param \Madj2k\CatSearch\Domain\Model\Filterable $filterable
+     * @param \Madj2k\CatSearch\Domain\Model\Filterable $item
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function detailAction(Filterable $filterable): ResponseInterface
+    public function detailAction(Filterable $item): ResponseInterface
     {
         $this->view->assignMultiple([
-            'result' => $filterable,
+            'item' => $item,
             'siteLanguage' => $this->siteLanguage,
+        ]);
+
+        return $this->htmlResponse();
+    }
+
+
+    /**
+     * action related
+     *
+     * @param \Madj2k\CatSearch\Domain\DTO\Search|null $search
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    public function searchRelatedAction(Search $search = null): ResponseInterface
+    {
+        // load from session or init new one - do not save it to session here!!!!
+        if (!$search && (!$search = $this->loadSearchfromSession())) {
+            $search = GeneralUtility::makeInstance(Search::class);
+        }
+
+        $results = $this->getSearchResults($search);
+
+        $this->view->assignMultiple([
+            'results' => $results,
+            'search' => $search,
+            'resultCount' => $results->count()
         ]);
 
         return $this->htmlResponse();
@@ -206,20 +243,32 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 		}
 		$this->saveSearchToSession($search);
 
-		$layoutKey = $search->getLayout() ?? 'list';
-        $results = $this->getSearchResults($search);
+        // get results
+        $results = $this->getSearchResults($search, false);
+
+        // check for settings for pagination
+        $layoutKey = $search->getLayout() ?? $this->settings['layout'] ?? 'list';
+        $maxItemsPerPage = (int) $this->settings['maxResultsPerPage'] ?? 10;
+        if (isset($this->settings[$layoutKey]['maxResultsPerPage'])) {
+            $maxItemsPerPage = (int) $this->settings[$layoutKey]['maxResultsPerPage'];
+        }
+
+        $maxPages = (int) $this->settings['maxPages'] ?? 3;
+        if (isset($this->settings[$layoutKey]['maxPages'])) {
+            $maxPages = (int) $this->settings[$layoutKey]['maxPages'];
+        }
 
 		/** @var \TYPO3\CMS\Extbase\Pagination\QueryResultPaginator $paginator */
 		$paginator = new QueryResultPaginator(
 			$results,
 			$currentPage,
-			((isset($this->settings[$layoutKey]['maxItemsPerPage']) && intval($this->settings[$layoutKey]['maxItemsPerPage'])) ?: 3)
+			$maxItemsPerPage
 		);
 
 		/** @var \TYPO3\CMS\Core\Pagination\SlidingWindowPagination $pagination */
 		$pagination = new SlidingWindowPagination(
 			$paginator,
-            ((isset($this->settings[$layoutKey]['maxItemsPerPage']) && intval($this->settings[$layoutKey]['maxPagesShown'])) ?: 3)
+            $maxPages,
 		);
 
 		$this->view->assignMultiple([
@@ -304,6 +353,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
             'filtersCombined' => [],
             'years' => $this->filterableRepository->findAllYearsAssigned(
                 $languageId,
+                $this->settings,
             ),
             'sorting' => GeneralUtility::trimExplode(',', $this->settings['sorting'] ?? '')
         ];
@@ -314,9 +364,11 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
                 (isset($this->settings['filterType' . $filterNumber]))
                 && ($this->settings['filterType' . $filterNumber])
             ){
+
                 $filterOptions = $this->filterRepository->findAllAssignedByLanguageAndType(
                     $languageId,
                     (int) $this->settings['filterType' . $filterNumber],
+                    $this->settings
                 );
 
                 // add all options to one big array for tags
@@ -326,14 +378,20 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
                 // in order to be able to cache the filters we can not add an object here!
                 /** @var \Madj2k\CatSearch\Domain\Model\FilterType $filterType */
                 $filterType = $this->filterTypeRepository->findByUid($this->settings['filterType' . $filterNumber]);
-                $searchOptions['filters']['filter' . $filterNumber] = [
+
+                $filterName = 'filter' . $filterNumber;
+                if ($this->settings['filterType' . $filterNumber . 'AllowMultiple']) {
+                    $filterName = 'multiSelectFilter' . $filterNumber;
+                }
+
+                $searchOptions['filters'][$filterName] = [
                     'filterType' => [
                         'uid' => $filterType->getUid(),
                         'title' => $filterType->getTitle()
                     ],
-                    'filterOptions' => $filterOptions
+                    'filterOptions' => $filterOptions,
+                    'allowMultiple' => (bool) $this->settings['filterType' . $filterNumber . 'AllowMultiple']
                 ];
-
             }
         }
 

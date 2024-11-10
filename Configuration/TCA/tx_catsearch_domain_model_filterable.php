@@ -2,33 +2,34 @@
 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 
 return [
-	'ctrl' => [
-		'title' => $ll .'tx_catsearch_domain_model_filterable',
-		'label' => 'title',
-		'cruser_id' => 'cruser_id',
-		'dividers2tabs' => true,
-		'default_sortby' => 'ORDER BY title ASC',
-		'languageField' => 'sys_language_uid',
-		'transOrigPointerField' => 'l10n_parent',
-		'transOrigDiffSourceField' => 'l10n_diffsource',
-		'delete' => 'deleted',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'enablecolumns' => [
-			'disabled' => 'hidden',
-			'starttime' => 'starttime',
-			'endtime' => 'endtime',
-		],
-		'searchFields' => 'title',
-		'iconfile' => 'EXT:cat_search/Resources/Public/Icons/tx_catsearch_domain_model_filterable.svg',
+    'ctrl' => [
+        'title' => $ll .'tx_catsearch_domain_model_filterable',
+        'label' => 'title',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => true,
+        'default_sortby' => 'ORDER BY title ASC',
+        'languageField' => 'sys_language_uid',
+        'transOrigPointerField' => 'l10n_parent',
+        'transOrigDiffSourceField' => 'l10n_diffsource',
+        'delete' => 'deleted',
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'enablecolumns' => [
+            'disabled' => 'hidden',
+            'starttime' => 'starttime',
+            'endtime' => 'endtime',
+        ],
+        'searchFields' => 'title',
+        'iconfile' => 'EXT:cat_search/Resources/Public/Icons/tx_catsearch_domain_model_filterable.svg',
         'type' => 'record_type',
         'typeicon_column' => 'record_type',
         'typeicon_classes' => [
             'default' => 'catsearch-type-filterable-document',
             '2' => 'catsearch-type-filterable-product',
+            '3' => 'catsearch-type-filterable-accessory',
         ],
-	],
-	'types' => [
+    ],
+    'types' => [
         // document
         '1' => [
             'showitem' => 'record_type,--palette--;;main,
@@ -51,7 +52,18 @@ return [
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
         ],
-	],
+        // accessory
+        '3' => [
+            'showitem' => 'record_type,--palette--;;main,
+            --div--;' . $ll . 'tab.description,--palette--;;description_product,
+            --div--;' . $ll . 'tab.meta,--palette--;;meta_product,
+            --div--;' . $ll . 'tab.relations,--palette--;;relations_accessory,
+            --div--;' . $ll . 'tab.filter,--palette--;;filter,
+            --div--;' . $ll . 'tab.media,--palette--;;media_product,
+			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
+			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
+        ],
+    ],
     'palettes' => [
         'main' => [
             'label' => $ll . 'palette.main',
@@ -136,105 +148,106 @@ return [
             'label' => $ll . 'palette.relations',
             'showitem' => '
 				publish_date,
-				--linebreak--,
-				related_filterables,
-                --linebreak--,
-				related_filterables_from,
                 --linebreak--,
 				related_filterable_products',
         ],
         'relations_product' => [
             'label' => $ll . 'palette.relations',
             'showitem' => '
-				related_filterables,
+				related_filterable_accessories,
 				--linebreak--,
-				related_filterables_from,
+				related_filterable_documents',
+        ],
+        'relations_accessory' => [
+            'label' => $ll . 'palette.relations',
+            'showitem' => '
+				related_filterable_products2,
 				--linebreak--,
 				related_filterable_documents',
         ],
     ],
-	'columns' => [
-		'crdate' => [
-			'config' => [
-				'type' => 'passthrough',
-			],
-		],
-		'tstamp' => [
-			'config' => [
-				'type' => 'passthrough',
-			],
-		],
-		'sys_language_uid' => [
-			'exclude' => 0,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'foreign_table' => 'sys_language',
-				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => [
-					['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-					['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
-				],
-				'default' => 0
-			],
-		],
-		'l10n_parent' => [
-			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 0,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'items' => [
-					['', 0],
-				],
-				'foreign_table' => 'tx_catsearch_domain_model_filterable',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1,0)',
-			],
-		],
-		'l10n_diffsource' => [
-			'config' => [
-				'type' => 'passthrough',
-			],
-		],
-		'hidden' => [
-			'exclude' => false,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
-			'config' => [
-				'type' => 'check',
-			],
-		],
-		'starttime' => [
-			'exclude' => false,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
-			'config' => [
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
-				'size' => 13,
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'behaviour' => [
-					'allowLanguageSynchronization' => true
-				]
-			],
-		],
-		'endtime' => [
-			'exclude' => false,
-			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
-			'config' => [
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
-				'size' => 13,
-				'eval' => 'datetime',
-				'checkbox' => 0,
-				'default' => 0,
-				'behaviour' => [
-					'allowLanguageSynchronization' => true
-				]
-			],
-		],
+    'columns' => [
+        'crdate' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'tstamp' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'sys_language_uid' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'sys_language',
+                'foreign_table_where' => 'ORDER BY sys_language.title',
+                'items' => [
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
+                ],
+                'default' => 0
+            ],
+        ],
+        'l10n_parent' => [
+            'displayCond' => 'FIELD:sys_language_uid:>:0',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['', 0],
+                ],
+                'foreign_table' => 'tx_catsearch_domain_model_filterable',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1,0)',
+            ],
+        ],
+        'l10n_diffsource' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'hidden' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
+        'starttime' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ],
+        ],
+        'endtime' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ],
+        ],
         'record_type' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
@@ -253,6 +266,11 @@ return [
                         'value' => 2,
                         'icon' => 'catsearch-type-filterable-product'
                     ],
+                    [
+                        'label' => $ll . 'tx_catsearch_domain_model_filterable.record_type.3',
+                        'value' => 3,
+                        'icon' => 'catsearch-type-filterable-accessory'
+                    ],
                 ],
                 'fieldWizard' => [
                     'selectIcons' => [
@@ -263,24 +281,24 @@ return [
                 'maxitems' => 1,
             ],
         ],
-		'title' => [
-			'exclude' => false,
-			'label' => $ll .'tx_catsearch_domain_model_filterable.title',
-			'config' => [
+        'title' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.title',
+            'config' => [
                 'type' => 'input',
-				'eval' => 'trim,required',
-			]
-		],
-		'title_cleaned' => [
-			'exclude' => false,
-			'label' => $ll .'tx_catsearch_domain_model_filterable.title_cleaned',
-			'config' => [
-				'readOnly' => true,
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim',
-			]
-		],
+                'eval' => 'trim,required',
+            ]
+        ],
+        'title_cleaned' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.title_cleaned',
+            'config' => [
+                'readOnly' => true,
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+            ]
+        ],
         'subtitle' => [
             'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.subtitle',
@@ -402,33 +420,34 @@ return [
                 'eval' => 'trim',
             ]
         ],
-		'publish_date' => [
-			'exclude' => false,
-			'label' => $ll .'tx_catsearch_domain_model_filterable.publish_date',
-			'config' => [
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
-				'eval' => 'datetime,required',
-			],
-		],
-		'slug' => [
-			'exclude' => false,
-			'label' => $ll .'tx_catsearch_domain_model_filterable.slug',
-			'config' => [
-				'type' => 'slug',
-				'size' => 50,
-				'generatorOptions' => [
-					'fields' => ['title_cleaned'],
-					'fieldSeparator' => '-',
-					'replacements' => [
-						'/' => '-'
-					],
-				],
-				'fallbackCharacter' => '-',
-				'eval' => 'uniqueInSite',
-				'default' => '',
-			],
-		],
+        'publish_date' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.publish_date',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime,required',
+                'default' => time()
+            ],
+        ],
+        'slug' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.slug',
+            'config' => [
+                'type' => 'slug',
+                'size' => 50,
+                'generatorOptions' => [
+                    'fields' => ['title_cleaned'],
+                    'fieldSeparator' => '-',
+                    'replacements' => [
+                        '/' => '-'
+                    ],
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInSite',
+                'default' => '',
+            ],
+        ],
         'teaser_image' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
@@ -494,7 +513,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = "###REC_FIELD_record_type###" AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = ###REC_FIELD_record_type### AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterable_filterable_mm',
                 'MM_opposite_field' => 'related_filterables_from',
                 'minitems' => 0
@@ -508,7 +527,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = "###REC_FIELD_record_type###" AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = ###REC_FIELD_record_type### AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterable_filterable_mm',
                 'readOnly' => 1,
             ],
@@ -521,8 +540,9 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 0 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 1 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterabledocuments_mm',
+                'MM_opposite_field' => 'related_filterable_products',
                 'minitems' => 0
             ],
         ],
@@ -532,11 +552,37 @@ return [
             'label' => $ll .'tx_catsearch_domain_model_filterable.related_filterable_products',
             'config' => [
                 'type' => 'select',
-                    'renderType' => 'selectMultipleSideBySide',
+                'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 1 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 2 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterabledocuments_mm',
-                'MM_opposite_field' => 'related_filterable_product',
+                'minitems' => 0
+            ],
+        ],
+        'related_filterable_products2' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll .'tx_catsearch_domain_model_filterable.related_filterable_products',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_catsearch_domain_model_filterable',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 2 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'MM' => 'tx_catsearch_filterableproduct_filterableaccessories_mm',
+                'minitems' => 0
+            ],
+        ],
+        'related_filterable_accessories' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll .'tx_catsearch_domain_model_filterable.related_filterable_accessories',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_catsearch_domain_model_filterable',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 3 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'MM' => 'tx_catsearch_filterableproduct_filterableaccessories_mm',
+                'MM_opposite_field' => 'related_filterable_products2',
                 'minitems' => 0
             ],
         ],
@@ -553,22 +599,22 @@ return [
                 'minitems' => 0
             ],
         ],
-		'publish_date_year' => [
-			'config' => [
-				'type' => 'passthrough',
-			],
-		],
-		'content_index' => [
-			'config' => [
-				'type' => 'passthrough',
-			],
-		],
-		'content_index_tstamp' => [
-			'config' => [
-				'type' => 'passthrough',
-			],
-		]
+        'publish_date_year' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'content_index' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'content_index_tstamp' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ]
 
-	],
+    ],
 ];
 
