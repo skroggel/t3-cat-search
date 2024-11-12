@@ -1,0 +1,55 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:catSearch="http://typo3.org/ns/Madj2k/CatSearch/ViewHelpers" data-namespace-typo3-fluid="true">
+    
+    <div class="cat-filterlist-box variant-{settings.layout}">
+        <div class="container-xxl">
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="catsearch-filterlist-inner">
+                        <div class="catsearch-filter-wrap">
+                            <f:if condition="{settings.showFilterByTextQuery}">
+                                <f:render partial="Search/Filters/Types/Text"
+                                          arguments="{search:search, data:data, settings: settings, 
+                                                      settingsForLayout: settingsForLayout}" />
+                            </f:if>
+
+                            <f:if condition="{settings.showFilterByYear}">
+                                <f:render partial="Search/Filters/Types/Year"
+                                          arguments="{filterOptions: searchOptions.years, search:search,
+                                                      data:data, settings: settings, settingsForLayout: settingsForLayout}" />
+                            </f:if>
+
+                            <f:for each="{searchOptions.filters}" key="filterName" as="filterDetails" iteration="iterator">
+                                <f:render partial="Search/Filters/Types/Select"
+                                          arguments="{filterOptions: filterDetails.filterOptions, filterType: filterDetails.filterType,
+                                                              filterName: filterName, allowMultiple: filterDetails.allowMultiple,
+                                                              search:search, data:data, settings: settings, 
+                                                              settingsForLayout: settingsForLayout}" />
+                            </f:for>
+                        </div>
+
+                        <div class="catsearch-filterlist-cta">
+                            <button type="submit"
+                                    class="cta cta-small"
+                                    title="{f:translate(key:'search.filter.start.label')}"
+                                    aria-label="{f:translate(key:'search.filter.start.arialabel')}">
+                                {f:translate(key:'search.filter.start.label')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <f:if condition="{settings.showTags}">
+                <div class="row">
+                    <div class="col-12">
+                        <f:render partial="Search/Filters/Tags"
+                                  arguments="{search:search, filtersCombined: searchOptions.filtersCombined,
+                                                  data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+                    </div>
+                </div>
+            </f:if>
+        </div>
+    </div>
+
+</html>

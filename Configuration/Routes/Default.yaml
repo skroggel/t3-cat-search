@@ -1,0 +1,38 @@
+routeEnhancers:
+    CatSearchSearch:
+        type: Extbase
+        namespace: 'tx_catsearch_search'
+        routes:
+            -   routePath: '/catsearch/page/{currentPage}'
+                _controller: 'Search::search'
+            -   routePath: '/catsearch/back/{useSessionPage}'
+                _controller: 'Search::search'
+            -   routePath: '/catsearch/hash/{hash}'
+                _controller: 'Search::search'
+        defaultController: 'Search::search'
+        requirements:
+            currentPage: '[0-9]{1,30}'
+            useSessionPage: '[01]{1}'
+            hash: '.+'
+
+    CatSearchDetail:
+        type: Extbase
+        namespace: 'tx_catsearch_detail'
+        routes:
+            -   routePath: '/{type}/{item}'
+                _controller: 'Search::detail'
+        defaultController: 'Search::detail'
+        requirements:
+            type: '^(\d+|item|document|product|assessory)$'
+        aspects:
+            item:
+                type: PersistedAliasMapper
+                tableName: tx_catsearch_domain_model_filterable
+                routeFieldName: slug
+            type:
+                type: 'StaticValueMapper'
+                map:
+                    item: '0'
+                    document: '1'
+                    product: '2'
+                    assessory: '3'

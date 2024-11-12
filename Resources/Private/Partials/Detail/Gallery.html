@@ -1,0 +1,31 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:catSearch="http://typo3.org/ns/Madj2k/CatSearch/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+>
+
+    <f:variable name="section" value="Default" />
+    <f:comment><!-- 
+        <f:if condition="{settings.layout} == 'big'">
+            <f:variable name="section" value="Big" />
+        </f:if>
+    --></f:comment>
+
+    <f:if condition="{item.images}">
+        <f:render section="{section}" arguments="{_all}"/>
+    </f:if>
+
+    <f:comment><!-- ============================================================================== --></f:comment>
+
+    <f:section name="Default">
+        <div class="catsearch-detail-gallery variant-{settings.layout}">
+            <div class="container-xxl">
+                <div class="row">
+                    <f:for each="{item.gallery}" as="image">
+                        <f:image image="{image}" maxWidth="500" />
+                    </f:for>
+                </div>
+            </div>
+        </div>
+    </f:section>
+
+</html>

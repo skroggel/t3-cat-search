@@ -1,0 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+      data-namespace-typo3-fluid="true"
+>
+
+	<f:if condition="{value} > 0">
+		<li class="catsearch-tag-item">
+			<f:link.action action="removeSearchFilter"
+						   arguments="{property: property, value: value}"
+						   title="{f:translate(key:'search.tags.remove.label')}"
+						   class="filter-tag"><span>{label}</span></f:link.action>
+		</li>
+	</f:if>
+
+</html>

@@ -1,0 +1,109 @@
+plugin.tx_catsearch {
+
+	view {
+		layoutRootPaths {
+			0 = EXT:cat_search/Resources/Private/Layouts/
+			10 = {$plugin.tx_catsearch.view.layoutRootPath}
+		}
+		templateRootPaths {
+			0 = EXT:cat_search/Resources/Private/Templates/
+            10 = {$plugin.tx_catsearch.view.templateRootPath}
+        }
+		partialRootPaths {
+			0 = EXT:cat_search/Resources/Private/Partials/
+			10 = {$plugin.tx_catsearch.view.partialRootPath}
+        }
+	}
+
+	persistence {
+	    // in order to let the backend page-field to take effect, we have to remove this out completely
+        // storagePid >
+
+		storagePid = {$plugin.tx_catsearch.persistence.storagePid}
+	}
+
+	settings {
+
+        sorting = {$plugin.tx_catsearch.settings.sorting}
+
+        maxResults = {$plugin.tx_catsearch.settings.maxResults}
+        maxResultsPerPage = {$plugin.tx_catsearch.settings.maxResultsPerPage}
+        maxPages = {$plugin.tx_catsearch.settings.maxPages}
+        disablePagination = {$plugin.tx_catsearch.settings.maxPages}
+
+        showFilterByTextQuery = {$plugin.tx_catsearch.settings.showFilterByTextQuery}
+        showFilterByYear = {$plugin.tx_catsearch.settings.showFilterByYear}
+        showTags = {$plugin.tx_catsearch.settings.showTags}
+
+        layout = {$plugin.tx_catsearch.settings.layout}
+	}
+}
+
+# ================================================================================
+# Plugins
+# ================================================================================
+
+plugin.tx_catsearch_search < plugin.tx_catsearch
+plugin.tx_catsearch_search  {
+
+    view {
+        pluginNamespace = tx_catsearch_search
+    }
+
+    settings {
+
+        // EXAMPLE: override settings by layout-key
+        layoutOverride {
+            default {
+                item {
+                    media {
+                        image {
+                            dimensions {
+                                maxWidth = 590
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+plugin.tx_catsearch_searchrelated < plugin.tx_catsearch
+plugin.tx_catsearch_searchrelated  {
+
+    view {
+        pluginNamespace = tx_catsearch_searchreleated
+    }
+
+    settings {
+
+    }
+}
+
+
+plugin.tx_catsearch_detail < plugin.tx_catsearch
+plugin.tx_catsearch_detail {
+
+    view {
+        pluginNamespace = tx_catsearch_searchreleated
+    }
+
+    settings {
+        pageTitleProvider = Madj2k\CatSearch\PageTitle\PageTitleProvider
+    }
+}
+
+
+# ================================================================================
+# PageTitleProvider
+# ================================================================================
+config {
+    pageTitleProviders {
+        catSearch {
+            provider = Madj2k\CatSearch\PageTitle\PageTitleProvider
+            before = record, seo, yoastRecord
+        }
+    }
+}

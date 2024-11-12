@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+	<file source-language="en" datatype="plaintext">
+		<body>
+
+			<!-- TCA-Hook -->
+			<trans-unit id="indexHook.contendIndexed">
+				<source>The following content was indexed (record: %s):</source>
+				<target>Der folgende Inhalt wurde indexiert (Datensatz: %s):</target>
+			</trans-unit>
+
+
+			<!-- extConf -->
+			<trans-unit id="extConf.fulltextIndexTable">
+				<source>Basis-Table for fulltext indexing</source>
+				<target>Basis-Tabelle für Volltext-Indexierung</target>
+			</trans-unit>
+			<trans-unit id="extConf.fulltextIndexFields">
+				<source>Fields for fulltext indexing. Use dot-notation to refer tu subtables (and subtables of the subtables). The title- and teaser-field are searched separately.</source>
+				<target>Felder für Volltext-Indexierung. Punkt-Notation verwenden, um auf Untertabellen (und Untertabellen der Untertabellen) zu verweisen. Die Felder title und teaser werden separat durchsucht.</target>
+			</trans-unit>
+			<trans-unit id="extConf.showIndexResult">
+				<source>Show result of indexing in backend</source>
+				<target>Zeige Indexierungsergebnis im Backend an</target>
+			</trans-unit>
+			<trans-unit id="extConf.pageTitleFields">
+				<source>Comma-separated list of fields for generating the page title. First field with data is used.</source>
+				<target>Kommaseparierte Liste von Feldern für die Generierung des Seitentitels. Erstes Feld mit Daten wird verwendet.</target>
+			</trans-unit>
+			<trans-unit id="extConf.pageTitleSeparator">
+				<source>Separator for page title. If set, the page title is composed of all defined fields.</source>
+				<target>Trennzeichen für Seitentitel. Wenn gesetzt, wird der Seitentitel aus allen definierten Feldern zusammengesetzt.</target>
+			</trans-unit>
+
+
+			<!-- Content Element Wizard -->
+			<trans-unit id="contentElementWizward.header">
+				<source>Category Search</source>
+				<target>Kategorien-Suche</target>
+			</trans-unit>
+
+
+			<!-- Flexforms -->
+			<trans-unit id="flexform.tx_catsearch_search.title">
+				<source>CatSearch</source>
+				<target>CatSearch</target>
+			</trans-unit>
+
+
+			<trans-unit id="flexform.tab.common">
+				<source>Common</source>
+				<target>Allgemein</target>
+			</trans-unit>
+			<trans-unit id="flexform.tab.preset">
+				<source>Preset</source>
+				<target>Voreinstellungen</target>
+			</trans-unit>
+			<trans-unit id="flexform.tab.filters">
+				<source>Shown filters for search</source>
+				<target>Angezeigte Filter für Suche</target>
+			</trans-unit>
+			<trans-unit id="flexform.tab.view">
+				<source>View</source>
+				<target>Ansicht</target>
+			</trans-unit>
+
+
+			<trans-unit id="flexform.settings.recordType">
+				<source>Record Type</source>
+				<target>Datensatzart</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.0">
+				<source>All</source>
+				<target>Alle</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.1">
+				<source>Only Documents</source>
+				<target>Nur Dokumente</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.2">
+				<source>Only Products</source>
+				<target>Nur Produkte</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.recordType.3">
+				<source>Only Accessory</source>
+				<target>Nur Zubehör</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filter">
+				<source>Filter</source>
+				<target>Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterExclude">
+				<source>Filter (exclude)</source>
+				<target>Filter (ausschließen)</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType1">
+				<source>Filter Type 1</source>
+				<target>Filter Typ 1</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType1AllowMultiple">
+				<source>Allow multiple select for filter 1</source>
+				<target>Mehrfachauswahl für Filter 1 erlauben</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType2">
+				<source>Filter Type 2</source>
+				<target>Filter Typ 2</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType2AllowMultiple">
+				<source>Allow multiple select for filter 2</source>
+				<target>Mehrfachauswahl für Filter 2 erlauben</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType3">
+				<source>Filter Type 3</source>
+				<target>Filter Typ 3</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType3AllowMultiple">
+				<source>Allow multiple select for filter 3</source>
+				<target>Mehrfachauswahl für Filter 3 erlauben</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType4">
+				<source>Filter Type 4</source>
+				<target>Filter Typ 4</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType4AllowMultiple">
+				<source>Allow multiple select for filter 4</source>
+				<target>Mehrfachauswahl für Filter 4 erlauben</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType5">
+				<source>Filter Type 5</source>
+				<target>Filter Typ 5</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType5AllowMultiple">
+				<source>Allow multiple select for filter 5</source>
+				<target>Mehrfachauswahl für Filter 5 erlauben</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.searchPid">
+				<source>Page with Search</source>
+				<target>Seite mit Suche</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.detailPid">
+				<source>Page with Detail-View</source>
+				<target>Seite mit Detailansicht</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout">
+				<source>Layout</source>
+				<target>Darstellung</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout.default">
+				<source>Default</source>
+				<target>Standard</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.layout.big">
+				<source>Big</source>
+				<target>Groß</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.maxResults">
+				<source>Maximum number of results</source>
+				<target>Maximale Anzahl an Ergebnissen</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.maxResultsPerPage">
+				<source>Maximum number of results per Page</source>
+				<target>Maximale Anzahl an Ergebnissen je Seite</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.maxPages">
+				<source>Maximum number of pages shown</source>
+				<target>Maximale Anzahl an Seiten</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.hidePagination">
+				<source>Hide pagination</source>
+				<target>Pagination ausblenden</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByTextQuery">
+				<source>Show Freetext-Search</source>
+				<target>Zeige Freitext-Suche</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByYear">
+				<source>Show Year-Filter</source>
+				<target>Zeige Jahres-Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showTags">
+				<source>Show Tags</source>
+				<target>Zeige Tags</target>
+			</trans-unit>
+
+
+			<!-- Plugins -->
+			<trans-unit id="plugin.tx_catsearch_search.title">
+				<source>CatSearch: Search</source>
+				<target>CatSearch: Suche</target>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_searchrelated.title">
+				<source>CatSearch: Search – Related Elements</source>
+				<target>CatSearch: Suche – Verwandte Elemente</target>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_teaserfiltered.title">
+				<source>CatSearch: Filterable Teaser</source>
+				<target>CatSearch: Filterbarer Teaser</target>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_detail.title">
+				<source>CatSearch: Detail-View</source>
+				<target>CatSearch: Detailansicht</target>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,17 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+      data-namespace-typo3-fluid="true"
+>
+
+    <div class="catsearch-filter catsearch-filter-textquery form-group">
+
+        <f:render partial="Search/Filters/Label"
+                  arguments="{labelFor: 'tx-catsearch-textquery-{data.uid}', 
+                              label: '{f:translate(key:\'search.filter.textQuery.label\')}', data: data, 
+                              settings: settings, settingsForLayout: settingsForLayout}" />
+        
+        <f:form.textfield property="textQuery"
+						  id="tx-catsearch-textquery-{data.uid}"
+						  class="catsearch-filter-input form-control"
+						  placeholder="{f:translate(key:'search.filter.textQuery.placeholder')}" />
+	</div>
+</html>

@@ -1,0 +1,67 @@
+plugin.tx_catsearch {
+	view {
+
+		# cat=plugin.tx_catsearch/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:cat_search/Resources/Private/Layouts/
+
+		# cat=plugin.tx_catsearch/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:cat_search/Resources/Private/Templates/
+
+		# cat=plugin.tx_catsearch/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:cat_search/Resources/Private/Partials/
+	}
+
+	persistence {
+	    storagePid =
+	}
+
+	settings {
+
+		# cat=plugin.tx_catsearch//a; type=string; label=Sorting options (have to be existing fields in the table)
+	    sorting = title#asc
+
+	    # cat=plugin.tx_catsearch//a; type=integer; label=Maximum number of results
+	    maxResults =
+
+	    # cat=plugin.tx_catsearch//a; type=integer; label=Maximum number of results per page
+	    maxResultsPerPage = 10
+
+	    # cat=plugin.tx_catsearch//a; type=integer; label=Maximum number of pages
+	    maxPages = 3
+
+        # cat=plugin.tx_catsearch//a; type=bool; label=Show freetext search bar
+        showFilterByTextQuery = 1
+
+        # cat=plugin.tx_catsearch//a; type=bool; label=Show filter by year
+        showFilterByYear = 1
+
+        # cat=plugin.tx_catsearch//a; type=bool; label=Show tags below search-box
+        showTags = 1
+
+        # cat=plugin.tx_catsearch//a; type=layout; label=Layout switch for different views
+        layout = default
+	}
+}
+
+
+
+plugin.tx_catsearch_search < plugin.tx_catsearch
+plugin.tx_catsearch_search {
+    settings {
+
+    }
+}
+
+plugin.tx_catsearch_searchrelated < plugin.tx_catsearch
+plugin.tx_catsearch_searchrelated {
+    settings {
+
+    }
+}
+
+plugin.tx_catsearch_detail < plugin.tx_catsearch
+plugin.tx_catsearch_detail {
+    settings {
+
+    }
+}

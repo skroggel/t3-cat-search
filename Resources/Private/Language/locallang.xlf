@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages">
+        <body>
+
+			<!-- Templates / Parials -->
+			<trans-unit id="search.filter.year.label">
+				<source>Year</source>
+			</trans-unit>
+			<trans-unit id="search.filter.textQuery.label">
+				<source>Searchphrase</source>
+			</trans-unit>
+			<trans-unit id="search.filter.textQuery.placeholder">
+				<source>Enter your searchphrase here</source>
+			</trans-unit>
+			<trans-unit id="search.filter.start.label">
+				<source>Search</source>
+			</trans-unit>
+			<trans-unit id="search.filter.start.arialabel">
+				<source>Start search</source>
+			</trans-unit>
+			<trans-unit id="search.tags.reset.label">
+				<source>Remove all filters</source>
+			</trans-unit>
+			<trans-unit id="search.tags.remove.label">
+				<source>Remove this filters</source>
+			</trans-unit>
+			<trans-unit id="search.results.count.label">
+				<source>results found</source>
+			</trans-unit>
+			<trans-unit id="search.results.countSingle.label">
+				<source>result found</source>
+			</trans-unit>
+			<trans-unit id="search.results.countNone.label">
+				<source>Unfortunatelly there could no matching results be found.</source>
+			</trans-unit>
+			<trans-unit id="search.result-item.show.label">
+				<source>Show more</source>
+			</trans-unit>
+			<trans-unit id="search.sorting.label">
+				<source>Sort by:</source>
+			</trans-unit>
+			<trans-unit id="search.sorting.ariaLabel">
+				<source>Sort by:</source>
+			</trans-unit>
+			<trans-unit id="search.sorting.title#asc.label">
+				<source>Title</source>
+			</trans-unit>
+
+
+			<trans-unit id="teaser.readMore.label">
+				<source>Read more</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>
