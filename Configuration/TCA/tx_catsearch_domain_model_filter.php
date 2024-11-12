@@ -7,6 +7,7 @@ return [
 		'label' => 'title',
         'label_alt' => 'type',
         'label_alt_force' => true,
+        'hideTable' => true,
 		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => true,
 		'default_sortby' => 'ORDER BY title ASC',
@@ -126,18 +127,6 @@ return [
                 'eval' => 'trim'
             ],
         ],
-		'type' => [
-			'exclude' => false,
-			'label' => $ll .'tx_catsearch_domain_model_filter.type',
-			'l10n_mode' => 'exclude',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'foreign_table' => 'tx_catsearch_domain_model_filtertype',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_filtertype.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1,0) AND tx_catsearch_domain_model_filtertype.hidden = 0 AND tx_catsearch_domain_model_filtertype.deleted = 0 ORDER BY tx_catsearch_domain_model_filtertype.title',
-				'minitems' => 1,
-			],
-		],
 		'filterables' => [
 			'exclude' => false,
 			'l10n_mode' => 'exclude',
@@ -151,5 +140,10 @@ return [
 				'MM_opposite_field' => 'filters'
 			],
 		],
+        'type' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
 	],
 ];

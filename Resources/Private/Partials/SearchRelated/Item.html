@@ -5,7 +5,7 @@
     <div class="catsearch-related-item variant-{settings.layout}">
         <h3>{item.title}</h3>
         <p>{item.teaser}</p>
-        <f:link.action action="detail" pluginName="Detail" arguments="{item: item}" pageUid="{settings.detailPid}" class="btn">
+        <f:link.action action="detail" pluginName="Detail" arguments="{item: item, type: item.recordType}" pageUid="{settings.detailPid}" class="btn">
             {f:translate(key:'teaser.readMore.label')}
         </f:link.action>
     </div>

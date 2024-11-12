@@ -49,18 +49,18 @@ interface FilterableInterface
     /**
      * Returns the subType
      *
-     * @return int
+     * @return string
      */
-    public function getSubType(): int;
+    public function getSubType(): string;
 
 
     /**
      * Sets the subType
      *
-     * @param int $subType
+     * @param string $subType
      * @return void
      */
-    public function setSubType(int $subType): void;
+    public function setSubType(string $subType): void;
 
 
     /**

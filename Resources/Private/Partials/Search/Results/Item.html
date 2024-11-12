@@ -20,7 +20,7 @@
 
             <f:link.action action="detail" pluginName="Detail"  
                            pageUid="{settings.detailPid}" 
-                           arguments="{item: item}"  
+                           arguments="{item: item, type: item.recordType}"  
                            class="catsearch-result-cta"
             >
                 {f:translate(key:'search.result-item.show.label')}

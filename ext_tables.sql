@@ -5,10 +5,12 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 (
 	uid                            int(11) NOT NULL auto_increment,
 	record_type                    int(4) NOT NULL DEFAULT '0',
-	sub_type                       int(4) NOT NULL DEFAULT '0',
+	sub_type                       varchar(255) DEFAULT '' NOT NULL,
+	language                       varchar(255) DEFAULT '' NOT NULL,
 
 	title                          varchar(255) DEFAULT '' NOT NULL,
 	title_cleaned                  varchar(255) DEFAULT '' NOT NULL,
+	title_seo                      varchar(255) DEFAULT '' NOT NULL,
 	slug                           varchar(2048),
 	subtitle                       varchar(255) DEFAULT '' NOT NULL,
 

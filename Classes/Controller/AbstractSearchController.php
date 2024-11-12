@@ -20,14 +20,16 @@ use Madj2k\CatSearch\Domain\Model\Filterable;
 use Madj2k\CatSearch\Domain\Repository\FilterableRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterTypeRepository;
+use Madj2k\CatSearch\PageTitle\PageTitleProvider;
+use Madj2k\CatSearch\Utilities\SearchParameterUtility;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\PageTitle\PageTitleProviderInterface;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -80,7 +82,6 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
         $this->filterableRepository = $filterableRepository;
     }
 
-
     /**
      * @param \Madj2k\CatSearch\Domain\Repository\FilterRepository $filterRepository
      * @return void
@@ -107,6 +108,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	protected function initializeView(): void
 	{
 		$this->view->assign('data', $this->request->getAttribute('currentContentObject')->data);
+        $this->view->assign('hashedParametersLink', $this->getHashLinkFromSearchParams());
 
         // set layout specific settings in separate array
         if (
@@ -127,9 +129,9 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 */
 	protected function initializeAction(): void
 	{
-		$this->currentContentObject = $this->request->getAttribute('currentContentObject');
-		$this->siteLanguage = $this->request->getAttribute('language');
-	}
+        $this->currentContentObject = $this->request->getAttribute('currentContentObject');
+        $this->siteLanguage = $this->request->getAttribute('language');
+    }
 
 
 	/**
@@ -170,9 +172,17 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      *
      * @param \Madj2k\CatSearch\Domain\Model\Filterable $item
      * @return \Psr\Http\Message\ResponseInterface
+     * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
+     * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
      */
     public function detailAction(Filterable $item): ResponseInterface
     {
+        $providerClass = $this->settings['pageTitleProvider'] ?? PageTitleProvider::class;
+
+        /** @var \Madj2k\CatSearch\PageTitle\PageTitleProviderInterface $provider */
+        $provider = GeneralUtility::makeInstance($providerClass);
+        $provider->setTitle($item);
+
         $this->view->assignMultiple([
             'item' => $item,
             'siteLanguage' => $this->siteLanguage,
@@ -210,18 +220,25 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 
 
     /**
-	 * action search
-	 *
-	 * @param \Madj2k\CatSearch\Domain\DTO\Search|null $search
-	 * @param int $currentPage
-	 * @param bool $useSessionPage
-	 * @return \Psr\Http\Message\ResponseInterface
-	 * @throws \Doctrine\DBAL\Exception
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-	 */
+     * action search
+     *
+     * @param \Madj2k\CatSearch\Domain\DTO\Search|null $search
+     * @param int $currentPage
+     * @param bool $useSessionPage
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
+     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
+     */
 	public function searchAction(Search $search = null, int $currentPage = 0, bool $useSessionPage = false): ResponseInterface
 	{
+        // check if there is a hash with search-parameters given
+        if ($parameters = SearchParameterUtility::unserializeParameters($this->request)) {
+            return $this->redirect($this->request->getControllerActionName(), null, null, $parameters);
+        }
+
 		// load from session or init new one
 		if (!$search && (!$search = $this->loadSearchfromSession())) {
 			$search = GeneralUtility::makeInstance(Search::class);
@@ -426,5 +443,25 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 		}
 		return null;
 	}
+
+
+    /**
+     * Get a hash-link from the search params
+     *
+     * @return string
+     */
+    protected function getHashLinkFromSearchParams(): string
+    {
+        if ($hmac = SearchParameterUtility::serializeParameters($this->request)) {
+            $parameterNamespace = SearchParameterUtility::getParameterNamespace($this->request);
+            return $this->uriBuilder
+                ->reset()
+                ->setRequest($this->request)
+                ->setArguments([$parameterNamespace => ['hash' => $hmac]])
+            ->build();
+        }
+
+        return '';
+    }
 
 }

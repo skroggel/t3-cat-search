@@ -23,6 +23,14 @@
 				<source>Show result of indexing in backend</source>
 				<target>Zeige Indexierungsergebnis im Backend an</target>
 			</trans-unit>
+			<trans-unit id="extConf.pageTitleFields">
+				<source>Comma-separated list of fields for generating the page title. First field with data is used.</source>
+				<target>Kommaseparierte Liste von Feldern für die Generierung des Seitentitels. Erstes Feld mit Daten wird verwendet.</target>
+			</trans-unit>
+			<trans-unit id="extConf.pageTitleSeparator">
+				<source>Separator for page title. If set, the page title is composed of all defined fields.</source>
+				<target>Trennzeichen für Seitentitel. Wenn gesetzt, wird der Seitentitel aus allen definierten Feldern zusammengesetzt.</target>
+			</trans-unit>
 
 
 			<!-- Content Element Wizard -->

@@ -27,7 +27,7 @@
 
                     <div class="col-12 col-lg-6">
                         <f:comment><!-- render all filters --></f:comment>
-                        <f:for each="{catSearch:sortFiltersByFilterType(filters: item.filters)}" as="sortedFilters">
+                        <f:for each="{catSearch:grouping.filtersByFilterType(filters: item.filters)}" as="sortedFilters">
                             <ul class="catsearch-detail-filter-list">
                                 <f:for each="{sortedFilters.filters}" as="filter">
                                     <li class="catsearch-detail-filter">{filter.titleCombined}</li>

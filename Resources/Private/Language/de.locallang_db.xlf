@@ -89,6 +89,14 @@
 				<source>Default</source>
 				<target>Standard</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.language">
+				<source>Language</source>
+				<target>Sprache</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.language.0">
+				<source>Default</source>
+				<target>Standard</target>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.title">
 				<source>Title</source>
 				<target>Titel</target>
@@ -96,6 +104,10 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.title_cleaned">
 				<source>Title (cleaned)</source>
 				<target>Titel (bereinigt)</target>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.title_seo">
+				<source>Title SEO</source>
+				<target>Titel SEO</target>
 			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.subtitle">
 				<source>Subtitle</source>

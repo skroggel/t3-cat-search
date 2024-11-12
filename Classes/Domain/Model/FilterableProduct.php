@@ -17,6 +17,7 @@ namespace Madj2k\CatSearch\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 
 /**
@@ -663,7 +664,7 @@ class FilterableProduct extends Filterable
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableDocuments
      */
-    public function getRelatedFilterableDocumentDocuments(): ObjectStorage
+    public function getRelatedFilterableDocuments(): ObjectStorage
     {
         return $this->relatedFilterableDocuments;
     }
@@ -774,6 +775,5 @@ class FilterableProduct extends Filterable
     {
         $this->relatedFilterableProducts = $relatedFilterableProducts;
     }
-
 
 }

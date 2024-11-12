@@ -5,6 +5,8 @@ return [
     'ctrl' => [
         'title' => $ll .'tx_catsearch_domain_model_filterable',
         'label' => 'title',
+        'label_alt' => 'subtitle, language',
+        'label_alt_force' => true,
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'default_sortby' => 'ORDER BY title ASC',
@@ -75,7 +77,7 @@ return [
 				--linebreak--,
 				title_cleaned,
 				--linebreak--,
-				slug,
+				title_seo,
 				--linebreak--,
 				subtitle,
 				',
@@ -88,6 +90,8 @@ return [
 				title,
 				--linebreak--,
 				title_cleaned,
+				--linebreak--,
+				title_seo,
 				--linebreak--,
 				slug,
 				--linebreak--,
@@ -135,7 +139,9 @@ return [
         'meta_document' => [
             'label' => $ll . 'palette.meta',
             'showitem' => '
-				publish_date',
+				publish_date,
+				 --linebreak--,
+				language,',
         ],
         'meta_product' => [
             'label' => $ll . 'palette.meta',
@@ -331,6 +337,24 @@ return [
                 'minitems' => 1,
             ],
         ],
+        'language' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll . 'tx_catsearch_domain_model_filterable.language',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [
+                        'label' => $ll . 'tx_catsearch_domain_model_filterable.language.0',
+                        'value' => 0,
+                    ],
+                ],
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 1,
+            ],
+        ],
         'title' => [
             'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.title',
@@ -346,6 +370,14 @@ return [
                 'readOnly' => true,
                 'type' => 'input',
                 'size' => 30,
+                'eval' => 'trim',
+            ]
+        ],
+        'title_seo' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.title_seo',
+            'config' => [
+                'type' => 'input',
                 'eval' => 'trim',
             ]
         ],
@@ -584,6 +616,7 @@ return [
                 'type' => 'file',
                 'allowed' => ['pdf,doc,docx,xls,xlsx,ppt,pptx,zip'],
                 'maxitems' => 1,
+                'minitems' => 1,
             ]
         ],
         'downloads' => [
@@ -648,7 +681,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 1 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 1 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, ###REC_FIELD_sys_language_uid###) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterabledocuments_mm',
                 'MM_opposite_field' => 'related_filterable_products',
                 'minitems' => 0
@@ -662,7 +695,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 2 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 2 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, ###REC_FIELD_sys_language_uid###) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterabledocuments_mm',
                 'minitems' => 0
             ],

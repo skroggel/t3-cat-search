@@ -39,6 +39,9 @@ plugin.tx_catsearch {
 	}
 }
 
+# ================================================================================
+# Plugins
+# ================================================================================
 
 plugin.tx_catsearch_search < plugin.tx_catsearch
 plugin.tx_catsearch_search  {
@@ -88,6 +91,19 @@ plugin.tx_catsearch_detail {
     }
 
     settings {
+        pageTitleProvider = Madj2k\CatSearch\PageTitle\PageTitleProvider
+    }
+}
 
+
+# ================================================================================
+# PageTitleProvider
+# ================================================================================
+config {
+    pageTitleProviders {
+        catSearch {
+            provider = Madj2k\CatSearch\PageTitle\PageTitleProvider
+            before = record, seo, yoastRecord
+        }
     }
 }

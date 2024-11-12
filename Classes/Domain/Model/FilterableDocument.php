@@ -31,6 +31,12 @@ class FilterableDocument extends Filterable
 {
 
     /**
+     * @var string
+     */
+    protected string $language = '';
+
+
+    /**
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
      */
     protected ?FileReference $download = null;
@@ -54,11 +60,34 @@ class FilterableDocument extends Filterable
 
 
     /**
+     * Returns the language
+     *
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+
+    /**
+     * Sets the language
+     *
+     * @param string $language
+     * @return void
+     */
+    public function setLanguage(string $language): void
+    {
+        $this->language = $language;
+    }
+
+
+    /**
      * Returns the download
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $downloads
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference|null $downloads
      */
-    public function getDownload(): FileReference
+    public function getDownload(): ?FileReference
     {
         return $this->download;
     }

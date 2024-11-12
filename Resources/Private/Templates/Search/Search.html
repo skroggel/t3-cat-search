@@ -5,6 +5,8 @@
 
 	<section class="catsearch variant-{settings.layout}" id="c{data.uid}">
 
+        <script>history.replaceState(null,'','{hashedParametersLink}#c{data.uid}');</script>
+
         <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
         
 		<catSearch:searchForm action="search" class="search-form" name="search" object="{search}" section="c{data.uid}" method="GET">

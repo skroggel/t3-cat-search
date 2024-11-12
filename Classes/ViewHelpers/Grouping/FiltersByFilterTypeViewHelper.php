@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Madj2k\CatSearch\ViewHelpers;
+namespace Madj2k\CatSearch\ViewHelpers\Grouping;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,20 +15,18 @@ namespace Madj2k\CatSearch\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\CatSearch\Domain\Model\FilterableInterface;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class SortRelatedSubTypeViewHelper
+ * Class FiltersByFilterTypeViewHelper
  *
  * @author Steffen Kroggel <mail@steffenkroggel.de>
  * @copyright Steffen Kroggel <mail@steffenkroggel.de>
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-final class SortRelatedBySubTypeViewHelper extends AbstractViewHelper
+final class FiltersByFilterTypeViewHelper extends AbstractViewHelper
 {
 
 	/**
@@ -39,7 +37,7 @@ final class SortRelatedBySubTypeViewHelper extends AbstractViewHelper
 	public function initializeArguments(): void
 	{
 		parent::initializeArguments();
-		$this->registerArgument('filterables', ObjectStorage::class, 'The related filterables as array', true);
+		$this->registerArgument('filters', 'array', 'The filters as array', true);
 	}
 
 
@@ -55,21 +53,24 @@ final class SortRelatedBySubTypeViewHelper extends AbstractViewHelper
 		RenderingContextInterface $renderingContext
 	): array {
 
-        /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable> $filterables */
-		$filterables = $arguments['filterables'];
+		/** @var array $filters */
+		$filters = $arguments['filters'];
 
-        /** @var \Madj2k\CatSearch\Domain\Model\FilterableInterface $filterable */
+        /** @var \Madj2k\CatSearch\Domain\Model\Filter $filter */
         $result = [];
-        foreach ($filterables as $filterable) {
+        foreach ($filters as $filter) {
 
-            if ($filterable instanceof FilterableInterface) {
-                if ($subType = $filterable->getSubType()) {
-                    if (! isset($result[$subType])) {
-                        $result[$subType] = [];
-                    }
-                    $result[$subType][] = $filterable;
+            if ($filterType = $filter->getType()) {
+
+                if (! isset($result[$filterType->getUid()])) {
+                    $result[$filterType->getUid()] = [
+                        'filterType' => $filterType,
+                        'filters' => []
+                    ];
                 }
+                $result[$filterType->getUid()]['filters'][] = $filter;
             }
+
         }
 
         return $result;

@@ -52,6 +52,12 @@ call_user_func(
         );
 
         //=================================================================
+        // Routing
+        //=================================================================
+       // $GLOBALS['TYPO3_CONF_VARS']['SYS']['routing']['enhancers']['SearchEnhancer'] =
+       //     \Madj2k\CatSearch\Routing\SearchEnhancer::class;
+
+        //=================================================================
         // Hooks
         //=================================================================
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] =

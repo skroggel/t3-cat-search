@@ -37,9 +37,9 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
-     * @var int
+     * @var string
      */
-    protected int $subType = 0;
+    protected string $subType = '';
 
 
     /**
@@ -53,6 +53,11 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
      */
     protected string $title = '';
 
+
+    /**
+     * @var string
+     */
+    protected string $titleSeo = '';
 
     /**
      * @var string
@@ -146,9 +151,9 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     /**
      * Returns the subType
      *
-     * @return int
+     * @return string
      */
-    public function getSubType(): int
+    public function getSubType(): string
     {
         return $this->subType;
     }
@@ -157,10 +162,10 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     /**
      * Sets the subType
      *
-     * @param int $subType
+     * @param string $subType
      * @return void
      */
-    public function setSubType(int $subType): void
+    public function setSubType(string $subType): void
     {
         $this->subType = $subType;
     }
@@ -209,6 +214,29 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+
+
+    /**
+     * Returns the titleSeo
+     *
+     * @return string
+     */
+    public function getTitleSeo(): string
+    {
+        return $this->titleSeo;
+    }
+
+
+    /**
+     * Sets the titleSeo
+     *
+     * @param string $titleSeo
+     * @return void
+     */
+    public function setTitleSeo(string $titleSeo): void
+    {
+        $this->titleSeo = $titleSeo;
     }
 
 
@@ -494,4 +522,29 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
         return $this->contentIndex;
     }
 
+
+    /**
+     * Filters an object storage by the language of the current object
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    protected function filterObjectStorageByLanguage(ObjectStorage $objectStorage): ObjectStorage
+    {
+        $currentLanguageUid = $this->_getProperty(self::PROPERTY_LANGUAGE_UID);
+        $filteredObjectStorage = new ObjectStorage();
+
+        /** @var \TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object */
+        foreach ($objectStorage as $object) {
+            $objectLanguage = $object->_getProperty(self::PROPERTY_LANGUAGE_UID);
+            if (
+                ($objectLanguage == $currentLanguageUid)
+                || ($objectLanguage == -1)
+            ){
+                $filteredObjectStorage->attach($object);
+            };
+        }
+
+        return $filteredObjectStorage;
+    }
 }
