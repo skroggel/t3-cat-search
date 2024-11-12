@@ -1,0 +1,26 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+      data-namespace-typo3-fluid="true"
+>
+	<f:if condition="{search.isActive}">
+
+        <f:link.action action="removeAllSearchFilters"
+                       section="c{data.uid}"
+                       title="{f:translate(key:'search.filters.reset.label')}"
+                       class="filter-tag filter-tag-reset">
+            <span>{f:translate(key:'search.tags.reset.label')}</span>
+        </f:link.action>
+
+        <ul class="catsearch-tag-list">
+            <f:for each="{search.allFilters}" as="filterId">
+                <f:render partial="Search/Filters/Tags/Item" 
+                          arguments="{property: '_filters', value: filterId, label: '{filtersCombined.{filterId}}'}" />
+            </f:for>
+            
+            <f:render partial="Search/Filters/Tags/Item" 
+                      arguments="{property: 'year', value: search.year, label: search.year}" />
+            
+            <f:render partial="Search/Filters/Tags/Item" 
+                      arguments="{property: 'textQuery', value: search.textQuery, label: search.textQuery}" />
+        </ul>
+	</f:if>
+</html>

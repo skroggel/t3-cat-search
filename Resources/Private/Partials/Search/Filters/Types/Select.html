@@ -1,0 +1,36 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+    <f:if condition="{filterOptions}">
+        <div class="catsearch-filter catsearch-filter-type-{filterType.uid} form-group">
+
+            <f:render partial="Search/Filters/Label" 
+                      arguments="{labelFor: 'tx-catsearch-select-{filterType.uid}-{data.uid}', 
+                                  label: filterType.title, data: data, settings: settings, 
+                                  settingsForLayout: settingsForLayout}" />
+            
+            <f:if condition="{allowMultiple}">
+                <f:then>
+                    <f:form.select property="{filterName}"
+                                   options="{filterOptions}"
+                                   id="tx-catsearch-select-{filterType.uid}-{data.uid}"
+                                   class="catsearch-filter-select form-control select2-multiple"
+                                   value="{search.{filterName}}"
+                                   multiple="1"
+                    />
+                </f:then>
+                <f:else>
+                    <f:form.select property="{filterName}"
+                                   options="{filterOptions}"
+                                   data-placeholder="{filterType.title}"
+                                   prependOptionLabel="{filterType.title}"
+                                   prependOptionValue=""
+                                   id="tx-catsearch-select-{filterType.uid}-{data.uid}"
+                                   class="catsearch-filter-select form-control select2-single"
+                                   value="{search.{filterName}}"
+                    />
+                </f:else>
+            </f:if>
+        </div>
+    </f:if>
+</html>

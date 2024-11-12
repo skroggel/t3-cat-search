@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:catSearch="http://typo3.org/ns/Madj2k/CatSearch/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+>
+
+	<div class="catsearch-sorting variant-{settings.layout}">
+		<div class="form-group">
+			<label for="tx-catsearch-sorting-{data.uid}" class="form-label">{f:translate(key:'search.sorting.label')}</label>
+			<f:form.select property="sorting"
+						   options="{catSearch:localizedSortingOptions(options: searchOptions.sorting)}"
+						   id="tx-catsearch-sorting-{data.uid}"
+						   class="form-select js-submit-on-change"
+						   aria-label="{f:translate(key:'search.sorting.ariaLabel')}"
+						   value="{search.sorting}"
+			/>
+		</div>
+	</div>
+
+</html>

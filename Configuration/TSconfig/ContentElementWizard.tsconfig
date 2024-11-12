@@ -1,0 +1,45 @@
+mod.wizards.newContentElement.wizardItems.catSearch {
+    header = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:contentElementWizward.header
+    elements {
+		search {
+			iconIdentifier = catsearch-plugin-search
+			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_search.title
+			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_search.description
+			tt_content_defValues {
+				CType = list
+				list_type = catsearch_search
+			}
+		}
+		searchRelated {
+			iconIdentifier = catsearch-plugin-searchrelated
+			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_searchrelated.title
+			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_searchrelated.description
+			tt_content_defValues {
+				CType = list
+				list_type = catsearch_searchrelated
+			}
+		}
+        teaserFiltered {
+			iconIdentifier = catsearch-plugin-teaserfiltered
+			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_teaserfiltered.title
+			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_teaserfiltered.description
+			tt_content_defValues {
+				CType = list
+				list_type = catsearch_teaserfiltered
+			}
+		}
+        detail {
+			iconIdentifier = catsearch-plugin-detail
+			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail.title
+			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail.description
+			tt_content_defValues {
+				CType = list
+				list_type = catsearch_teaserfiltered
+			}
+		}
+    }
+
+    show = *
+}
+
+

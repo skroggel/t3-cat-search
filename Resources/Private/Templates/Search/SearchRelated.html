@@ -1,0 +1,64 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  data-namespace-typo3-fluid="true"
+>
+
+	<f:if condition="{results}">
+		<f:switch expression="{settings.layout}">
+			<f:case value="big">
+                <f:render section="Big" 
+                          arguments="{results:results, data:data, settings: settings, settingsForLayout: settingsForLayout}" />
+            </f:case>
+			<f:defaultCase>
+                <f:render section="Default" 
+                          arguments="{results:results, data:data, settings: settings, settingsForLayout: settingsForLayout}" />
+            </f:defaultCase>
+		</f:switch>
+	</f:if>
+
+	<f:comment><!-- ============================================================================== --></f:comment>
+
+	<f:section name="Default">
+
+		<section class="catsearch-related" id="c{data.uid}">
+
+            <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-12">
+                        <f:for each="{results}" as="item">
+                            <f:render partial="SearchRelated/Item"
+                                      arguments="{item: item, data: data, settings: settings, 
+                                                  settingsForLayout: settingsForLayout}" />
+                        </f:for>
+                    </div>
+                </div>
+            </div>
+		</section>
+
+	</f:section>
+
+	<f:comment><!-- ============================================================================== --></f:comment>
+
+	<f:section name="Big">
+
+        <section class="catsearch-related" id="c{data.uid}">
+
+            <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-12">
+                        <f:for each="{results}" as="item">
+                            <f:render partial="SearchRelated/Item"
+                                      arguments="{item: item, data: data, settings: settings, 
+                                                  settingsForLayout: settingsForLayout}" />
+                        </f:for>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+	</f:section>
+
+</html>
