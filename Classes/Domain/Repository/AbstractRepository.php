@@ -33,7 +33,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
     /**
      * @const string
      */
-    const string TABLE_FILTERABLE = 'tx_catsearch_domain_model_filterable';
+    const TABLE_FILTERABLE = 'tx_catsearch_domain_model_filterable';
 
 
     /**

@@ -32,7 +32,7 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
     /**
      * @const string
      */
-    const string FIELD_FILTERABLE = 'filterables';
+    const FIELD_FILTERABLE = 'filterables';
 
 
     /**
