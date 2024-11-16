@@ -20,5 +20,22 @@ return [
     \Madj2k\CatSearch\Domain\Model\FilterableAccessory::class => [
         'tableName' => 'tx_catsearch_domain_model_filterable',
         'recordType' => 3,
-    ]
+    ],
+    \Madj2k\CatSearch\Domain\Model\TtContent::class => [
+        'tableName' => 'tt_content',
+        'properties' => [
+            'altText' => [
+                'fieldName' => 'altText',
+            ],
+            'titleText' => [
+                'fieldName' => 'titleText',
+            ],
+            'colPos' => [
+                'fieldName' => 'colPos',
+            ],
+            'CType' => [
+                'fieldName' => 'CType',
+            ],
+        ],
+    ],
 ];

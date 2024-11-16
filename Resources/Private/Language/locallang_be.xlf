@@ -26,6 +26,12 @@
 			<trans-unit id="extConf.pageTitleSeparator">
 				<source>Separator for page title. If set, the page title is composed of all defined fields.</source>
 			</trans-unit>
+			<trans-unit id="extConf.contentElementsAllowedCTypes">
+				<source>Allowed cTypes for linked content elements: fieldValue,fieldLabel;anotherFieldValue,anotherFieldLabel</source>
+				</trans-unit>
+			<trans-unit id="extConf.contentElementsDefaultCType">
+				<source>Standard cType for linked content elements.</source>
+			</trans-unit>
 
 
 			<!-- Content Element Wizard -->
@@ -75,6 +81,9 @@
 			</trans-unit>
 			<trans-unit id="flexform.settings.filter">
 				<source>Filter</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.item">
+				<source>Item (if not given via link-parameters)</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterExclude">
 				<source>Filter (exclude)</source>

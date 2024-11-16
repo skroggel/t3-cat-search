@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:catSearch="http://typo3.org/ns/Madj2k/CatSearch/ViewHelpers" 
+      data-namespace-typo3-fluid="true"
+>
+      <catSearch:metaTag property="og:url" content="" useCurrentDomain="1" />
+
+      <f:if condition="{item.titleSeo} || {item.title}">
+          <f:variable name="title" value="{f:if(condition: '{item.titleSeo}', then: '{item.titleSeo}', else: '{item.title}')}" />
+          <catSearch:metaTag property="og:title" content="{title -> f:format.stripTags()}" />
+      </f:if>
+      
+      <f:if condition="{settings.openGraph.type}">
+          <catSearch:metaTag property="og:type" content="{settings.openGraph.type}" />
+      </f:if>
+      
+      <f:if condition="{settings.openGraph.siteName}">
+          <catSearch:metaTag property="og:site_name" content="{settings.openGraph.siteName}" />
+      </f:if>
+      
+      <f:if condition="{item.teaserImage}">
+          <f:variable name="ogImagePath" 
+                      value="{f:uri.image(src:'{item.teaserImage.uid}', treatIdAsReference:1, maxWidth:'1200')}" />
+          <catSearch:metaTag
+              property="og:image"
+              content="{ogImagePath}"
+              forceAbsoluteUrl="1" />
+      </f:if>
+
+      <f:if condition="{item.descriptionSeo} || {item.teaser}">
+          <f:variable name="description" value="{f:if(condition: '{item.descriptionSeo}', then: '{item.descriptionSeo}', else: '{item.teaser}')}" />
+          <catSearch:metaTag name="description" content="{description -> f:format.stripTags()}" />
+          <catSearch:metaTag property="og:description" content="{description -> f:format.stripTags()}" />
+      </f:if>
+
+      <f:if condition="{settings.openGraph.admins}">
+          <catSearch:metaTag property="fb:admins" content="{settings.openGraph.fbAdmins}" />
+      </f:if>
+      <f:if condition="{settings.openGraph.locale}">
+          <catSearch:metaTag property="og:locale" content="{settings.openGraph.locale}" />
+      </f:if>
+
+      <f:if condition="{settings.openGraph.twitter.site} && {settings.openGraph.twitter.card} && {settings.openGraph.twitter.creator}">
+          <catSearch:metaTag name="twitter:card" content="{settings.openGraph.twitter.card}" />
+          <catSearch:metaTag name="twitter:site" content="{settings.openGraph.twitter.site}" />
+          <catSearch:metaTag name="twitter:creator" content="{settings.openGraph.twitter.creator}" />
+      </f:if>
+
+</html>
+

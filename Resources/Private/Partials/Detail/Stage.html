@@ -2,21 +2,18 @@
 	  data-namespace-typo3-fluid="true"
 >
 
-    <f:variable name="section" value="Default" />
-    <f:comment><!-- 
-        <f:if condition="{settings.layout} == 'big'">
-            <f:variable name="section" value="Big" />
-        </f:if>
-    --></f:comment>
-    
-    <f:render section="{section}" arguments="{_all}"/>
-    
+    <f:if condition="{item.header} || {item.mainImage}">
+        <f:render section="{layout}" arguments="{_all}"/>
+    </f:if>
+
     <f:comment><!-- ============================================================================== --></f:comment>
 
     <f:section name="Default">
-        <div class="catsearch-detail-stage variant-{settings.layout}">
-            <h3>Default: {item.header}</h3>
-            <p>{item.teaser}</p>
+        <div class="catsearch-detail-stage variant-{layout -> f:format.case(mode:'lower')}">
+            <h1>Default: {item.header}</h1>
+            <f:if condition="{item.mainImage}">
+                <f:image image="{item.mainImage}" maxWidth="500" />
+            </f:if>
         </div>
     </f:section>
 

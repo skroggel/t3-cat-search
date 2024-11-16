@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:catSearch="http://typo3.org/ns/Madj2k/CatSearch/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+>
+
+    <f:comment><!-- group by sub-type --></f:comment>
+    <f:variable name="documents" value="{catSearch:filter.objectStorageByLanguage(objectStorage: item.relatedFilterableDocuments}" />
+
+    <f:for each="{catSearch:grouping.filterablesBySubType(filterables: documents)}" key="key" as="groupedDocuments">
+        <div class="catsearch-detail-additional-downloads">
+            <figure class="figure table table-responsive">
+                <table class="table">
+                    <tbody>
+                        <f:for each="{groupedDocuments}" as="document">
+
+                            <f:variable name="fileSize"
+                                        value="{document.download.originalResource.properties.size
+                                                    -> f:format.bytes(units:'{f:translate(key: \'viewhelper.format.bytes.units\', extensionName:\'fluid\')}')}" />
+
+                            <f:variable name="extension"
+                                        value="{document.download.originalResource.properties.extension
+                                                    -> f:format.case(mode:'upper')}" />
+
+                            <tr>
+                                <th><f:format.html parseFuncTSPath="lib.parseFunc_Headline">{document.title}</f:format.html></th>
+                                <td><f:format.date format="{f:translate(key:'detail.download.dateFormat'}">{document.publishDate}</f:format.date></td>
+                                <td>
+                                    <f:if condition="{document.download}">
+                                        <f:link.file file="{document.download.originalResource}"
+                                                     download="true"
+                                                     filename="{document.download.originalResource.properties.download_name}"
+                                                     class="link">
+                                            {f:translate(key:'detail.download.label')} ({extension}, {fileSize})
+                                        </f:link.file>
+                                    </f:if>
+                                </td>
+                            </tr>
+                        </f:for>
+                    </tbody>
+                </table>
+            </figure>
+        </div>
+    </f:for>
+</html>

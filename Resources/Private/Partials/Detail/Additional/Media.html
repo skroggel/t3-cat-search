@@ -1,0 +1,26 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:catSearch="http://typo3.org/ns/Madj2k/CatSearch/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+>
+
+    <f:for each="{item.mediaFiles}" as="mediaItem">
+
+        <f:media file="{file}"
+                 height="{height}"
+                 width="{width}"
+                 alt="{file.alternative}"
+                 title="{file.title}"
+                 class="{class}"
+                 additionalConfig="{additionalConfig}" />
+
+        <f:if condition="{mediaItem.originalResource.properties.tx_catsearch_header}">
+            <h3>{mediaItem.originalResource.properties.tx_catsearch_header}</h3>
+        </f:if>
+
+        <f:if condition="{mediaItem.originalResource.properties.tx_catsearch_bodytext}">
+            <p>{mediaItem.originalResource.properties.tx_catsearch_bodytext -> f:format.html()}</p>
+        </f:if>
+
+    </f:for>
+
+</html>

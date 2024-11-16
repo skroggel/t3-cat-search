@@ -82,6 +82,12 @@ class FilterableProduct extends Filterable
     /**
      * @var string
      */
+    protected string $productNumber = '';
+
+
+    /**
+     * @var string
+     */
     protected string $features = '';
 
 
@@ -353,6 +359,29 @@ class FilterableProduct extends Filterable
     public function setDescription3(string $description3): void
     {
         $this->description3 = $description3;
+    }
+
+
+    /**
+     * Returns the productNumber
+     *
+     * @return string
+     */
+    public function getProductNumber(): string
+    {
+        return $this->productNumber;
+    }
+
+
+    /**
+     * Sets the productNumber
+     *
+     * @param string $productNumber
+     * @return void
+     */
+    public function setProductNumber(string $productNumber): void
+    {
+        $this->productNumber = $productNumber;
     }
 
 
@@ -712,7 +741,7 @@ class FilterableProduct extends Filterable
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableAccessorys
      */
-    public function getRelatedFilterableAccessoryAccessories(): ObjectStorage
+    public function getRelatedFilterableAccessories(): ObjectStorage
     {
         return $this->relatedFilterableAccessories;
     }
@@ -724,7 +753,7 @@ class FilterableProduct extends Filterable
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableAccessories
      * @return void
      */
-    public function setRelatedFilterableAccessoryAccessories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableAccessories): void
+    public function setRelatedFilterableAccessories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableAccessories): void
     {
         $this->relatedFilterableAccessories = $relatedFilterableAccessories;
     }

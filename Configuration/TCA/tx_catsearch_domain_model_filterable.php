@@ -1,6 +1,5 @@
 <?php
 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
-
 return [
     'ctrl' => [
         'title' => $ll .'tx_catsearch_domain_model_filterable',
@@ -35,7 +34,9 @@ return [
         // document
         '1' => [
             'showitem' => 'record_type,--palette--;;main_document,
+            --div--;' . $ll . 'tab.seo,--palette--;;seo_document,
             --div--;' . $ll . 'tab.description,--palette--;;description_document,
+            --div--;' . $ll . 'tab.content,--palette--;;content_document,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_document,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_document,
             --div--;' . $ll . 'tab.filter,--palette--;;filter,
@@ -46,8 +47,10 @@ return [
         // product
         '2' => [
             'showitem' => 'record_type,--palette--;;main_product,
+            --div--;' . $ll . 'tab.seo,--palette--;;seo_product,
             --div--;' . $ll . 'tab.description,--palette--;;description_product,
             --div--;' . $ll . 'tab.description2,--palette--;;description2_product,
+            --div--;' . $ll . 'tab.content,--palette--;;content_product,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_product,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_product,
             --div--;' . $ll . 'tab.filter,--palette--;;filter,
@@ -57,12 +60,15 @@ return [
         ],
         // accessory
         '3' => [
-            'showitem' => 'record_type,--palette--;;main_product,
-            --div--;' . $ll . 'tab.description,--palette--;;description_product,
-            --div--;' . $ll . 'tab.meta,--palette--;;meta_product,
+            'showitem' => 'record_type,--palette--;;main_accessory,
+            --div--;' . $ll . 'tab.seo,--palette--;;seo_accessory,
+            --div--;' . $ll . 'tab.description,--palette--;;description_accessory,
+            --div--;' . $ll . 'tab.description2,--palette--;;description2_accessory,
+            --div--;' . $ll . 'tab.content,--palette--;;content_accessory,
+            --div--;' . $ll . 'tab.meta,--palette--;;meta_accessory,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_accessory,
             --div--;' . $ll . 'tab.filter,--palette--;;filter,
-            --div--;' . $ll . 'tab.media,--palette--;;media_product,
+            --div--;' . $ll . 'tab.media,--palette--;;media_accessory,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
         ],
@@ -73,13 +79,15 @@ return [
             'showitem' => '
                 sub_type,
                 --linebreak--,
+                layout,
+                --linebreak--,
 				title,
 				--linebreak--,
 				title_cleaned,
 				--linebreak--,
-				title_seo,
-				--linebreak--,
 				subtitle,
+				--linebreak--,
+				detail_pid
 				',
         ],
         'main_product' => [
@@ -87,21 +95,64 @@ return [
             'showitem' => '
                 sub_type,
                 --linebreak--,
+                layout,
+                --linebreak--,
 				title,
 				--linebreak--,
 				title_cleaned,
 				--linebreak--,
-				title_seo,
+				subtitle,
 				--linebreak--,
-				slug,
+				detail_pid
+				',
+        ],
+        'main_accessory' => [
+            'label' => $ll . 'palette.main',
+            'showitem' => '
+                sub_type,
+                --linebreak--,
+                layout,
+                --linebreak--,
+				title,
+				--linebreak--,
+				title_cleaned,
 				--linebreak--,
 				subtitle,
+				--linebreak--,
+				detail_pid
 				',
         ],
         'filter' => [
             'label' => $ll . 'palette.filter',
             'showitem' => '
 				filters',
+        ],
+        'seo_document' => [
+            'label' => $ll . 'palette.seo',
+            'showitem' => '
+				slug,
+                --linebreak--,
+				title_seo,
+				--linebreak--,
+				description_seo',
+        ],
+        'seo_product' => [
+            'label' => $ll . 'palette.seo',
+            'showitem' => '
+				slug,
+                --linebreak--,
+				title_seo,
+				--linebreak--,
+				description_seo',
+        ],
+        'seo_accessory' => [
+            'label' => $ll . 'palette.seo',
+            'showitem' => '
+				slug,
+                --linebreak--,
+				title_seo,
+				--linebreak--,
+				description_seo',
         ],
         'description_document' => [
             'label' => $ll . 'palette.description',
@@ -111,6 +162,17 @@ return [
 				description',
         ],
         'description_product' => [
+            'label' => $ll . 'palette.description',
+            'showitem' => '
+				teaser,
+				--linebreak--,
+				header,
+                --linebreak--,
+				subheader,
+				--linebreak--,
+				description,'
+        ],
+        'description_accessory' => [
             'label' => $ll . 'palette.description',
             'showitem' => '
 				teaser,
@@ -136,11 +198,43 @@ return [
 				--linebreak--,
 				description3',
         ],
+        'description2_accessory' => [
+            'label' => $ll . 'palette.description2',
+            'showitem' => '
+				header2,
+                --linebreak--,
+				subheader2,
+                --linebreak--,
+				description2,
+				--linebreak--,
+				header3,
+                --linebreak--,
+				subheader3,
+				--linebreak--,
+				description3',
+        ],
+        'content_document' => [
+            'label' => $ll . 'palette.content',
+            'showitem' => '
+				content_elements',
+        ],
+        'content_product' => [
+            'label' => $ll . 'palette.content',
+            'showitem' => '
+				content_elements',
+        ],
+        'content_accessory' => [
+            'label' => $ll . 'palette.content',
+            'showitem' => '
+				content_elements',
+        ],
         'meta_document' => [
             'label' => $ll . 'palette.meta',
             'showitem' => '
 				publish_date,
 				 --linebreak--,
+                manufacturer,
+                --linebreak--,
 				language,',
         ],
         'meta_product' => [
@@ -149,6 +243,27 @@ return [
 				publish_date,
                 --linebreak--,
                 product_number,
+                --linebreak--,
+                manufacturer,
+                --linebreak--,
+				highlights,
+				--linebreak--,
+				features,
+				--linebreak--,
+				options,
+				--linebreak--,
+				applications,
+				--linebreak--,
+				details',
+        ],
+        'meta_accessory' => [
+            'label' => $ll . 'palette.meta',
+            'showitem' => '
+				publish_date,
+                --linebreak--,
+                product_number,
+                --linebreak--,
+                manufacturer,
                 --linebreak--,
 				highlights,
 				--linebreak--,
@@ -168,6 +283,21 @@ return [
 				download',
         ],
         'media_product' => [
+            'label' => $ll . 'palette.media',
+            'showitem' => '
+                teaser_image,
+                --linebreak--,
+                main_image,
+                --linebreak--,
+                images,
+                --linebreak--,
+				downloads,
+				--linebreak--,
+				data_sheets,
+				--linebreak--,
+				media_files',
+        ],
+        'media_accessory' => [
             'label' => $ll . 'palette.media',
             'showitem' => '
                 teaser_image,
@@ -328,8 +458,30 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'label' => $ll . 'tx_catsearch_domain_model_filterable.sub_type.0',
-                        'value' => 0,
+                        'label' => $ll . 'tx_catsearch_domain_model_filterable.sub_type.default',
+                        'value' => 'default',
+                    ],
+                ],
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 1,
+            ],
+        ],
+        'layout' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll . 'tx_catsearch_domain_model_filterable.layout',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [
+                        'label' => $ll . 'tx_catsearch_domain_model_filterable.layout.default',
+                        'value' => 'default',
+                    ],
+                    [
+                        'label' => $ll . 'tx_catsearch_domain_model_filterable.layout.big',
+                        'value' => 'big',
                     ],
                 ],
                 'size' => 1,
@@ -353,6 +505,20 @@ return [
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 1,
+            ],
+        ],
+        'detail_pid' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll .'tx_catsearch_domain_model_filterable.detail_pid',
+            'config' => [
+                'type' => 'group',
+                'size' => 1,
+                'allowed' => 'pages',
+                'foreign_table' => 'pages',
+                'foreign_table_where' => 'AND pages.sys_language_uid IN (-1, 0) AND pages.hidden = 0 AND pages.deleted = 0 ORDER BY pages.title',
+                'minitems' => 0,
+                'maxitems' => 1
             ],
         ],
         'title' => [
@@ -463,6 +629,16 @@ return [
                 'rows' => 10,
                 'eval' => 'trim',
                 'enableRichtext' => true,
+            ],
+        ],
+        'description_seo' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.description_seo',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 10,
+                'eval' => 'trim',
             ],
         ],
         'description2' => [
@@ -577,6 +753,20 @@ return [
                 'fallbackCharacter' => '-',
                 'eval' => 'uniqueInSite',
                 'default' => '',
+            ],
+        ],
+        'manufacturer' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll .'tx_catsearch_domain_model_filterable.manufacturer',
+            'config' => [
+                'type' => 'group',
+                'size' => 1,
+                'allowed' => 'tx_catsearch_domain_model_manufacturer',
+                'foreign_table' => 'tx_catsearch_domain_model_manufacturer',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_manufacturer.pid=###CURRENT_PID### AND tx_catsearch_domain_model_manufacturer.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_manufacturer.hidden = 0 AND tx_catsearch_domain_model_manufacturer.deleted = 0 ORDER BY tx_catsearch_domain_model_manufacturer.title',
+                'minitems' => 0,
+                'maxitems' => 1
             ],
         ],
         'teaser_image' => [
@@ -738,6 +928,43 @@ return [
                 'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'MM' => 'tx_catsearch_filterable_filter_mm',
                 'minitems' => 0
+            ],
+        ],
+        'content_elements' => [
+            'exclude' => true,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.content_elements',
+            'config' => [
+                'type' => 'inline',
+                'allowed' => 'tt_content',
+                'foreign_table' => 'tt_content',
+                'foreign_sortby' => 'sorting',
+                'foreign_field' => 'tx_catsearch_content_element',
+                'minitems' => 0,
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => true,
+                    'expandSingle' => true,
+                    'levelLinksPosition' => 'bottom',
+                    'useSortable' => true,
+                    'showPossibleLocalizationRecords' => true,
+                    'showAllLocalizationLink' => true,
+                    'showSynchronizationLink' => true,
+                    'enabledControls' => [
+                        'info' => false,
+                    ],
+                ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ],
+                'overrideChildTca' => [
+                    'columns' => [
+                        'CType' => [
+                            'config' => [
+                                'itemsProcFunc' => Madj2k\CatSearch\UserFunctions\FormEngine\CTypeSelectItemProcFunc::class . '->itemsProcFunc',
+                            ]
+                        ]
+                    ]
+                ]
             ],
         ],
         'publish_date_year' => [

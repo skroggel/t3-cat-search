@@ -15,9 +15,11 @@ namespace Madj2k\CatSearch\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\CatSearch\Domain\DTO\Search;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Class AbstractRepository
@@ -83,7 +85,6 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
     /**
      * @param array $settings
      * @return array
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     protected function getRecordTypeFilter(array $settings): array
     {
@@ -105,4 +106,113 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
         return [];
     }
+
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param array $settings
+     * @param array $constraints
+     * @param \Madj2k\CatSearch\Domain\DTO\Search|null $search
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    protected function addSingleSelectIncludeFilterConstraint(
+        QueryInterface $query,
+        array $settings,
+        array &$constraints = [],
+        ?Search $search = null
+    ): array {
+
+        // get all single filters. We use AND here
+        if ($filters = $search->getAllSingleFilters()) {
+            foreach ($filters as $filter) {
+                if ($filter){
+                    $constraints[] = $query->contains('filters', $filter);
+                }
+            }
+        }
+
+        return $constraints;
+    }
+
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param array $settings
+     * @param array $constraints
+     * @param \Madj2k\CatSearch\Domain\DTO\Search|null $search
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    protected function addMultiSelectIncludeFilterConstraint(
+        QueryInterface $query,
+        array $settings,
+        array &$constraints = [],
+        ?Search $search = null
+    ): array {
+
+        // add multiple filters and pre-filter - but with OR-constrain!
+        $filters = [];
+        if ($search) {
+            $filters = $search->getAllMultiSelectFilters();
+        }
+
+        if (
+            (isset($settings['filter']))
+            && ($preFilter = GeneralUtility::trimExplode(',', $settings['filter'], true))
+        ){
+            $filters[] = $preFilter;
+        }
+
+        if ($filters) {
+            foreach ($filters as $filter) {
+
+                $subConstraints = [];
+                foreach ($filter as $filterValue) {
+                    if ($filterValue) {
+                        $subConstraints[] = $query->contains('filters', $filterValue);
+                    }
+                }
+
+                if (!empty($subConstraints)) {
+                    $constraints[] = $query->logicalOr(...$subConstraints);
+                }
+            }
+        }
+
+        return $constraints;
+    }
+
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param array $settings
+     * @param array $constraints
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    protected function addExcludeFilterConstraint(
+        QueryInterface $query,
+        array $settings,
+        array &$constraints = []
+    ): array {
+
+        if ((isset($settings['filterExclude']))
+            && ($filters = GeneralUtility::trimExplode(',', $settings['filterExclude'], true))
+        ){
+            $subConstraints = [];
+            foreach ($filters as $filter) {
+                if ($filter){
+                    $subConstraints[] = $query->contains('filters', $filter);
+                }
+            }
+
+            if (!empty($subConstraints)){
+                $constraints[] = $query->logicalNot(...$subConstraints);
+            }
+        }
+
+        return $constraints;
+    }
+
 }

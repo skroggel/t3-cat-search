@@ -26,11 +26,9 @@
             <div class="container-xxl">
                 <div class="row">
                     <div class="col-12">
-                        <f:for each="{results}" as="item">
-                            <f:render partial="SearchRelated/Item"
-                                      arguments="{item: item, data: data, settings: settings, 
-                                                  settingsForLayout: settingsForLayout}" />
-                        </f:for>
+                        <f:render partial="Teaser/List"
+                                  arguments="{results: results, data: data, settings: settings, 
+                                              settingsForLayout: settingsForLayout}" />
                     </div>
                 </div>
             </div>

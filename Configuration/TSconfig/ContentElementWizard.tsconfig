@@ -6,8 +6,7 @@ mod.wizards.newContentElement.wizardItems.catSearch {
 			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_search.title
 			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_search.description
 			tt_content_defValues {
-				CType = list
-				list_type = catsearch_search
+				CType = catsearch_search
 			}
 		}
 		searchRelated {
@@ -15,8 +14,7 @@ mod.wizards.newContentElement.wizardItems.catSearch {
 			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_searchrelated.title
 			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_searchrelated.description
 			tt_content_defValues {
-				CType = list
-				list_type = catsearch_searchrelated
+				CType = catsearch_searchrelated
 			}
 		}
         teaserFiltered {
@@ -24,8 +22,7 @@ mod.wizards.newContentElement.wizardItems.catSearch {
 			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_teaserfiltered.title
 			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_teaserfiltered.description
 			tt_content_defValues {
-				CType = list
-				list_type = catsearch_teaserfiltered
+				CType = catsearch_teaserfiltered
 			}
 		}
         detail {
@@ -33,8 +30,7 @@ mod.wizards.newContentElement.wizardItems.catSearch {
 			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail.title
 			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail.description
 			tt_content_defValues {
-				CType = list
-				list_type = catsearch_teaserfiltered
+				CType = catsearch_teaserfiltered
 			}
 		}
     }

@@ -3,22 +3,23 @@
       data-namespace-typo3-fluid="true"
 >
 
-    <f:if condition="{item.description}">
-        <f:render section="{layout}" arguments="{_all}"/>
-    </f:if>
+    <f:render section="{layout}" arguments="{_all}"/>  
 
     <f:comment><!-- ============================================================================== --></f:comment>
 
     <f:section name="Default">
-        <div class="catsearch-detail-description variant-{layout -> f:format.case(mode:'lower')}">
+        <div class="catsearch-detail-additional variant-{layout -> f:format.case(mode:'lower')}">
             <div class="container-xxl">
                 <div class="row">
                     <div class="col-12 col-lg-6">
-                        {item.description -> f:format.html()}
+                        <f:render partial="Detail/Additional/Documents"
+                                  arguments="{item: item, settings: settings}" />
+
+                        <f:render partial="Detail/Additional/Media"
+                                  arguments="{item: item, settings: settings}" />
                     </div>
                 </div>
             </div>
         </div>
     </f:section>
-
 </html>

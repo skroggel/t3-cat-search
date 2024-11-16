@@ -66,54 +66,9 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
             $constraints[] = $query->equals($recordTypeFilter['field'], $recordTypeFilter['value']);
         }
 
-		// get all single filters. We use AND here
-		if ($filters = $search->getAllSingleFilters()) {
-			foreach ($filters as $filter) {
-				if ($filter){
-					$constraints[] = $query->contains('filters', $filter);
-				}
-			}
-		}
-
-        // add multiple filters and pre-filter - but with OR-constrain!
-        $filters = $search->getAllMultiSelectFilters();
-        if ((isset($settings['filter']))
-            && ($preFilter = GeneralUtility::trimExplode(',', $settings['filter'], true))
-        ){
-            $filters[] = $preFilter;
-        }
-
-        if ($filters) {
-            foreach ($filters as $filter) {
-
-                $subConstraints = [];
-                foreach ($filter as $filterValue) {
-                    if ($filterValue) {
-                        $subConstraints[] = $query->contains('filters', $filterValue);
-                    }
-                }
-
-                if (!empty($subConstraints)) {
-                    $constraints[] = $query->logicalOr(...$subConstraints);
-                }
-            }
-        }
-
-        // exclude-filter
-        if ((isset($settings['filterExclude']))
-            && ($filters = GeneralUtility::trimExplode(',', $settings['filterExclude'], true))
-        ){
-            $subConstraints = [];
-            foreach ($filters as $filter) {
-                if ($filter){
-                    $subConstraints[] = $query->contains('filters', $filter);
-                }
-            }
-
-            if (!empty($subConstraints)){
-                $constraints[] = $query->logicalNot(...$subConstraints);
-            }
-        }
+        $this->addSingleSelectIncludeFilterConstraint($query, $settings, $constraints, $search);
+        $this->addMultiSelectIncludeFilterConstraint($query, $settings, $constraints, $search);
+        $this->addExcludeFilterConstraint($query, $settings, $constraints);
 
 		// search for year
 		if ($year = $search->getYear()) {
@@ -161,28 +116,27 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 
 
     /**
-     * Find all by given filter
+     * Find all by given settings
      *
-     * @param int $filter
      * @param array $settings
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-	public function findByFilter(int $filter, array $settings): QueryResultInterface
+	public function findBySettings(array $settings): QueryResultInterface
 	{
 
 		$query = $this->createQuery();
+        $constraints = [];
+
+        $this->addMultiSelectIncludeFilterConstraint($query, $settings, $constraints);
+        $this->addExcludeFilterConstraint($query, $settings, $constraints);
+
 		if (
             (isset($settings[$settings['layout']]['limit']))
             && ($limit = intval($settings[$settings['layout']]['limit']))
         ){
 			$query->setLimit($limit);
 		}
-
-        $constraints = [
-            $query->contains('filters', $filter)
-        ];
 
         // filter by recordType
         if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {

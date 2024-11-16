@@ -51,6 +51,14 @@
 			<trans-unit id="teaser.readMore.label">
 				<source>Read more</source>
 			</trans-unit>
+
+
+			<trans-unit id="detail.download.dateFormat">
+				<source>d-m-Y</source>
+			</trans-unit>
+			<trans-unit id="detail.download.label">
+				<source>Download</source>
+			</trans-unit>
         </body>
     </file>
 </xliff>

@@ -3,22 +3,15 @@
       data-namespace-typo3-fluid="true"
 >
     
-    <f:variable name="section" value="Default" />
-    <f:comment><!-- 
-        <f:if condition="{settings.layout} == 'big'">
-            <f:variable name="section" value="Big" />
-        </f:if>
-    --></f:comment>
-
     <f:if condition="{item.highlights} || {item.filters}">
-        <f:render section="{section}" arguments="{_all}"/>
+        <f:render section="{layout}" arguments="{_all}"/>
     </f:if>
     
     <f:comment><!-- ============================================================================== --></f:comment>
     
 
     <f:section name="Default">
-        <div class="catsearch-detail-highlights variant-{settings.layout}">
+        <div class="catsearch-detail-highlights variant-{layout -> f:format.case(mode:'lower')}">
             <div class="container-xxl">
                 <div class="row">
                     <div class="col-12 col-lg-6">
