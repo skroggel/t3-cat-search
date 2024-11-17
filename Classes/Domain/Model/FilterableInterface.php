@@ -15,7 +15,6 @@ namespace Madj2k\CatSearch\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
-
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -38,29 +37,11 @@ interface FilterableInterface
 
 
     /**
-     * Sets the recordType
+     * Returns the language
      *
-     * @param int $recordType
-     * @return void
+     * @return \Madj2k\CatSearch\Domain\Model\Language|null
      */
-    public function setRecordType(int $recordType): void;
-
-
-    /**
-     * Returns the subType
-     *
-     * @return string
-     */
-    public function getSubType(): string;
-
-
-    /**
-     * Sets the subType
-     *
-     * @param string $subType
-     * @return void
-     */
-    public function setSubType(string $subType): void;
+    public function getLanguage(): ?Language;
 
 
     /**
@@ -72,46 +53,75 @@ interface FilterableInterface
 
 
     /**
-     * Sets the publishDate
+     * Returns the title
      *
-     * @param int $publishDate
-     * @return void
+     * @return string
      */
-    public function setPublishDate(int $publishDate): void;
+    public function getTitle(): string;
 
 
     /**
-	 * Adds a filter
-	 *
-	 * @param \Madj2k\CatSearch\Domain\Model\Filter $filter
-	 * @return void
-	 */
-	public function addFilter(Filter $filter): void;
+     * Returns the relatedFilterables
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterables
+     */
+    public function getRelatedFilterables(): ObjectStorage;
 
 
-	/**
-	 * Removes a filter
-	 *
-	 * @param \Madj2k\CatSearch\Domain\Model\Filter $filter
-	 * @return void
-	 */
-	public function removeFilter(Filter $filter): void;
+
+    /**
+     * Returns the relatedFilterableDocuments
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableDocuments
+     */
+    public function getRelatedFilterableDocuments(): ObjectStorage;
 
 
-	/**
-	 * Returns the filters
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
-	 */
-	public function getFilters(): ObjectStorage;
+
+    /**
+     * Returns the relatedFilterableAccessories
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableAccessorys
+     */
+    public function getRelatedFilterableAccessories(): ObjectStorage;
 
 
-	/**
-	 * Sets the filters
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
-	 * @return void
-	 */
-	public function setFilters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $filters): void;
+    /**
+     * Returns the relatedFilterableProducts
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts
+     */
+    public function getRelatedFilterableProducts(): ObjectStorage;
 
+
+    /**
+     * Returns the relatedFilterableProducts2
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts2
+     */
+    public function getRelatedFilterableProducts2(): ObjectStorage;
+
+
+    /**
+     * Returns the filters
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
+     */
+    public function getFilters(): ObjectStorage;
+
+
+    /**
+     * Returns a comma-separated list of all filters set
+     *
+     * @return string
+     */
+    public function getFiltersList(): string;
+
+
+    /**
+     * Returns the contentIndex
+     *
+     * @return string
+     */
+    public function getContentIndex(): string;
 }

@@ -38,7 +38,7 @@ plugin.tx_catsearch {
         # cat=plugin.tx_catsearch//a; type=bool; label=Show tags below search-box
         showTags = 1
 
-        # cat=plugin.tx_catsearch//a; type=layout; label=Layout switch for different views
+        # cat=plugin.tx_catsearch//a; type=string; label=Layout switch for different views
         layout = default
 	}
 }
@@ -63,5 +63,45 @@ plugin.tx_catsearch_detail < plugin.tx_catsearch
 plugin.tx_catsearch_detail {
     settings {
 
+        # cat=plugin.tx_catsearch_detail//a; type=string; label=The namespace of the pageTitleProvider-class
+        pageTitleProvider = Madj2k\CatSearch\PageTitle\PageTitleProvider
+
+        schemaOrg {
+            teaserImage {
+
+                # cat=plugin.tx_catsearch_detail//a; type=integer; label=Width of the teaser-image for schema.org
+                width = 500
+
+                # cat=plugin.tx_catsearch_detail//a; type=integer; label=Height of the teaser-image for schema.org
+                height = 500
+            }
+        }
+
+        openGraph {
+
+             # cat=plugin.tx_catsearch_detail//a; type=integer; label=OpenGraph type
+            type = website
+
+            # cat=plugin.tx_catsearch_detail//a; type=integer; label=OpenGraph siteName
+            siteName =
+
+            # cat=plugin.tx_catsearch_detail//a; type=integer; label=OpenGraph admins
+            admins =
+
+            # cat=plugin.tx_catsearch_detail//a; type=integer; label=OpenGraph locale
+            locale =
+
+            twitter {
+
+                # cat=plugin.tx_catsearch_detail//a; type=integer; label=OpenGraph X site
+                site =
+
+                # cat=plugin.tx_catsearch_detail//a; type=integer; label=OpenGraph X card
+                card =
+
+                # cat=plugin.tx_catsearch_detail//a; type=integer; label=OpenGraph X creator
+                creator =
+            }
+        }
     }
 }

@@ -1,15 +1,51 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 	  data-namespace-typo3-fluid="true"
 >
+
+    <f:variable name="layout" value="Default" />
+    <f:comment><!--
+        <f:if condition="{settings.layout}">
+            <f:variable name="layout" value="{settings.layout -> f:format.case(mode:'capital')}" />
+        </f:if>
+        <f:if condition="{item.layout}">
+            <f:variable name="layout" value="{item.layout -> f:format.case(mode:'capital')}" />
+        </f:if>
+    --></f:comment>
+
     <div class="catsearch-detail" id="c{data.uid}">
-        <div class="container-xxl">
-            <div class="row">
-                <div class="col-12">
-                    <h3>{item.title}</h3>
-                    <p>{item.teaser}</p>
-                </div>
-            </div>
-        </div>
+
+        <f:render partial="Detail/MetaTags"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+        
+        <f:render partial="Detail/SchemaOrg"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+
+        <f:render partial="Detail/Stage"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+
+        <f:render partial="Detail/Highlights"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+        
+        <f:render partial="Detail/Description"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+        
+        <f:render partial="Detail/Gallery"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+
+        <f:render partial="Detail/Properties"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+        
+        <f:render partial="Detail/Additional"
+                  arguments="{item: item, data: data, settings: settings, layout: layout,
+                              settingsForLayout: settingsForLayout}" />
+        
     </div>
 
 </html>

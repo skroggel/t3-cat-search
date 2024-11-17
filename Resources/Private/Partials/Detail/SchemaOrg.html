@@ -1,0 +1,43 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:schema="http://typo3.org/ns/Brotkrueml/Schema/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+    <f:variable
+        name="productLink"
+        value="{f:uri.action(arguments:'{item: item, type: item.recordType}', absolute:1)}"
+    />
+
+    <schema:type.product
+		-id="https://example.org/#product-{item.uid}"
+		name="{item.title -> f:format.stripTags()}"
+        alternateName="{item.header -> f:format.stripTags()}"
+        description="{item.description -> f:format.stripTags()} {item.description2 -> f:format.stripTags()} {item.description3 -> f:format.stripTags()}"
+        releaseDate="{item.publishDate -> f:format.date(format:'c')}"
+        sku="{item.productNumber -> f:format.stripTags()}"
+        url="{productLink}"
+    >
+        <f:if condition="{item.teaserImage}">
+            <schema:type.imageObject
+                -as="image"
+                -id="https://example.org/#product-image-{item.teaserImage.uid}"
+                text="{item.teaserImage.originalResource.alternative}"
+                width="{settings.schemaOrg.teaserImage.width}"
+                height="{settings.schemaOrg.teaserImage.height}"
+                url="{f:uri.image(image: item.teaserImage,
+                     width: settings.schemaOrg.teaserImage.width,
+                     height: settings.schemaOrg.teaserImage.height,
+                     absolute: 1)}"
+            />
+        </f:if>
+
+        <f:if condition="{item.manufacturer}">
+            <schema:type.organization
+                -as="manufacturer"
+                name="{item.manufacturer.title}"
+            />
+        </f:if>
+		
+	</schema:type.product>
+
+</html>
+

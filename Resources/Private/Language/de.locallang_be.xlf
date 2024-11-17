@@ -31,6 +31,15 @@
 				<source>Separator for page title. If set, the page title is composed of all defined fields.</source>
 				<target>Trennzeichen für Seitentitel. Wenn gesetzt, wird der Seitentitel aus allen definierten Feldern zusammengesetzt.</target>
 			</trans-unit>
+			<trans-unit id="extConf.contentElementsAllowedCTypes">
+				<source>Allowed cTypes for linked content elements.: fieldValue,fieldLabel;anotherFieldValue,anotherFieldLabel</source>
+				<target>Erlaubte cTypes für verknüpfte Content-Elemente.: fieldValue,fieldLabel;anotherFieldValue,anotherFieldLabel</target>
+			</trans-unit>
+			<trans-unit id="extConf.contentElementsDefaultCType">
+				<source>Standard cType for linked content elements.</source>
+				<target>Standard-cType fpr verknüpfte Content-Elemente.</target>
+			</trans-unit>
+
 
 
 			<!-- Content Element Wizard -->
@@ -88,6 +97,10 @@
 			<trans-unit id="flexform.settings.filter">
 				<source>Filter</source>
 				<target>Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.item">
+				<source>Item (if not given via link-parameters)</source>
+				<target>Item (wenn nicht über Link-Parameter übergeben)</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterExclude">
 				<source>Filter (exclude)</source>
@@ -176,6 +189,14 @@
 			<trans-unit id="flexform.settings.showFilterByYear">
 				<source>Show Year-Filter</source>
 				<target>Zeige Jahres-Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByRelatedProduct">
+				<source>Show Product-Filter</source>
+				<target>Zeige Produkt-Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByLanguage">
+				<source>Show Language-Filter</source>
+				<target>Zeige Sprachen-Filter</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.showTags">
 				<source>Show Tags</source>

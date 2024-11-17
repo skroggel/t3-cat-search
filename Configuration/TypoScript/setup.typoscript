@@ -87,11 +87,30 @@ plugin.tx_catsearch_detail < plugin.tx_catsearch
 plugin.tx_catsearch_detail {
 
     view {
-        pluginNamespace = tx_catsearch_searchreleated
+        pluginNamespace = tx_catsearch_detail
     }
 
     settings {
-        pageTitleProvider = Madj2k\CatSearch\PageTitle\PageTitleProvider
+
+        pageTitleProvider = {$plugin.tx_catsearch_detail.settings.pageTitleProvider}
+        schemaOrg {
+            teaserImage {
+                width = {$plugin.tx_catsearch_detail.settings.schemaOrg.teaserImage.width}
+                height = {$plugin.tx_catsearch_detail.settings.schemaOrg.teaserImage.height}
+            }
+        }
+
+        openGraph {
+            type = {$plugin.tx_catsearch_detail.settings.openGraph.type}
+            siteName = {$plugin.tx_catsearch_detail.settings.openGraph.siteName}
+            admins = {$plugin.tx_catsearch_detail.settings.openGraph.admins}
+            locale = {$plugin.tx_catsearch_detail.settings.openGraph.locale}
+            twitter {
+                site = {$plugin.tx_catsearch_detail.settings.openGraph.twitter.site}
+                card = {$plugin.tx_catsearch_detail.settings.openGraph.twitter.card}
+                creator = {$plugin.tx_catsearch_detail.settings.openGraph.twitter.creator}
+            }
+        }
     }
 }
 
@@ -106,4 +125,37 @@ config {
             before = record, seo, yoastRecord
         }
     }
+}
+
+
+
+# ================================================================================
+# Content Rendering
+# ================================================================================
+#  Usage:
+#  ---------------
+#  <f:cObject typoscriptObjectPath="lib.txCatSearchContent" data="{uidList: '{item.contentElementsIdList}'}" />
+#
+lib.txCatSearchContent = COA
+lib.txCatSearchContent {
+    5 = LOAD_REGISTER
+    5 {
+        uidList.cObject = TEXT
+        uidList.cObject {
+            field = uidList
+        }
+    }
+
+    20 = CONTENT
+    20 {
+        table = tt_content
+        select {
+            includeRecordsWithoutDefaultTranslation = 1
+            orderBy = sorting
+            uidInList.data = register:uidList
+            pidInList = 0
+        }
+    }
+
+    90 = RESTORE_REGISTER
 }

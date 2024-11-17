@@ -21,14 +21,14 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class FilterablesSubTypeViewHelper
+ * Class FilterablesCategoryViewHelper
  *
  * @author Steffen Kroggel <mail@steffenkroggel.de>
  * @copyright Steffen Kroggel <mail@steffenkroggel.de>
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-final class FilterablesBySubTypeViewHelper extends AbstractViewHelper
+final class FilterablesByCategoryViewHelper extends AbstractViewHelper
 {
 
 	/**
@@ -62,12 +62,15 @@ final class FilterablesBySubTypeViewHelper extends AbstractViewHelper
         $result = [];
         foreach ($filterables as $filterable) {
             if ($filterable instanceof FilterableInterface) {
-                if ($subType = $filterable->getSubType()) {
-                    if (! isset($result[$subType])) {
-                        $result[$subType] = [];
-                    }
-                    $result[$subType][] = $filterable;
+
+                $categoryId = $filterable->getCategory()? $filterable->getCategory()->getUid() : 0;
+                if (! isset($result[$categoryId])) {
+                    $result[$categoryId] = [
+                        'category' => $filterable->getCategory() ?? null,
+                        'items' => []
+                    ];
                 }
+                $result[$categoryId]['items'][] = $filterable;
             }
         }
 

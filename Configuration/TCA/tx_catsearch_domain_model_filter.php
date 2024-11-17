@@ -6,6 +6,7 @@ return [
 		'title' => $ll .'tx_catsearch_domain_model_filter',
 		'label' => 'title',
         'label_alt' => 'type',
+        'label_userFunc' => \Madj2k\CatSearch\UserFunctions\FormEngine\Labels::class . '->filterLabel',
         'label_alt_force' => true,
         'hideTable' => true,
 		'cruser_id' => 'cruser_id',

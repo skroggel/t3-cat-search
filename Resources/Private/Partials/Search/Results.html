@@ -7,13 +7,9 @@
             <div class="container-xxl">
                 <div class="row">
                     <div class="col-12">
-                        <div class="catsearch-result-list">
-                            <f:for each="{results}" as="item">
-                                <f:render partial="Search/Results/Item" 
-                                          arguments="{item: item, data: data, settings: settings, 
-                                                      settingsForLayout: settingsForLayout}" />
-                            </f:for>
-                        </div>
+                        <f:render partial="Teaser/List"
+                                  arguments="{results: results, data: data, settings: settings, 
+                                          settingsForLayout: settingsForLayout}" />
                     </div>
                 </div>
         

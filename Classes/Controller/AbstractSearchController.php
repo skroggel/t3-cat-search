@@ -17,6 +17,7 @@ namespace Madj2k\CatSearch\Controller;
 
 use Madj2k\CatSearch\Domain\DTO\Search;
 use Madj2k\CatSearch\Domain\Model\Filterable;
+use Madj2k\CatSearch\Domain\Repository\FilterableProductRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterableRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterTypeRepository;
@@ -30,6 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -77,10 +79,11 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @param \Madj2k\CatSearch\Domain\Repository\FilterableRepository $filterableRepository
      * @return void
      */
-    public function injectItemRepository(FilterableRepository $filterableRepository): void
+    public function injectFilterableRepository(FilterableRepository $filterableRepository): void
     {
         $this->filterableRepository = $filterableRepository;
     }
+
 
     /**
      * @param \Madj2k\CatSearch\Domain\Repository\FilterRepository $filterRepository
@@ -116,10 +119,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
             && (isset($this->settings['layoutOverride'][$layout]))
             && (is_array($this->settings['layoutOverride'][$layout]))
         ){
-            $settings = $this->settings['layoutOverride'][$layout];
-            unset($this->settings['layoutOverride']);
-            $this->view->assign('settings', $this->settings);
-            $this->view->assign('settingsForLayout', array_merge($this->settings, $settings));
+            $layoutSettings = $this->settings['layoutOverride'][$layout];
+            $settings = $this->settings;
+            unset($settings['layoutOverride']);
+            $this->view->assign('settingsForLayout', array_merge($settings, $layoutSettings));
         }
 	}
 
@@ -158,7 +161,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      */
     public function teaserFilteredAction(): ResponseInterface
     {
-        $results = $this->filterableRepository->findByFilter(intval($this->settings['filter']), $this->settings);
+        $results = $this->filterableRepository->findBySettings($this->settings);
         $this->view->assignMultiple([
             'results' => $results
         ]);
@@ -170,18 +173,27 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
     /**
      * action detail
      *
-     * @param \Madj2k\CatSearch\Domain\Model\Filterable $item
+     * @param \Madj2k\CatSearch\Domain\Model\Filterable|null $item
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
      * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
      */
-    public function detailAction(Filterable $item): ResponseInterface
+    public function detailAction(?Filterable $item = null): ResponseInterface
     {
-        $providerClass = $this->settings['pageTitleProvider'] ?? PageTitleProvider::class;
+        if (
+            (!$item)
+            && (isset($this->settings['item']))
+        ){
+            $item = $this->filterableRepository->findByUid((int) $this->settings['item']);
+        }
 
-        /** @var \Madj2k\CatSearch\PageTitle\PageTitleProviderInterface $provider */
-        $provider = GeneralUtility::makeInstance($providerClass);
-        $provider->setTitle($item);
+        if ($item) {
+            $providerClass = $this->settings['pageTitleProvider'] ?? PageTitleProvider::class;
+
+            /** @var \Madj2k\CatSearch\PageTitle\PageTitleProviderInterface $provider */
+            $provider = GeneralUtility::makeInstance($providerClass);
+            $provider->setTitle($item);
+        }
 
         $this->view->assignMultiple([
             'item' => $item,
@@ -359,6 +371,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \Madj2k\CatSearch\Exception
      */
     protected function getSearchOptions (): array
     {
@@ -369,6 +382,14 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
             'filters' => [],
             'filtersCombined' => [],
             'years' => $this->filterableRepository->findAllYearsAssigned(
+                $languageId,
+                $this->settings,
+            ),
+            'languages' => $this->filterableRepository->findAllLanguagesAssigned(
+                $languageId,
+                $this->settings,
+            ),
+            'relatedProducts' => $this->filterableRepository->findAllRelatedProductsAssigned(
                 $languageId,
                 $this->settings,
             ),
@@ -424,8 +445,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 */
 	protected function saveSearchToSession(Search $search): void
 	{
+        // bind it to pid in order to work with different filters on different pages!
+        $pid = (int) $this->currentContentObject->data['pid'];
 		$frontendUser = $this->request->getAttribute('frontend.user');
-		$frontendUser->setKey('ses', 'madj2kcatsearch_search', serialize($search));
+		$frontendUser->setKey('ses', 'madj2kcatsearch_search_' . $pid, serialize($search));
 		$frontendUser->storeSessionData();
 	}
 
@@ -437,8 +460,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 */
 	protected function loadSearchFromSession(): ?Search
 	{
-		$frontendUser = $this->request->getAttribute('frontend.user');
-		if ($data = $frontendUser->getKey('ses', 'madj2kcatsearch_search')) {
+        // bind it to pid in order to work with different filters on different pages!
+        $pid = (int) $this->currentContentObject->data['pid'];
+        $frontendUser = $this->request->getAttribute('frontend.user');
+        if ($data = $frontendUser->getKey('ses', 'madj2kcatsearch_search_' . $pid)) {
             return unserialize($data)?? null;
 		}
 		return null;

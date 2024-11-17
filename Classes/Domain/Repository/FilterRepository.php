@@ -30,16 +30,16 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 {
 
     /**
-     * @const string
+     * @var string
      */
-    const FIELD_FILTERABLE = 'filterables';
+    protected string $filterableField = 'filterables';
 
 
     /**
 	 * @var array
 	 */
 	protected $defaultOrderings = [
-		'title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+		'title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 	];
 
 
@@ -75,7 +75,7 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 	{
 		$query = $this->createQuery();
 
-		$localField = self::FIELD_FILTERABLE;
+		$localField = $this->filterableField;
 		$constraints = [
 			$query->logicalNot(
 				$query->equals($localField . '.uid', null),

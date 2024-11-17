@@ -16,6 +16,8 @@ call_user_func(
             [
                 \Madj2k\CatSearch\Controller\SearchController::class => 'search,removeSearchFilter,removeAllSearchFilters'
             ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -27,6 +29,8 @@ call_user_func(
             [
                 \Madj2k\CatSearch\Controller\SearchController::class => ''
             ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -38,6 +42,8 @@ call_user_func(
             [
                 \Madj2k\CatSearch\Controller\SearchController::class => 'searchRelated'
             ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -49,6 +55,8 @@ call_user_func(
             [
 
             ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+
         );
 
         //=================================================================

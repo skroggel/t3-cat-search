@@ -8,6 +8,14 @@
 				<source>Year</source>
 				<target>Jahr</target>
 			</trans-unit>
+			<trans-unit id="search.filter.product.label">
+				<source>Product</source>
+				<target>Produkt</target>
+			</trans-unit>
+			<trans-unit id="search.filter.language.label">
+				<source>Language</source>
+				<target>Sprache</target>
+			</trans-unit>
 			<trans-unit id="search.filter.textQuery.label">
 				<source>Searchphrase</source>
 				<target>Suchwort</target>
@@ -65,6 +73,16 @@
 			<trans-unit id="teaser.readMore.label">
 				<source>Read more</source>
 				<target>Mehr erfahren</target>
+			</trans-unit>
+
+
+			<trans-unit id="detail.download.dateFormat">
+				<source>d-m-Y</source>
+				<target>d.m.Y</target>
+			</trans-unit>
+			<trans-unit id="detail.download.label">
+				<source>Download</source>
+				<target>Download</target>
 			</trans-unit>
 
         </body>

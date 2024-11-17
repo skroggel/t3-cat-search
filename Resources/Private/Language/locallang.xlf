@@ -7,6 +7,12 @@
 			<trans-unit id="search.filter.year.label">
 				<source>Year</source>
 			</trans-unit>
+			<trans-unit id="search.filter.product.label">
+				<source>Product</source>
+			</trans-unit>
+			<trans-unit id="search.filter.language.label">
+				<source>Language</source>
+			</trans-unit>
 			<trans-unit id="search.filter.textQuery.label">
 				<source>Searchphrase</source>
 			</trans-unit>
@@ -50,6 +56,14 @@
 
 			<trans-unit id="teaser.readMore.label">
 				<source>Read more</source>
+			</trans-unit>
+
+
+			<trans-unit id="detail.download.dateFormat">
+				<source>d-m-Y</source>
+			</trans-unit>
+			<trans-unit id="detail.download.label">
+				<source>Download</source>
 			</trans-unit>
         </body>
     </file>

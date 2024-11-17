@@ -17,6 +17,7 @@ namespace Madj2k\CatSearch\Domain\Model;
 
 
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -37,15 +38,39 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
+     * @var \Madj2k\CatSearch\Domain\Model\Language|null
+     */
+    protected ?Language $language = null;
+
+
+    /**
+     * @var \Madj2k\CatSearch\Domain\Model\Category|null
+     */
+    protected ?Category $category = null;
+
+
+    /**
      * @var string
      */
-    protected string $subType = '';
+    protected string $layout = '';
+
+
+    /**
+     * @var int
+     */
+    protected int $detailPid = 0;
 
 
     /**
      * @var string
      */
     protected string $slug = '';
+
+
+    /**
+     * @var int
+     */
+    protected int $publishDate = 0;
 
 
     /**
@@ -58,6 +83,7 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
      * @var string
      */
     protected string $titleSeo = '';
+
 
     /**
      * @var string
@@ -74,13 +100,103 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     /**
      * @var string
      */
+    protected string $header = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $header2 = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $header3 = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $subheader = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $subheader2 = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $subheader3 = '';
+
+
+    /**
+     * @var string
+     */
     protected string $description = '';
 
 
     /**
-     * @var int
+     * @var string
      */
-    protected int $publishDate = 0;
+    protected string $descriptionSeo = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $description2 = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $description3 = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $productNumber = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $features = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $options = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $applications = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $highlights = '';
+
+
+    /**
+     * @var string
+     */
+    protected string $details = '';
+
+
+    /**
+     * @var \Madj2k\CatSearch\Domain\Model\Manufacturer|null
+     */
+    protected ?Manufacturer $manufacturer = null;
 
 
     /**
@@ -90,21 +206,91 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|null
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
      */
-    protected ?ObjectStorage $images = null;
+    protected ?FileReference $mainImage = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|null
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
      */
-    protected ?ObjectStorage $relatedFilterables = null;
+    protected ?FileReference $download = null;
 
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter>|null
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
-    protected ?ObjectStorage $filters = null;
+    protected ObjectStorage|LazyLoadingProxy|null $images = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $downloads = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $dataSheets = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $mediaFiles = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $relatedFilterables = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableAccessories = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableDocuments = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableProducts = null;
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableProducts2 = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $filters = null;
+
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\TtContent>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
+     */
+    protected ObjectStorage|LazyLoadingProxy|null $contentElements;
 
 
     /**
@@ -118,10 +304,17 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 	 */
 	public function __construct()
 	{
-		$this->filters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->images = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->relatedFilterables = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-
+		$this->filters = $this->filters ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->images = $this->images ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->downloads = $this->downloads ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->dataSheets = $this->dataSheets ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->mediaFiles = $this->mediaFiles ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->relatedFilterables = $this->relatedFilterables ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->relatedFilterableDocuments = $this->relatedFilterableDocuments ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->relatedFilterableAccessories = $this->relatedFilterableAccessories ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->relatedFilterableProducts = $this->relatedFilterableProducts ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->relatedFilterableProducts2 = $this->relatedFilterableProducts2 ?? new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->contentElements = $this->contentElements ?? new ObjectStorage();
     }
 
 
@@ -149,25 +342,94 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
-     * Returns the subType
+     * Returns the language
      *
-     * @return string
+     * @return \Madj2k\CatSearch\Domain\Model\Language|null
      */
-    public function getSubType(): string
+    public function getLanguage(): ?Language
     {
-        return $this->subType;
+        return $this->language;
     }
 
 
     /**
-     * Sets the subType
+     * Sets the language
      *
-     * @param string $subType
+     * @param \Madj2k\CatSearch\Domain\Model\Language $language
      * @return void
      */
-    public function setSubType(string $subType): void
+    public function setLanguage(Language $language): void
     {
-        $this->subType = $subType;
+        $this->language = $language;
+    }
+
+
+    /**
+     * Returns the category
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Category|null
+     */
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+
+    /**
+     * Sets the category
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Category $category
+     * @return void
+     */
+    public function setCategory(Category $category): void
+    {
+        $this->category = $category;
+    }
+
+
+    /**
+     * Returns the layout
+     *
+     * @return string
+     */
+    public function getLayout(): string
+    {
+        return $this->layout;
+    }
+
+
+    /**
+     * Sets the layout
+     *
+     * @param string $layout
+     * @return void
+     */
+    public function setLayout(string $layout): void
+    {
+        $this->layout = $layout;
+    }
+
+
+    /**
+     * Returns the detailPid
+     *
+     * @return int
+     */
+    public function getDetailPid(): int
+    {
+        return $this->detailPid;
+    }
+
+
+    /**
+     * Sets the detailPid
+     *
+     * @param int $detailPid
+     * @return void
+     */
+    public function setDetailPid(int $detailPid): void
+    {
+        $this->detailPid = $detailPid;
     }
 
 
@@ -191,6 +453,29 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
+    }
+
+
+    /**
+     * Returns the publishDate
+     *
+     * @return int
+     */
+    public function getPublishDate(): int
+    {
+        return $this->publishDate;
+    }
+
+
+    /**
+     * Sets the publishDate
+     *
+     * @param int $publishDate
+     * @return void
+     */
+    public function setPublishDate(int $publishDate): void
+    {
+        $this->publishDate = $publishDate;
     }
 
 
@@ -241,6 +526,29 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
+     * Returns the subtitle
+     *
+     * @return string
+     */
+    public function getSubtitle(): string
+    {
+        return $this->subtitle;
+    }
+
+
+    /**
+     * Sets the subtitle
+     *
+     * @param string $subtitle
+     * @return void
+     */
+    public function setSubtitle(string $subtitle): void
+    {
+        $this->subtitle = $subtitle;
+    }
+
+
+    /**
      * Returns the teaser
      *
      * @return string
@@ -264,25 +572,140 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
-     * Returns the subtitle
+     * Returns the header
      *
      * @return string
      */
-    public function getSubtitle(): string
+    public function getHeader(): string
     {
-        return $this->subtitle;
+        return $this->header;
     }
 
 
     /**
-     * Sets the subtitle
+     * Sets the header
      *
-     * @param string $subtitle
+     * @param string $header
      * @return void
      */
-    public function setSubtitle(string $subtitle): void
+    public function setHeader(string $header): void
     {
-        $this->subtitle = $subtitle;
+        $this->header = $header;
+    }
+
+
+    /**
+     * Returns the header2
+     *
+     * @return string
+     */
+    public function getHeader2(): string
+    {
+        return $this->header2;
+    }
+
+
+    /**
+     * Sets the header2
+     *
+     * @param string $header2
+     * @return void
+     */
+    public function setHeader2(string $header2): void
+    {
+        $this->header2 = $header2;
+    }
+
+
+    /**
+     * Returns the header3
+     *
+     * @return string
+     */
+    public function getHeader3(): string
+    {
+        return $this->header3;
+    }
+
+
+    /**
+     * Sets the header3
+     *
+     * @param string $header3
+     * @return void
+     */
+    public function setHeader3(string $header3): void
+    {
+        $this->header3 = $header3;
+    }
+
+
+    /**
+     * Returns the subheader
+     *
+     * @return string
+     */
+    public function getSubheader(): string
+    {
+        return $this->subheader;
+    }
+
+
+    /**
+     * Sets the subheader
+     *
+     * @param string $subheader
+     * @return void
+     */
+    public function setSubheader(string $subheader): void
+    {
+        $this->subheader = $subheader;
+    }
+
+
+    /**
+     * Returns the subheader2
+     *
+     * @return string
+     */
+    public function getSubheader2(): string
+    {
+        return $this->subheader2;
+    }
+
+
+    /**
+     * Sets the subheader2
+     *
+     * @param string $subheader2
+     * @return void
+     */
+    public function setSubheader2(string $subheader2): void
+    {
+        $this->subheader2 = $subheader2;
+    }
+
+
+    /**
+     * Returns the subheader3
+     *
+     * @return string
+     */
+    public function getSubheader3(): string
+    {
+        return $this->subheader3;
+    }
+
+
+    /**
+     * Sets the subheader3
+     *
+     * @param string $subheader3
+     * @return void
+     */
+    public function setSubheader3(string $subheader3): void
+    {
+        $this->subheader3 = $subheader3;
     }
 
 
@@ -310,25 +733,234 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
-     * Returns the publishDate
+     * Returns the descriptionSeo
      *
-     * @return int
+     * @return string
      */
-    public function getPublishDate(): int
+    public function getDescriptionSeo(): string
     {
-        return $this->publishDate;
+        return $this->descriptionSeo;
     }
 
 
     /**
-     * Sets the publishDate
+     * Sets the descriptionSeo
      *
-     * @param int $publishDate
+     * @param string $descriptionSeo
      * @return void
      */
-    public function setPublishDate(int $publishDate): void
+    public function setDescriptionSeo(string $descriptionSeo): void
     {
-        $this->publishDate = $publishDate;
+        $this->descriptionSeo = $descriptionSeo;
+    }
+
+
+    /**w
+     * Returns the description2
+     *
+     * @return string
+     */
+    public function getDescription2(): string
+    {
+        return $this->description2;
+    }
+
+
+    /**
+     * Sets the description2
+     *
+     * @param string $description2
+     * @return void
+     */
+    public function setDescription2(string $description2): void
+    {
+        $this->description2 = $description2;
+    }
+
+
+
+    /**
+     * Returns the description3
+     *
+     * @return string
+     */
+    public function getDescription3(): string
+    {
+        return $this->description3;
+    }
+
+
+    /**
+     * Sets the description3
+     *
+     * @param string $description3
+     * @return void
+     */
+    public function setDescription3(string $description3): void
+    {
+        $this->description3 = $description3;
+    }
+
+
+
+    /**
+     * Returns the productNumber
+     *
+     * @return string
+     */
+    public function getProductNumber(): string
+    {
+        return $this->productNumber;
+    }
+
+
+    /**
+     * Sets the productNumber
+     *
+     * @param string $productNumber
+     * @return void
+     */
+    public function setProductNumber(string $productNumber): void
+    {
+        $this->productNumber = $productNumber;
+    }
+
+
+    /**
+     * Returns the features
+     *
+     * @return string
+     */
+    public function getFeatures(): string
+    {
+        return $this->features;
+    }
+
+
+    /**
+     * Sets the features
+     *
+     * @param string $features
+     * @return void
+     */
+    public function setFeatures(string $features): void
+    {
+        $this->features = $features;
+    }
+
+
+    /**
+     * Returns the options
+     *
+     * @return string
+     */
+    public function getOptions(): string
+    {
+        return $this->options;
+    }
+
+
+    /**
+     * Sets the options
+     *
+     * @param string $options
+     * @return void
+     */
+    public function setOptions(string $options): void
+    {
+        $this->options = $options;
+    }
+
+
+    /**
+     * Returns the applications
+     *
+     * @return string
+     */
+    public function getApplications(): string
+    {
+        return $this->applications;
+    }
+
+
+    /**
+     * Sets the applications
+     *
+     * @param string $applications
+     * @return void
+     */
+    public function setApplications(string $applications): void
+    {
+        $this->applications = $applications;
+    }
+
+
+    /**
+     * Returns the Highlights
+     *
+     * @return string
+     */
+    public function getHighlights(): string
+    {
+        return $this->highlights;
+    }
+
+
+    /**
+     * Sets the Highlights
+     *
+     * @param string $highlights
+     * @return void
+     */
+    public function setHighlights(string $highlights): void
+    {
+        $this->highlights = $highlights;
+    }
+
+
+    /**
+     * Returns the details
+     *
+     * @return string
+     */
+    public function getDetails(): string
+    {
+        return $this->details;
+    }
+
+
+    /**
+     * Sets the details
+     *
+     * @param string $details
+     * @return void
+     */
+    public function setDetails(string $details): void
+    {
+        $this->details = $details;
+    }
+
+
+    /**
+     * Returns the manufacturer
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Manufacturer|null $manufacturer
+     */
+    public function getManufacturer(): ?Manufacturer
+    {
+        return $this->manufacturer;
+    }
+
+
+    /**
+     * Sets the manufacturer
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Manufacturer $manufacturer
+     * @return void
+     */
+    public function setManufacturer(Manufacturer $manufacturer): void
+    {
+        $this->manufacturer = $manufacturer;
     }
 
 
@@ -352,6 +984,52 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     public function setTeaserImage(FileReference $teaserImage): void
     {
         $this->teaserImage = $teaserImage;
+    }
+
+
+    /**
+     * Returns the mainImage
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference|null $mainImage
+     */
+    public function getMainImage(): ?FileReference
+    {
+        return $this->mainImage;
+    }
+
+
+    /**
+     * Sets the mainImage
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $mainImage
+     * @return void
+     */
+    public function setMainImage(FileReference $mainImage): void
+    {
+        $this->mainImage = $mainImage;
+    }
+
+
+    /**
+     * Returns the download
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference|null $downloads
+     */
+    public function getDownload(): ?FileReference
+    {
+        return $this->download;
+    }
+
+
+    /**
+     * Sets the download
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $download
+     * @return void
+     */
+    public function setDownload(FileReference $download): void
+    {
+        $this->download = $download;
     }
 
 
@@ -386,7 +1064,15 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
      */
     public function getImages(): ObjectStorage
     {
-        return $this->images;
+        if ($this->images instanceof LazyLoadingProxy) {
+            $this->images->_loadRealInstance();
+        }
+
+        if ($this->images instanceof ObjectStorage) {
+            return $this->images;
+        }
+
+        return $this->images = new ObjectStorage();
     }
 
 
@@ -400,6 +1086,172 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     {
         $this->images = $images;
     }
+
+
+    /**
+     * Adds a download
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $download
+     * @return void
+     */
+    public function addDownload(\TYPO3\CMS\Extbase\Domain\Model\FileReference $download): void
+    {
+        $this->downloads->attach($download);
+    }
+
+
+    /**
+     * Removes a download
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $download
+     * @return void
+     */
+    public function removeDownload(\TYPO3\CMS\Extbase\Domain\Model\FileReference $download): void
+    {
+        $this->downloads->detach($download);
+    }
+
+
+    /**
+     * Returns the downloads
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $downloads
+     */
+    public function getDownloads(): ObjectStorage
+    {
+        if ($this->downloads instanceof LazyLoadingProxy) {
+            $this->downloads->_loadRealInstance();
+        }
+
+        if ($this->downloads instanceof ObjectStorage) {
+            return $this->downloads;
+        }
+
+        return $this->downloads = new ObjectStorage();
+    }
+
+
+    /**
+     * Sets the downloads
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $downloads
+     * @return void
+     */
+    public function setDownloads(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $downloads): void
+    {
+        $this->downloads = $downloads;
+    }
+
+
+    /**
+     * Adds a dataSheet
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet
+     * @return void
+     */
+    public function addDataSheet(\TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet): void
+    {
+        $this->dataSheets->attach($dataSheet);
+    }
+
+
+    /**
+     * Removes a dataSheet
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet
+     * @return void
+     */
+    public function removeDataSheet(\TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet): void
+    {
+        $this->dataSheets->detach($dataSheet);
+    }
+
+
+    /**
+     * Returns the dataSheets
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $dataSheets
+     */
+    public function getDataSheets(): ObjectStorage
+    {
+        if ($this->dataSheets instanceof LazyLoadingProxy) {
+            $this->dataSheets->_loadRealInstance();
+        }
+
+        if ($this->dataSheets instanceof ObjectStorage) {
+            return $this->dataSheets;
+        }
+
+        return $this->dataSheets = new ObjectStorage();
+    }
+
+
+    /**
+     * Sets the dataSheets
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $dataSheets
+     * @return void
+     */
+    public function setDataSheets(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $dataSheets): void
+    {
+        $this->dataSheets = $dataSheets;
+    }
+
+
+    /**
+     * Adds a mediaFile
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile
+     * @return void
+     */
+    public function addMediaFile(\TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile): void
+    {
+        $this->mediaFiles->attach($mediaFile);
+    }
+
+
+    /**
+     * Removes a mediaFile
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile
+     * @return void
+     */
+    public function removeMediaFile(\TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile): void
+    {
+        $this->mediaFiles->detach($mediaFile);
+    }
+
+
+    /**
+     * Returns the mediaFiles
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $mediaFiles
+     */
+    public function getMediaFiles(): ObjectStorage
+    {
+        if ($this->mediaFiles instanceof LazyLoadingProxy) {
+            $this->mediaFiles->_loadRealInstance();
+        }
+
+        if ($this->mediaFiles instanceof ObjectStorage) {
+            return $this->mediaFiles;
+        }
+
+        return $this->mediaFiles = new ObjectStorage();
+    }
+
+
+    /**
+     * Sets the mediaFiles
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $mediaFiles
+     * @return void
+     */
+    public function setMediaFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $mediaFiles): void
+    {
+        $this->mediaFiles = $mediaFiles;
+    }
+
 
 
     /**
@@ -433,7 +1285,15 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
      */
     public function getRelatedFilterables(): ObjectStorage
     {
-        return $this->relatedFilterables;
+        if ($this->relatedFilterables instanceof LazyLoadingProxy) {
+            $this->relatedFilterables->_loadRealInstance();
+        }
+
+        if ($this->relatedFilterables instanceof ObjectStorage) {
+            return $this->relatedFilterables;
+        }
+
+        return $this->relatedFilterables = new ObjectStorage();
     }
 
 
@@ -446,6 +1306,227 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     public function setRelatedFilterables(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterables): void
     {
         $this->relatedFilterables = $relatedFilterables;
+    }
+
+
+    /**
+     * Adds a relatedFilterableDocument
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableDocument
+     * @return void
+     */
+    public function addRelatedFilterableDocument(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableDocument): void
+    {
+        $this->relatedFilterableDocuments->attach($relatedFilterableDocument);
+    }
+
+
+    /**
+     * Removes a relatedFilterableDocument
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableDocument
+     * @return void
+     */
+    public function removeRelatedFilterableDocument(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableDocument): void
+    {
+        $this->relatedFilterableDocuments->detach($relatedFilterableDocument);
+    }
+
+
+    /**
+     * Returns the relatedFilterableDocuments
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableDocuments
+     */
+    public function getRelatedFilterableDocuments(): ObjectStorage
+    {
+        if ($this->relatedFilterableDocuments instanceof LazyLoadingProxy) {
+            $this->relatedFilterableDocuments->_loadRealInstance();
+        }
+
+        if ($this->relatedFilterableDocuments instanceof ObjectStorage) {
+            return $this->relatedFilterableDocuments;
+        }
+
+        return $this->relatedFilterableDocuments = new ObjectStorage();
+    }
+
+
+    /**
+     * Sets the relatedFilterableDocuments
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableDocuments
+     * @return void
+     */
+    public function setRelatedFilterableDocumentDocuments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableDocuments): void
+    {
+        $this->relatedFilterableDocuments = $relatedFilterableDocuments;
+    }
+
+
+
+    /**
+     * Adds a relatedFilterableAccessory
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory
+     * @return void
+     */
+    public function addRelatedFilterableAccessory(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory): void
+    {
+        $this->relatedFilterableAccessories->attach($relatedFilterableAccessory);
+    }
+
+
+    /**
+     * Removes a relatedFilterableAccessory
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory
+     * @return void
+     */
+    public function removeRelatedFilterableAccessory(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableAccessory): void
+    {
+        $this->relatedFilterableAccessories->detach($relatedFilterableAccessory);
+    }
+
+
+    /**
+     * Returns the relatedFilterableAccessories
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableAccessorys
+     */
+    public function getRelatedFilterableAccessories(): ObjectStorage
+    {
+        if ($this->relatedFilterableAccessories instanceof LazyLoadingProxy) {
+            $this->relatedFilterableAccessories->_loadRealInstance();
+        }
+
+        if ($this->relatedFilterableAccessories instanceof ObjectStorage) {
+            return $this->relatedFilterableAccessories;
+        }
+
+        return $this->relatedFilterableAccessories = new ObjectStorage();
+    }
+
+
+    /**
+     * Sets the relatedFilterableAccessories
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableAccessories
+     * @return void
+     */
+    public function setRelatedFilterableAccessories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableAccessories): void
+    {
+        $this->relatedFilterableAccessories = $relatedFilterableAccessories;
+    }
+
+
+    /**
+     * Adds a relatedFilterableProduct
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct
+     * @return void
+     */
+    public function addRelatedFilterableProduct(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct): void
+    {
+        $this->relatedFilterableProducts->attach($relatedFilterableProduct);
+    }
+
+
+    /**
+     * Removes a relatedFilterableProduct
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct
+     * @return void
+     */
+    public function removeRelatedFilterableProduct(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct): void
+    {
+        $this->relatedFilterableProducts->detach($relatedFilterableProduct);
+    }
+
+
+    /**
+     * Returns the relatedFilterableProducts
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts
+     */
+    public function getRelatedFilterableProducts(): ObjectStorage
+    {
+        if ($this->relatedFilterableProducts instanceof LazyLoadingProxy) {
+            $this->relatedFilterableProducts->_loadRealInstance();
+        }
+
+        if ($this->relatedFilterableProducts instanceof ObjectStorage) {
+            return $this->relatedFilterableProducts;
+        }
+
+        return $this->relatedFilterableProducts = new ObjectStorage();
+    }
+
+
+    /**
+     * Sets the relatedFilterableProducts
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts
+     * @return void
+     */
+    public function setRelatedFilterableProducts(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableProducts): void
+    {
+        $this->relatedFilterableProducts = $relatedFilterableProducts;
+    }
+
+
+    /**
+     * Adds a relatedFilterableProduct2
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct2
+     * @return void
+     */
+    public function addRelatedFilterableProduct2(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct2): void
+    {
+        $this->relatedFilterableProducts2->attach($relatedFilterableProduct2);
+    }
+
+
+    /**
+     * Removes a relatedFilterableProduct2
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct2
+     * @return void
+     */
+    public function removeRelatedFilterableProduct2(\TYPO3\CMS\Extbase\Domain\Model\FileReference $relatedFilterableProduct2): void
+    {
+        $this->relatedFilterableProducts2->detach($relatedFilterableProduct2);
+    }
+
+
+    /**
+     * Returns the relatedFilterableProducts2
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts2
+     */
+    public function getRelatedFilterableProducts2(): ObjectStorage
+    {
+        if ($this->relatedFilterableProducts2 instanceof LazyLoadingProxy) {
+            $this->relatedFilterableProducts2->_loadRealInstance();
+        }
+
+        if ($this->relatedFilterableProducts2 instanceof ObjectStorage) {
+            return $this->relatedFilterableProducts2;
+        }
+
+        return $this->relatedFilterableProducts2 = new ObjectStorage();
+    }
+
+
+    /**
+     * Sets the relatedFilterableProducts2
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $relatedFilterableProducts2
+     * @return void
+     */
+    public function setRelatedFilterableProducts2(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $relatedFilterableProducts2): void
+    {
+        $this->relatedFilterableProducts2 = $relatedFilterableProducts2;
     }
 
 
@@ -480,7 +1561,15 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 	 */
 	public function getFilters(): ObjectStorage
 	{
-		return $this->filters;
+        if ($this->filters instanceof LazyLoadingProxy) {
+            $this->filters->_loadRealInstance();
+        }
+
+        if ($this->filters instanceof ObjectStorage) {
+            return $this->filters;
+        }
+
+        return $this->filters = new ObjectStorage();
 	}
 
 
@@ -512,6 +1601,67 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 	}
 
 
+
+    /**
+     * Gets the contentElements
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\TtContent>
+     */
+    public function getContentElements(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    {
+        if ($this->contentElements instanceof LazyLoadingProxy) {
+            $this->contentElements->_loadRealInstance();
+        }
+
+        if ($this->contentElements instanceof ObjectStorage) {
+            return $this->contentElements;
+        }
+
+        return $this->contentElements = new ObjectStorage();
+    }
+
+
+    /**
+     * Set the contentElements
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\TtContent> $contentElements
+     * @return void
+     */
+    public function setContentElements(ObjectStorage $contentElements): void
+    {
+        $this->contentElements = $contentElements;
+    }
+
+
+    /**
+     * Adds a contentElement to the record
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\TtContent $contentElement
+     * @return void
+     */
+    public function addContentElement(TtContent $contentElement): void
+    {
+        $this->contentElements->attach($contentElement);
+    }
+
+
+    /**
+     * Get id list of contentElements
+     *
+     * @return string
+     */
+    public function getContentElementsIdList(): string
+    {
+        $idList = [];
+        if ($contentElements = $this->getContentElements()) {
+            foreach ($contentElements as $contentElement) {
+                $idList[] = $contentElement->getUid();
+            }
+        }
+        return implode(',', $idList);
+    }
+
+
     /**
      * Returns the contentIndex
      *
@@ -522,29 +1672,4 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
         return $this->contentIndex;
     }
 
-
-    /**
-     * Filters an object storage by the language of the current object
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $objectStorage
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-     */
-    protected function filterObjectStorageByLanguage(ObjectStorage $objectStorage): ObjectStorage
-    {
-        $currentLanguageUid = $this->_getProperty(self::PROPERTY_LANGUAGE_UID);
-        $filteredObjectStorage = new ObjectStorage();
-
-        /** @var \TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object */
-        foreach ($objectStorage as $object) {
-            $objectLanguage = $object->_getProperty(self::PROPERTY_LANGUAGE_UID);
-            if (
-                ($objectLanguage == $currentLanguageUid)
-                || ($objectLanguage == -1)
-            ){
-                $filteredObjectStorage->attach($object);
-            };
-        }
-
-        return $filteredObjectStorage;
-    }
 }

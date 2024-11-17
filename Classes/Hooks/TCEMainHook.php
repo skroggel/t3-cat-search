@@ -77,7 +77,7 @@ class TCEMainHook
                     (isset($fieldArray['title']))
                     && ($fieldArray['title'])
                 ){
-					$fieldArray['title_cleaned'] = strip_tags($fieldArray['title']);
+					$fieldArray['title_cleaned'] = strip_tags((string)$fieldArray['title']);
 
 					// set slug if freshly created
 					if (!is_numeric($id)) {
@@ -424,12 +424,12 @@ class TCEMainHook
 
             } else {
                 if ($record[$column]) {
-                    $indexResult .= ' ' . $this->sanitize($record[$column]);
+                    $indexResult .= ' ' . $this->sanitize((string)$record[$column]);
                 }
             }
         }
 
-        return $indexResult;
+        return trim($indexResult);
     }
 
 
@@ -496,10 +496,10 @@ class TCEMainHook
 
 
     /**
-     * @param $string
+     * @param string $string
      * @return string
      */
-    protected function sanitize ($string): string
+    protected function sanitize (string $string): string
     {
         return str_replace('­', '', preg_replace('#&[^;]+;#', '', strip_tags($string)));
     }
