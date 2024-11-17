@@ -16,6 +16,7 @@ namespace Madj2k\CatSearch\Domain\Repository;
  */
 
 use Madj2k\CatSearch\Domain\DTO\Search;
+use Madj2k\CatSearch\Traits\DebugTrait;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -40,6 +41,12 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 
 
     /**
+     * @var string
+     */
+    protected string $searchLanguageField = 'language';
+
+
+    /**
 	 * @var array
 	 */
 	protected $defaultOrderings = [
@@ -47,12 +54,14 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 	];
 
 
+    use DebugTrait;
+
     /**
      * Find all by given search-object
      *
      * @param \Madj2k\CatSearch\Domain\DTO\Search $search
      * @param array $settings
-         * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
@@ -66,14 +75,20 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
             $constraints[] = $query->equals($recordTypeFilter['field'], $recordTypeFilter['value']);
         }
 
-        $this->addSingleSelectIncludeFilterConstraint($query, $settings, $constraints, $search);
-        $this->addMultiSelectIncludeFilterConstraint($query, $settings, $constraints, $search);
-        $this->addExcludeFilterConstraint($query, $settings, $constraints);
+         $this->addSingleSelectIncludeFilterConstraint($query, $settings, $constraints, $search);
+         $this->addMultiSelectIncludeFilterConstraint($query, $settings, $constraints, $search);
+         $this->addExcludeFilterConstraint($query, $settings, $constraints, $search);
+         $this->addRelatedFilterableConstraint($query, $settings, $constraints, $search);
 
 		// search for year
 		if ($year = $search->getYear()) {
 			$constraints[] = $query->equals($this->searchYearField, $year);
 		}
+
+        // search for language
+        if ($language = $search->getLanguage()) {
+            $constraints[] = $query->equals($this->searchLanguageField, $language);
+        }
 
 		// search for string
 		if ($textQuery = $search->getTextQuery()) {
@@ -111,6 +126,7 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
         }
 
 		$query->matching($query->logicalAnd(...$constraints));
+
 		return $query->execute();
 	}
 
@@ -159,37 +175,7 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
      */
     public function findAllYearsAssigned(int $languageUid, array $settings): array
     {
-        $tableName = $this->getTableName();
-
-        /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
-        $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
-
-        /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
-        $queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
-
-        $queryBuilder
-            ->select($this->searchYearField)
-            ->from($tableName)
-            ->where (
-                $queryBuilder->expr()->eq(
-                    'sys_language_uid',
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
-                )
-            )
-            ->groupBy($this->searchYearField);
-
-        // filter by recordType
-        if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq(
-                    $recordTypeFilter['field'],
-                    $queryBuilder->createNamedParameter($recordTypeFilter['value'], \PDO::PARAM_INT)
-                )
-            );
-        }
-
-        $statement = $queryBuilder->executeQuery();
-        $results = $statement->fetchAllAssociative();
+        $results = $this->findAllAssignedToField($this->searchYearField, $languageUid, $settings);
         $years = [];
         foreach ($results as $result) {
             if ($year = $result[$this->searchYearField]) {
@@ -199,4 +185,51 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 
         return $years;
     }
+
+
+    /**
+     * Find all products that have another filterable assigned
+     *
+     * @param int $languageUid
+     * @param $settings
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findAllRelatedProductsAssigned(int $languageUid, $settings): array
+    {
+        $result = [];
+
+        if ($fields = $this->getRelatedFieldNamesByRecordType((int) $settings['recordType'], true)) {
+            foreach ($fields as $field) {
+                $result += $this->findAllFilterablesAssignedToMMField($field, $languageUid, $settings);
+            }
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Find all products that have another filterable assigned
+     *
+     * @param int $languageUid
+     * @param $settings
+     * @return array
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findAllLanguagesAssigned(int $languageUid, $settings): array
+    {
+        $results = $this->findAllAssignedToField($this->searchLanguageField, $languageUid, $settings);
+        $languages = [];
+        foreach ($results as $result) {
+            $languages[$result['uid']] = $result['title'];
+        }
+
+        return $languages;
+    }
+
 }

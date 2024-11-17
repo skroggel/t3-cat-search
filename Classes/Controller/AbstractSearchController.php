@@ -17,6 +17,7 @@ namespace Madj2k\CatSearch\Controller;
 
 use Madj2k\CatSearch\Domain\DTO\Search;
 use Madj2k\CatSearch\Domain\Model\Filterable;
+use Madj2k\CatSearch\Domain\Repository\FilterableProductRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterableRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterTypeRepository;
@@ -78,10 +79,11 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @param \Madj2k\CatSearch\Domain\Repository\FilterableRepository $filterableRepository
      * @return void
      */
-    public function injectItemRepository(FilterableRepository $filterableRepository): void
+    public function injectFilterableRepository(FilterableRepository $filterableRepository): void
     {
         $this->filterableRepository = $filterableRepository;
     }
+
 
     /**
      * @param \Madj2k\CatSearch\Domain\Repository\FilterRepository $filterRepository
@@ -369,6 +371,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \Madj2k\CatSearch\Exception
      */
     protected function getSearchOptions (): array
     {
@@ -379,6 +382,14 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
             'filters' => [],
             'filtersCombined' => [],
             'years' => $this->filterableRepository->findAllYearsAssigned(
+                $languageId,
+                $this->settings,
+            ),
+            'languages' => $this->filterableRepository->findAllLanguagesAssigned(
+                $languageId,
+                $this->settings,
+            ),
+            'relatedProducts' => $this->filterableRepository->findAllRelatedProductsAssigned(
                 $languageId,
                 $this->settings,
             ),
@@ -434,8 +445,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 */
 	protected function saveSearchToSession(Search $search): void
 	{
+        // bind it to pid in order to work with different filters on different pages!
+        $pid = (int) $this->currentContentObject->data['pid'];
 		$frontendUser = $this->request->getAttribute('frontend.user');
-		$frontendUser->setKey('ses', 'madj2kcatsearch_search', serialize($search));
+		$frontendUser->setKey('ses', 'madj2kcatsearch_search_' . $pid, serialize($search));
 		$frontendUser->storeSessionData();
 	}
 
@@ -447,8 +460,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 */
 	protected function loadSearchFromSession(): ?Search
 	{
-		$frontendUser = $this->request->getAttribute('frontend.user');
-		if ($data = $frontendUser->getKey('ses', 'madj2kcatsearch_search')) {
+        // bind it to pid in order to work with different filters on different pages!
+        $pid = (int) $this->currentContentObject->data['pid'];
+        $frontendUser = $this->request->getAttribute('frontend.user');
+        if ($data = $frontendUser->getKey('ses', 'madj2kcatsearch_search_' . $pid)) {
             return unserialize($data)?? null;
 		}
 		return null;

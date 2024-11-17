@@ -190,6 +190,14 @@
 				<source>Show Year-Filter</source>
 				<target>Zeige Jahres-Filter</target>
 			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByRelatedProduct">
+				<source>Show Product-Filter</source>
+				<target>Zeige Produkt-Filter</target>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByLanguage">
+				<source>Show Language-Filter</source>
+				<target>Zeige Sprachen-Filter</target>
+			</trans-unit>
 			<trans-unit id="flexform.settings.showTags">
 				<source>Show Tags</source>
 				<target>Zeige Tags</target>

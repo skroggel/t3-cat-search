@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+      data-namespace-typo3-fluid="true"
+>
+        
+    <f:if condition="{filterOptions}">
+        <div class="catsearch-filter catsearch-product form-group">
+    
+            <f:render partial="Search/Filters/Label"
+                      arguments="{labelFor: 'tx-catsearch-product-{data.uid}', 
+                                  label: '{f:translate(key:\'search.filter.product.label\')}', 
+                                  data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+            
+            <f:form.select property="relatedProduct"
+                           options="{filterOptions}"
+                           data-placeholder="{f:translate(key:'search.filter.product.label')}"
+                           prependOptionLabel="{f:translate(key:'search.filters.product.label')}"
+                           prependOptionValue=""
+                           id="tx-catsearch-product-{data.uid}"
+                           class="catsearch-filter-select form-control select2-single"
+            />
+        </div>
+    </f:if>
+</html>

@@ -19,9 +19,9 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 (
 	uid                            int(11) NOT NULL auto_increment,
 	record_type                    int(4) NOT NULL DEFAULT '0',
-	sub_type                       varchar(255) DEFAULT 'default' NOT NULL,
+	category                       int(4) NOT NULL DEFAULT '0',
+	language                       int(4) NOT NULL DEFAULT '0',
 	layout                         varchar(255) DEFAULT 'default' NOT NULL,
-	language                       varchar(255) DEFAULT ''        NOT NULL,
 	detail_pid                     int(4) NOT NULL DEFAULT '0',
 
 	title                          varchar(255) DEFAULT ''        NOT NULL,
@@ -69,8 +69,8 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 	related_filterable_documents   varchar(255) DEFAULT ''        NOT NULL,
 	related_filterable_products    varchar(255) DEFAULT ''        NOT NULL,
 
-	related_filterable_products2   varchar(255) DEFAULT ''        NOT NULL,
 	related_filterable_accessories varchar(255) DEFAULT ''        NOT NULL,
+	related_filterable_products2   varchar(255) DEFAULT ''        NOT NULL,
 
 	content_elements               int(11) DEFAULT '0' NOT NULL,
 
@@ -81,7 +81,10 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 	PRIMARY KEY (uid),
 	KEY                            parent (pid),
 	KEY                            publish_date_year (publish_date_year),
+	KEY                            record_type (record_type),
 	KEY language (l10n_parent,sys_language_uid),
+	KEY                            deleted_hidden (deleted, hidden),
+	KEY                            sys_language_uid (sys_language_uid),
 	FULLTEXT KEY `content_index` (`content_index`)
 );
 
@@ -119,6 +122,35 @@ CREATE TABLE tx_catsearch_domain_model_filter
 
 
 CREATE TABLE tx_catsearch_domain_model_manufacturer
+(
+	uid        int(11) NOT NULL auto_increment,
+
+	title      varchar(255) DEFAULT '' NOT NULL,
+	title_long varchar(255) DEFAULT '' NOT NULL,
+
+	image      int(11) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY        parent (pid),
+	KEY language (l10n_parent,sys_language_uid)
+);
+
+
+CREATE TABLE tx_catsearch_domain_model_language
+(
+	uid      int(11) NOT NULL auto_increment,
+
+	title    varchar(255) DEFAULT '' NOT NULL,
+	iso2_key varchar(255) DEFAULT '' NOT NULL,
+	iso3_key varchar(255) DEFAULT '' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY      parent (pid),
+	KEY language (l10n_parent,sys_language_uid)
+);
+
+
+CREATE TABLE tx_catsearch_domain_model_category
 (
 	uid        int(11) NOT NULL auto_increment,
 

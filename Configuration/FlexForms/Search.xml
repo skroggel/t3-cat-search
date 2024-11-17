@@ -288,6 +288,34 @@
                             </items>
                         </config>
                     </settings.showFilterByYear>
+                    <settings.showFilterByRelatedProduct>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showFilterByRelatedProduct
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showFilterByRelatedProduct>
+                    <settings.showFilterByLanguage>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showFilterByLanguage
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showFilterByLanguage>
                     <settings.showTags>
                         <label>
                             LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showTags

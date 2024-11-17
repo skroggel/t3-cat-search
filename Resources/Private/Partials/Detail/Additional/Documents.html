@@ -6,12 +6,17 @@
     <f:comment><!-- group by sub-type --></f:comment>
     <f:variable name="documents" value="{catSearch:filter.objectStorageByLanguage(objectStorage: item.relatedFilterableDocuments}" />
 
-    <f:for each="{catSearch:grouping.filterablesBySubType(filterables: documents)}" key="key" as="groupedDocuments">
+    <f:for each="{catSearch:grouping.filterablesByCategory(filterables: documents)}" key="key" as="groupedDocuments">
         <div class="catsearch-detail-additional-downloads">
+            
+            <f:if condition="{groupedDocuments.category.title}">
+                <h3>{groupedDocuments.category.title}</h3>
+            </f:if>
+            
             <figure class="figure table table-responsive">
                 <table class="table">
                     <tbody>
-                        <f:for each="{groupedDocuments}" as="document">
+                        <f:for each="{groupedDocuments.items}" as="document">
 
                             <f:variable name="fileSize"
                                         value="{document.download.originalResource.properties.size

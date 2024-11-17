@@ -8,6 +8,14 @@
 				<source>Year</source>
 				<target>Jahr</target>
 			</trans-unit>
+			<trans-unit id="search.filter.product.label">
+				<source>Product</source>
+				<target>Produkt</target>
+			</trans-unit>
+			<trans-unit id="search.filter.language.label">
+				<source>Language</source>
+				<target>Sprache</target>
+			</trans-unit>
 			<trans-unit id="search.filter.textQuery.label">
 				<source>Searchphrase</source>
 				<target>Suchwort</target>

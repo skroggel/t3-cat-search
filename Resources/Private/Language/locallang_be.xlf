@@ -3,7 +3,6 @@
 	<file source-language="en" datatype="plaintext">
 		<body>
 
-
 			<!-- TCA-Hook -->
 			<trans-unit id="indexHook.contendIndexed">
 				<source>The following content was indexed (record: %s):</source>
@@ -27,20 +26,26 @@
 				<source>Separator for page title. If set, the page title is composed of all defined fields.</source>
 			</trans-unit>
 			<trans-unit id="extConf.contentElementsAllowedCTypes">
-				<source>Allowed cTypes for linked content elements: fieldValue,fieldLabel;anotherFieldValue,anotherFieldLabel</source>
-				</trans-unit>
+				<source>Allowed cTypes for linked content elements.: fieldValue,fieldLabel;anotherFieldValue,anotherFieldLabel</source>
+			</trans-unit>
 			<trans-unit id="extConf.contentElementsDefaultCType">
 				<source>Standard cType for linked content elements.</source>
 			</trans-unit>
 
 
+
 			<!-- Content Element Wizard -->
 			<trans-unit id="contentElementWizward.header">
-				<source>Category-Search</source>
+				<source>Category Search</source>
 			</trans-unit>
 
 
 			<!-- Flexforms -->
+			<trans-unit id="flexform.tx_catsearch_search.title">
+				<source>CatSearch</source>
+			</trans-unit>
+
+
 			<trans-unit id="flexform.tab.common">
 				<source>Common</source>
 			</trans-unit>
@@ -70,15 +75,6 @@
 			<trans-unit id="flexform.settings.recordType.3">
 				<source>Only Accessory</source>
 			</trans-unit>
-			<trans-unit id="flexform.settings.showFilterByTextQuery">
-				<source>Show Freetext-Search</source>
-			</trans-unit>
-			<trans-unit id="flexform.settings.showFilterByYear">
-				<source>Show Year-Filter</source>
-			</trans-unit>
-			<trans-unit id="flexform.settings.showTags">
-				<source>Show Tags</source>
-			</trans-unit>
 			<trans-unit id="flexform.settings.filter">
 				<source>Filter</source>
 			</trans-unit>
@@ -91,17 +87,32 @@
 			<trans-unit id="flexform.settings.filterType1">
 				<source>Filter Type 1</source>
 			</trans-unit>
+			<trans-unit id="flexform.settings.filterType1AllowMultiple">
+				<source>Allow multiple select for filter 1</source>
+			</trans-unit>
 			<trans-unit id="flexform.settings.filterType2">
 				<source>Filter Type 2</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType2AllowMultiple">
+				<source>Allow multiple select for filter 2</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.filterType3">
 				<source>Filter Type 3</source>
 			</trans-unit>
+			<trans-unit id="flexform.settings.filterType3AllowMultiple">
+				<source>Allow multiple select for filter 3</source>
+			</trans-unit>
 			<trans-unit id="flexform.settings.filterType4">
 				<source>Filter Type 4</source>
 			</trans-unit>
+			<trans-unit id="flexform.settings.filterType4AllowMultiple">
+				<source>Allow multiple select for filter 4</source>
+			</trans-unit>
 			<trans-unit id="flexform.settings.filterType5">
 				<source>Filter Type 5</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.filterType5AllowMultiple">
+				<source>Allow multiple select for filter 5</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.searchPid">
 				<source>Page with Search</source>
@@ -127,10 +138,32 @@
 			<trans-unit id="flexform.settings.maxPages">
 				<source>Maximum number of pages shown</source>
 			</trans-unit>
+			<trans-unit id="flexform.settings.hidePagination">
+				<source>Hide pagination</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByTextQuery">
+				<source>Show Freetext-Search</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByYear">
+				<source>Show Year-Filter</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByRelatedProduct">
+				<source>Show Product-Filter</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showFilterByLanguage">
+				<source>Show Language-Filter</source>
+			</trans-unit>
+			<trans-unit id="flexform.settings.showTags">
+				<source>Show Tags</source>
+			</trans-unit>
+
 
 			<!-- Plugins -->
 			<trans-unit id="plugin.tx_catsearch_search.title">
 				<source>CatSearch: Search</source>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_searchrelated.title">
+				<source>CatSearch: Search – Related Elements</source>
 			</trans-unit>
 			<trans-unit id="plugin.tx_catsearch_teaserfiltered.title">
 				<source>CatSearch: Filterable Teaser</source>

@@ -7,6 +7,12 @@
 			<trans-unit id="search.filter.year.label">
 				<source>Year</source>
 			</trans-unit>
+			<trans-unit id="search.filter.product.label">
+				<source>Product</source>
+			</trans-unit>
+			<trans-unit id="search.filter.language.label">
+				<source>Language</source>
+			</trans-unit>
 			<trans-unit id="search.filter.textQuery.label">
 				<source>Searchphrase</source>
 			</trans-unit>

@@ -22,8 +22,8 @@ TCEFORM {
 
 	tx_catsearch_domain_model_filterable {
 
-        // customize field sub_type
-        sub_type {
+        // customize field
+        layout {
             // add new option "List"
             addItems.list = List
 

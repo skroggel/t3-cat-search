@@ -32,7 +32,6 @@ class CTypeSelectItemProcFunc
      * Add two items to existing ones
      *
      * @param array &$params
-     * @
      * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
      * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
      */

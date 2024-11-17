@@ -43,6 +43,18 @@ final class Search
     /**
      * @var int
      */
+    protected int $language = 0;
+
+
+    /**
+     * @var int
+     */
+    protected int $relatedProduct = 0;
+
+
+    /**
+     * @var int
+     */
     protected int $filter1 = 0;
 
 
@@ -162,6 +174,52 @@ final class Search
 	{
 		$this->year = (int) $year;
 	}
+
+
+    /**
+     * Get language
+     *
+     * @return int
+     */
+    public function getLanguage(): int
+    {
+        return $this->language;
+    }
+
+
+    /**
+     * Set language
+     *
+     * @param int|null $language
+     * @return void
+     */
+    public function setLanguage(?int $language): void
+    {
+        $this->language = (int) $language;
+    }
+
+
+    /**
+     * Get relatedProduct
+     *
+     * @return int
+     */
+    public function getRelatedProduct(): int
+    {
+        return $this->relatedProduct;
+    }
+
+
+    /**
+     * Set relatedProduct
+     *
+     * @param int|null $relatedProduct
+     * @return void
+     */
+    public function setRelatedProduct(?int $relatedProduct): void
+    {
+        $this->relatedProduct = (int) $relatedProduct;
+    }
 
 
     /**

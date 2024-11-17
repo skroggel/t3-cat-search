@@ -8,16 +8,28 @@
                     <div class="catsearch-filterlist-inner">
                         <div class="catsearch-filter-wrap">
                             <f:if condition="{settings.showFilterByTextQuery}">
-                                <f:render partial="Search/Filters/Types/Text"
+                                <f:render partial="Search/Filters/Types/Special/Text"
                                           arguments="{search:search, data:data, settings: settings, 
                                                       settingsForLayout: settingsForLayout}" />
                             </f:if>
 
                             <f:if condition="{settings.showFilterByYear}">
-                                <f:render partial="Search/Filters/Types/Year"
-                                          arguments="{filterOptions: searchOptions.years, search:search,
+                                <f:render partial="Search/Filters/Types/Special/Year"
+                                          arguments="{filterOptions: searchOptions.years, search: search,
                                                       data:data, settings: settings, settingsForLayout: settingsForLayout}" />
                             </f:if>
+
+                            <f:if condition="{settings.showFilterByRelatedProduct}">
+                                <f:render partial="Search/Filters/Types/Special/Product"
+                                          arguments="{filterOptions: searchOptions.relatedProducts, search: search,
+                                                      data:data, settings: settings, settingsForLayout: settingsForLayout}" />
+                            </f:if>
+
+                            <f:if condition="{settings.showFilterByLanguage}">
+                                <f:render partial="Search/Filters/Types/Special/Language"
+                                          arguments="{filterOptions: searchOptions.languages, search: search,
+                                                      data:data, settings: settings, settingsForLayout: settingsForLayout}" />
+                            </f:if>                            
 
                             <f:for each="{searchOptions.filters}" key="filterName" as="filterDetails" iteration="iterator">
                                 <f:render partial="Search/Filters/Types/Select"

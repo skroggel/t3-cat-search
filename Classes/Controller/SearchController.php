@@ -18,7 +18,6 @@ namespace Madj2k\CatSearch\Controller;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 
-
 /**
  * Class SearchController
  *
@@ -53,6 +52,7 @@ final class SearchController extends AbstractSearchController
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \Madj2k\CatSearch\Exception
      */
     protected function getSearchOptions (): array
     {

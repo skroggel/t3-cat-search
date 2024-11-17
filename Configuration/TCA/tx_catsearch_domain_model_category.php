@@ -3,12 +3,8 @@ $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 
 return [
 	'ctrl' => [
-		'title' => $ll .'tx_catsearch_domain_model_filter',
+		'title' => $ll .'tx_catsearch_domain_model_category',
 		'label' => 'title',
-        'label_alt' => 'type',
-        'label_userFunc' => \Madj2k\CatSearch\UserFunctions\FormEngine\Labels::class . '->filterLabel',
-        'label_alt_force' => true,
-        'hideTable' => true,
 		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => true,
 		'default_sortby' => 'ORDER BY title ASC',
@@ -23,11 +19,11 @@ return [
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		],
-		'searchFields' => 'title, type',
-		'iconfile' => 'EXT:cat_search/Resources/Public/Icons/tx_catsearch_domain_model_filter.svg',
+		'searchFields' => 'title',
+		'iconfile' => 'EXT:cat_search/Resources/Public/Icons/tx_catsearch_domain_model_category.svg',
 	],
 	'types' => [
-		'1' => ['showitem' => 'title, title_long, type, filterables,
+		'1' => ['showitem' => 'title, title_long, image,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
 		],
@@ -58,8 +54,8 @@ return [
 				'items' => [
 					['', 0],
 				],
-				'foreign_table' => 'tx_catsearch_domain_model_filter',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_catsearch_domain_model_category',
+				'foreign_table_where' => 'AND tx_catsearch_domain_model_category.pid=###CURRENT_PID### AND tx_catsearch_domain_model_category.sys_language_uid IN (-1,0)',
 			],
 		],
 		'l10n_diffsource' => [
@@ -112,7 +108,7 @@ return [
 		],
 		'title' => [
 			'exclude' => false,
-			'label' => $ll .'tx_catsearch_domain_model_filter.title',
+			'label' => $ll .'tx_catsearch_domain_model_category.title',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -121,29 +117,21 @@ return [
 		],
         'title_long' => [
             'exclude' => false,
-            'label' => $ll .'tx_catsearch_domain_model_filter.title_long',
+            'label' => $ll .'tx_catsearch_domain_model_category.title_long',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim'
             ],
         ],
-		'filterables' => [
-			'exclude' => false,
-			'l10n_mode' => 'exclude',
-			'label' => $ll .'tx_catsearch_domain_model_filter.filterables',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectMultipleSideBySide',
-				'foreign_table' => 'tx_catsearch_domain_model_filterable',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
-				'MM' => 'tx_catsearch_filterable_filter_mm',
-				'MM_opposite_field' => 'filters'
-			],
-		],
-        'type' => [
+        'image' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll .'tx_catsearch_domain_model_category.image',
             'config' => [
-                'type' => 'passthrough',
+                'type' => 'file',
+                'allowed' => ['jpeg', 'jpg', 'png', 'gif', 'svg', 'webp'],
+                'maxitems' => 1,
             ],
         ],
 	],

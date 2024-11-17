@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Madj2k\CatSearch\Domain\Model;
+namespace Madj2k\CatSearch;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,16 +15,15 @@ namespace Madj2k\CatSearch\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
-
 /**
- * Class FilterableProduct
+ * Class Exception
  *
  * @author Steffen Kroggel <mail@steffenkroggel.de>
  * @copyright Steffen Kroggel <mail@steffenkroggel.de>
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FilterableProduct extends Filterable
+class Exception extends \Exception
 {
 
 
