@@ -41,6 +41,18 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
     /**
      * @const string
      */
+    const TABLE_FILTER = 'tx_catsearch_domain_model_filter';
+
+
+    /**
+     * @const string
+     */
+    const TABLE_FILTER_TYPE = 'tx_catsearch_domain_model_filtertype';
+
+
+    /**
+     * @const string
+     */
     const MM_RELATIONS_BY_RECORD_TYPE = [
         0 => [
             'related_filterable_documents' => 'related_filterable_products',
@@ -83,7 +95,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 	 * @return string
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
 	 */
-	protected function getTableName(): string
+	public function getTableName(): string
 	{
 		if (!$this->tableName) {
 
@@ -100,31 +112,8 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
 
     /**
-     * @param array $settings
-     * @return array
-     */
-    protected function getRecordTypeFilter(array $settings): array
-    {
-        $tableName = self::TABLE_FILTERABLE;
-
-        // filter by recordType
-        if (
-            (isset($settings['recordType']))
-            && ($recordType = $settings['recordType'])
-            && (isset($GLOBALS['TCA'][$tableName]['ctrl']['type']))
-            && ($typeField = $GLOBALS['TCA'][$tableName]['ctrl']['type'])
-        ){
-            return [
-                'field' => $typeField,
-                'value' => $recordType
-            ];
-        }
-
-        return [];
-    }
-
-
-    /**
+     * Adds the constraints for a single select filter
+     *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param array $settings
      * @param array $constraints
@@ -141,9 +130,16 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
         // get all single filters. We use AND here
         if ($filters = $search->getAllSingleFilters()) {
-            foreach ($filters as $filter) {
-                if ($filter){
-                    $constraints[] = $query->contains('filters', $filter);
+            foreach ($filters as $filterValue) {
+                if ($filterValue){
+                    $constraints[] = $query->logicalOr(
+                        $query->contains('filters', $filterValue),
+                        $query->equals('primaryFilter1', $filterValue),
+                        $query->equals('primaryFilter2', $filterValue),
+                        $query->equals('primaryFilter3', $filterValue),
+                        $query->equals('primaryFilter4', $filterValue),
+                        $query->equals('primaryFilter5', $filterValue)
+                    );
                 }
             }
         }
@@ -153,6 +149,8 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
 
     /**
+     * Adds the constraints for a multi-select filter
+     *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param array $settings
      * @param array $constraints
@@ -187,6 +185,11 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
                 foreach ($filter as $filterValue) {
                     if ($filterValue) {
                         $subConstraints[] = $query->contains('filters', $filterValue);
+                        $subConstraints[] = $query->equals('primaryFilter1', $filterValue);
+                        $subConstraints[] = $query->equals('primaryFilter2', $filterValue);
+                        $subConstraints[] = $query->equals('primaryFilter3', $filterValue);
+                        $subConstraints[] = $query->equals('primaryFilter4', $filterValue);
+                        $subConstraints[] = $query->equals('primaryFilter5', $filterValue);
                     }
                 }
 
@@ -201,6 +204,8 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
 
     /**
+     * Adds the constraints for an exclude filter
+     *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param array $settings
      * @param array $constraints
@@ -219,14 +224,19 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             && ($filters = GeneralUtility::trimExplode(',', $settings['filterExclude'], true))
         ){
             $subConstraints = [];
-            foreach ($filters as $filter) {
-                if ($filter){
-                    $subConstraints[] = $query->contains('filters', $filter);
+            foreach ($filters as $filterValue) {
+                if ($filterValue){
+                    $subConstraints[] = $query->logicalNot($query->contains('filters', $filterValue));
+                    $subConstraints[] = $query->logicalNot($query->equals('primaryFilter1', $filterValue));
+                    $subConstraints[] = $query->logicalNot($query->equals('primaryFilter2', $filterValue));
+                    $subConstraints[] = $query->logicalNot($query->equals('primaryFilter3', $filterValue));
+                    $subConstraints[] = $query->logicalNot($query->equals('primaryFilter4', $filterValue));
+                    $subConstraints[] = $query->logicalNot($query->equals('primaryFilter5', $filterValue));
                 }
             }
 
             if (!empty($subConstraints)){
-                $constraints[] = $query->logicalNot(...$subConstraints);
+                $constraints[] = $query->logicalAnd(...$subConstraints);
             }
         }
 
@@ -235,6 +245,8 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
 
     /**
+     * Adds the constraints for a search for related filterables
+     *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param array $settings
      * @param array $constraints
@@ -272,176 +284,364 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
 
     /**
-     * Find all filterables that have another filterables assigned
+     * Returns the query params for filtering by record type
      *
-     * @param string $localField
-     * @param int $languageUid
-     * @param $settings
+     * @param array $settings
+     * @param string $tableName
      * @return array
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     * @throws \Doctrine\DBAL\Exception
      */
-    protected function findAllFilterablesAssignedToMMField(string $localField, int $languageUid, $settings): array
+    protected function getRecordTypeQueryParams(array $settings, string $tableName = self::TABLE_FILTERABLE): array
     {
-        $tableName = $this->getTableName();
-        $orderField = 'title';
-
-        // get foreign table and change join field in case of l10nMode == exclude
-        $isRelationField = isset($GLOBALS['TCA'][$tableName]['columns'][$localField]['config']['foreign_table']);
-        if ($isRelationField) {
-
-            $joinField = 'uid_local';
-            $mmTable = $GLOBALS['TCA'][$tableName]['columns'][$localField]['config']['MM'] ?? '';
-            $languageField = $GLOBALS['TCA'][$tableName]['ctrl']['languageField'] ?? '';
-
-            // check if we have to go in the opposite direction
-            $oppositeField = $GLOBALS['TCA'][$tableName]['columns'][$localField]['config']['MM_opposite_field'] ?? '';
-            if ($oppositeField) {
-                $joinField = 'uid_foreign';
-            }
-
-            /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
-            $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
-
-            /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
-            $queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
-
-            $queryBuilder
-                ->select('*')
-                ->from($tableName)
-                ->innerJoin(
-                    $tableName,
-                    $mmTable,
-                    $mmTable,
-                    $queryBuilder->expr()->eq(
-                        $mmTable .'.' . $joinField,
-                        $queryBuilder->quoteIdentifier($tableName. '.uid')
-                    )
-                )
-                ->groupBy($tableName . '.uid');
-
-            // add sorting
-            if ($GLOBALS['TCA'][$tableName]['columns'][$orderField]) {
-                $queryBuilder->orderBy($orderField, \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
-            }
-
-            $constraints = [];
-            if ($languageField) {
-                $constraints[] =  $queryBuilder->expr()->eq(
-                    $tableName . '.' .$languageField,
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
-                );
-            }
-
-            $queryBuilder->where(...$constraints);
-            $statement = $queryBuilder->executeQuery();
-            $result = $statement->fetchAllAssociative();
-
-            $finalResult = [];
-            if ($result) {
-                foreach ($result as $row) {
-                    $finalResult[$row['uid']] = $row[$orderField];
-                }
-            }
-
-            return $finalResult;
+        // filter by recordType
+        if (
+            (isset($settings['recordType']))
+            && ($recordType = $settings['recordType'])
+            && (isset($GLOBALS['TCA'][$tableName]['ctrl']['type']))
+            && ($typeField = $GLOBALS['TCA'][$tableName]['ctrl']['type'])
+        ){
+            return [
+                'field' => $typeField,
+                'value' => $recordType
+            ];
         }
 
         return [];
     }
 
 
+    /**
+     * Returns the query params for filtering by filter type
+     *
+     * @param int $filterTypeUid
+     * @param int $languageUid
+     * @param string $localTable
+     * @return array
+     * @throws \Doctrine\DBAL\Exception
+     */
+    protected function getFilterTypeQueryParams(int $filterTypeUid, int $languageUid, string $localTable = self::TABLE_FILTER): array
+    {
+
+        if (
+            ($filterTypeUid)
+            && ($GLOBALS['TCA'][$localTable]['columns']['type'])
+        ){
+
+            if ($languageUid > 0) {
+
+                $localTable = self::TABLE_FILTER_TYPE;
+                $localLanguageField = $GLOBALS['TCA'][$localTable]['ctrl']['languageField'] ?? '';
+                $localUid = 'uid';
+                if (isset($GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField'])) {
+                    $localUid = $GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField'];
+                }
+
+                if ($localLanguageField) {
+                    /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
+                    $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
+
+                    /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
+                    $queryBuilder = $connectionPool->getQueryBuilderForTable($localTable);
+                    $queryBuilder
+                        ->select('uid')
+                        ->from($localTable, 'local_table')
+                        ->where(
+                            $queryBuilder->expr()->eq(
+                                'local_table.' . $localUid,
+                                $queryBuilder->createNamedParameter($filterTypeUid, \PDO::PARAM_INT)
+                            ),
+                            $queryBuilder->expr()->eq(
+                                'local_table.' . $localLanguageField,
+                                $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                            ),
+                        );
+
+                    if ($result = $queryBuilder->executeQuery()->fetchFirstColumn()) {
+                        return [
+                            'field' => 'type',
+                            'value' => $result[0]
+                        ];
+                    }
+                }
+            }
+
+            return [
+                'field' => 'type',
+                'value' => $filterTypeUid
+            ];
+        }
+
+        return [];
+    }
+
 
     /**
-     * Get all used data of given field in grouped manner for filters
+     * Find all active filterables via mm-relation in grouped manner for filters
      *
      * @param string $localField
+     * @param string $localTable
+     * @param int $typeUid
      * @param int $languageUid
      * @param array $settings
-     * @return array|null
+     * @param string $orderField
+     * @param string $orderDirection
+     * @return array
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findGroupedByMMField(
+        string $localField,
+        string $localTable,
+        int $typeUid,
+        int $languageUid,
+        array $settings,
+        string $orderField = 'title',
+        string $orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    ): array {
+
+        if (! $GLOBALS['TCA'][$localTable]['columns'][$localField]) {
+            return [];
+        }
+
+        // get foreign table and change join field in case of l10nMode == exclude
+        $isRelationField = isset($GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table']);
+        if ($isRelationField) {
+
+            $mmTable = $GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['MM'] ?? '';
+            $mmLocalField = 'uid_local';
+            $mmForeignField = 'uid_foreign';
+
+            // check if we have to go in the opposite direction
+            $oppositeField = $GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['MM_opposite_field'] ?? '';
+            if ($oppositeField) {
+                $mmLocalField = 'uid_foreign';
+                $mmForeignField = 'uid_local';
+            }
+
+            $localLanguageField = $GLOBALS['TCA'][$localTable]['ctrl']['languageField'] ?? '';
+            $localUid = 'uid';
+
+            $foreignTable = $GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table'] ?? '';
+            $foreignLanguageField = $GLOBALS['TCA'][$foreignTable]['ctrl']['languageField'] ?? '';
+            $foreignUid = 'uid';
+
+            // check translation-setup
+            $l10nMode = $GLOBALS['TCA'][$localTable]['columns'][$localField]['l10n_mode'] ?? '';
+            if ($languageUid > 0){
+
+                if (
+                    ($localLanguageField)
+                    && (isset($GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField']))
+                ) {
+                    $localUid = $GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField'];
+                }
+
+                if ($l10nMode == 'exclude') {
+                    if (
+                        ($foreignLanguageField)
+                        && (isset($GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField']))
+                    ) {
+                        $foreignUid = $GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField'];
+                    }
+                }
+            }
+
+            /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
+            $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
+
+            /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
+            $queryBuilder = $connectionPool->getQueryBuilderForTable($localTable);
+
+            $queryBuilder
+                ->select('local_table.*')
+                ->from($localTable, 'local_table')
+                ->innerJoin(
+                    'local_table',
+                    $mmTable,
+                    'mm_table',
+                    $queryBuilder->expr()->eq(
+                        'mm_table.' . $mmLocalField,
+                        $queryBuilder->quoteIdentifier('local_table.' . $localUid)
+                    )
+                )
+                ->leftJoin(
+                'local_table',
+                    $foreignTable,
+                    'foreign_table',
+                    $queryBuilder->expr()->eq(
+                        'mm_table.' . $mmForeignField,
+                        $queryBuilder->quoteIdentifier('foreign_table.' . $foreignUid)
+                    )
+                )
+                ->groupBy('local_table.uid');
+
+            // filter by language
+            $constraints = [];
+            if ($localLanguageField) {
+                $constraints[] =  $queryBuilder->expr()->eq(
+                    'local_table.' .$localLanguageField,
+                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                );
+            }
+
+            if ($foreignLanguageField) {
+                $constraints[] =  $queryBuilder->expr()->eq(
+                    'foreign_table.' . $foreignLanguageField,
+                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                );
+            }
+
+            // filter local table by type if possible
+            if ($filterTypeParams = $this->getFilterTypeQueryParams($typeUid, $languageUid, $localTable)) {
+                $constraints[] = $queryBuilder->expr()->eq(
+                    'local_table.' . $filterTypeParams['field'],
+                    $queryBuilder->createNamedParameter($filterTypeParams['value'], \PDO::PARAM_INT)
+                );
+            }
+
+            // filter foreign-table by record type
+            if ($recordTypeParams = $this->getRecordTypeQueryParams($settings, $foreignTable)) {
+                $constraints[] = $queryBuilder->expr()->eq(
+                     'foreign_table.' . $recordTypeParams['field'],
+                    $queryBuilder->createNamedParameter($recordTypeParams['value'], \PDO::PARAM_INT)
+                );
+            }
+
+            // add sorting
+            if ($GLOBALS['TCA'][$localTable]['columns'][$orderField]) {
+                $queryBuilder->orderBy($orderField, $orderDirection);
+            }
+
+            $queryBuilder->where(...$constraints);
+
+            $statement = $queryBuilder->executeQuery();
+            $result = $statement->fetchAllAssociative();
+
+            if ($result) {
+                return $result;
+            }
+        }
+
+        return [];
+    }
+
+
+    /**
+     * Get data of given field in grouped manner for filters
+     *
+     * @param string $localField
+     * @param string $localTable
+     * @param int $typeUid
+     * @param int $languageUid
+     * @param array $settings
+     * @param string $orderField
+     * @param string $orderDirection
+     * @return array
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function findAllAssignedToField(string $localField, int $languageUid, array $settings): ?array
+    public function findGroupedByField(
+        string $localField,
+        string $localTable,
+        int $typeUid,
+        int $languageUid,
+        array $settings,
+        string $orderField = 'title',
+        string $orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    ): array
     {
-        $tableName = $this->getTableName();
+        if (! $localTable) {
+            $localTable = $this->getTableName();
+        }
+
+        if (! $GLOBALS['TCA'][$localTable]['columns'][$localField]) {
+            return [];
+        }
 
         /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
         $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
 
         // select only local field - or in case of relation all related table field plus the local field
-        $selectFields[] = $tableName . '.' . $localField;
-        $orderField =  $localField;
-        $languageField = $GLOBALS['TCA'][$tableName]['ctrl']['languageField'] ?? '';
+        $selectFields[] = 'local_table.' . $localField;
+        $localLanguageField = $GLOBALS['TCA'][$localTable]['ctrl']['languageField'] ?? '';
 
         $foreignTable = '';
-        $joinUid = 'uid';
-        $l10nMode = '';
+        $foreignUid = 'uid';
 
         // get foreign table and change join field in case of l10nMode == exclude
-        $isRelationField = isset($GLOBALS['TCA'][$tableName]['columns'][$localField]['config']['foreign_table']);
+        $isRelationField = isset($GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table']);
         if ($isRelationField) {
-            $foreignTable = $GLOBALS['TCA'][$tableName]['columns'][$localField]['config']['foreign_table'];
-            $foreignTableLanguageField = $GLOBALS['TCA'][$tableName]['ctrl']['languageField'] ?? '';
-
-            $selectFields[] = $foreignTable . '.*';
-            $orderField = 'title';
+            $foreignTable = $GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table'];
+            $foreignLanguageField = $GLOBALS['TCA'][$foreignTable]['ctrl']['languageField'] ?? '';
+            $selectFields[] = 'foreign_table.*';
 
             // check translation-setup
-            $l10nMode = $GLOBALS['TCA'][$tableName]['columns'][$localField]['l10n_mode'] ?? '';
             if (
-                ($l10nMode == 'exclude')
-                && ($foreignTableLanguageField)
+                ($foreignLanguageField)
                 && ($languageUid > 0)
                 && (isset($GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField']))
             ){
-                $joinUid = $GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField'];
+                $foreignUid = $GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField'];
             }
         }
 
         /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
-        $queryBuilder = $connectionPool->getQueryBuilderForTable($tableName);
+        $queryBuilder = $connectionPool->getQueryBuilderForTable($localTable);
         $queryBuilder
             ->select(...$selectFields)
-            ->from($tableName)
-            ->groupBy($tableName . '.' . $localField);
+            ->from($localTable, 'local_table')
+            ->groupBy('local_table.' . $localField);
 
         $constraints = [];
-        $constraints[] = $queryBuilder->expr()->eq(
-            $tableName . '.' . $languageField,
-            $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+
+        // check if field value of local table is > 0
+        $constraints[] = $queryBuilder->expr()->gt(
+            'local_table.' . $localField,
+            $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)
         );
 
-        // filter by recordType
-        $constraints = [];
-        if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {
+        //
+        if ($localField) {
             $constraints[] = $queryBuilder->expr()->eq(
-                $tableName . '.' . $recordTypeFilter['field'],
-                $queryBuilder->createNamedParameter($recordTypeFilter['value'], \PDO::PARAM_INT)
+                'local_table.' . $localLanguageField,
+                $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+            );
+        }
+
+        // filter by recordType
+        if ($recordTypeParams = $this->getRecordTypeQueryParams($settings)) {
+            $constraints[] = $queryBuilder->expr()->eq(
+                'local_table.' . $recordTypeParams['field'],
+                $queryBuilder->createNamedParameter($recordTypeParams['value'], \PDO::PARAM_INT)
             );
         }
 
         // check if the values in question are IDs - there can't be a mm-relation here!!!
         if ($isRelationField) {
             $queryBuilder->join(
-                $tableName,
+                'local_table',
                 $foreignTable,
-                $foreignTable,
+               'foreign_table',
                 $queryBuilder->expr()->eq(
-                    $foreignTable .'.' . $joinUid,
-                    $queryBuilder->quoteIdentifier($tableName. '.' . $localField)
+                    'foreign_table.' . $foreignUid,
+                    $queryBuilder->quoteIdentifier('local_table.' . $localField)
                 )
             );
 
             // translation handling if excluded from translation
             if (
                 ($languageUid > 0)
-                && ($l10nMode == 'exclude')
-                && ($foreignTableLanguageField)
+                && ($foreignLanguageField)
             ) {
                 $constraints[] =  $queryBuilder->expr()->eq(
-                    $foreignTable . '.' . $foreignTableLanguageField,
+                    'foreign_table.' . $foreignLanguageField,
                     $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                );
+            }
+
+            // filter by type if possible
+            if ($filterTypeParams = $this->getFilterTypeQueryParams($typeUid, $languageUid, $foreignTable)) {
+                $constraints[] = $queryBuilder->expr()->eq(
+                    'foreign_table.' . $filterTypeParams['field'],
+                    $queryBuilder->createNamedParameter($filterTypeParams['value'], \PDO::PARAM_INT)
                 );
             }
         }
@@ -449,12 +649,17 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         $queryBuilder->where(...$constraints);
 
         // add sorting
-        if ($GLOBALS['TCA'][$tableName]['columns'][$orderField]) {
-            $queryBuilder->orderBy($orderField, \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+        if ($GLOBALS['TCA'][$localTable]['columns'][$orderField]) {
+            $queryBuilder->orderBy($orderField, $orderDirection);
         }
 
         $statement = $queryBuilder->executeQuery();
-        return $statement->fetchAllAssociative();
+        $result = $statement->fetchAllAssociative();
+        if ($result) {
+            return $result;
+        }
+
+        return [];
     }
 
 
@@ -467,7 +672,6 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
      */
     protected function getRelatedFieldNamesByRecordType(int $recordType, bool $invert = false): array
     {
-
         if (isset(self::MM_RELATIONS_BY_RECORD_TYPE[$recordType])) {
             if ($invert) {
                 return array_flip(self::MM_RELATIONS_BY_RECORD_TYPE[$recordType]);

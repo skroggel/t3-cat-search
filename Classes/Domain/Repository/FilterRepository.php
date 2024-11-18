@@ -15,8 +15,10 @@ namespace Madj2k\CatSearch\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Madj2k\CatSearch\Traits\DebugTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class FilterRepository
@@ -68,66 +70,38 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
      * @param int $typeUid
      * @param $settings
      * @return array
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \Doctrine\DBAL\Exception
      */
-	public function findAllAssignedByLanguageAndType(int $languageUid, int $typeUid, $settings): array
+	public function findAssignedByLanguageAndType(int $languageUid, int $typeUid, $settings): array
 	{
-		$query = $this->createQuery();
+        // get filters from filters-field
+        $result = $this->findGroupedByMMField(
+            'filterables',
+            $this->getTableName(),
+            $typeUid,
+            $languageUid,
+            $settings
+        );
 
-		$localField = $this->filterableField;
-		$constraints = [
-			$query->logicalNot(
-				$query->equals($localField . '.uid', null),
-			),
-
-			$query->equals($localField . '.hidden', 0),
-			$query->equals($localField . '.deleted', 0),
-
-			$query->logicalOr(
-				$query->equals($localField . '.starttime', 0),
-				$query->lessThanOrEqual($localField . '.starttime', time()),
-			),
-
-			$query->logicalOr(
-				$query->equals($localField . '.endtime', 0),
-				$query->greaterThanOrEqual($localField . '.endtime', time()),
-			),
-		];
-
-        // filter by recordType
-        if ($recordTypeFilter = $this->getRecordTypeFilter($settings)) {
-            $constraints[] = $query->equals(
-                $localField . '.' .$recordTypeFilter['field'],
-                $recordTypeFilter['value']
+        // primary-filters to this
+        foreach (range(1,5) as $cnt) {
+            $result += $this->findGroupedByField(
+                'primary_filter' . $cnt,
+                self::TABLE_FILTERABLE,
+                $typeUid,
+                $languageUid,
+                $settings
             );
         }
 
-		// check on language-level for 'l10n_mode' => 'exclude'
-		$l10nMode = $GLOBALS['TCA'][$this->getTableName()]['columns'][$localField]['l10n_mode'] ?? '';
-		if ($l10nMode == 'exclude') {
-			$query->getQuerySettings()->setRespectSysLanguage(false);
-			$constraints[] = $query->logicalOr(
-				$query->equals($localField . '.sysLanguageUid',-1),
-				$query->equals($localField . '.sysLanguageUid', $languageUid)
-			);
-		}
+        $finalResult = [];
+        if ($result) {
+            foreach ($result as $row) {
+                $finalResult[$row['l10n_parent'] ?: $row['uid']] = $row['title'];
+            }
+        }
 
-		if ($typeUid) {
-			$constraints[] = $query->equals('type', $typeUid);
-		}
-
-		$query->matching($query->logicalAnd(...$constraints));
-		$result = $query->execute();
-
-		/** @var \Madj2k\CatSearch\Domain\Model\Filter $row */
-		$finalResult = [];
-		if ($result) {
-			foreach ($result as $row) {
-				$finalResult[$row->getUid()] = $row->getTitle();
-			}
-		}
-
-		return $finalResult;
+        return $finalResult;
 	}
 }

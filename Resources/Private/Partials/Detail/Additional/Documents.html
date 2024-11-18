@@ -6,7 +6,7 @@
     <f:comment><!-- group by sub-type --></f:comment>
     <f:variable name="documents" value="{catSearch:filter.objectStorageByLanguage(objectStorage: item.relatedFilterableDocuments}" />
 
-    <f:for each="{catSearch:grouping.filterablesByCategory(filterables: documents)}" key="key" as="groupedDocuments">
+    <f:for each="{catSearch:grouping.filterablesByPrimaryFilter(filterables: documents, number: 1)}" key="key" as="groupedDocuments">
         <div class="catsearch-detail-additional-downloads">
             
             <f:if condition="{groupedDocuments.category.title}">

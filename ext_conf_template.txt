@@ -1,3 +1,18 @@
+# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType1
+primaryFilterType1 =
+
+# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType2
+primaryFilterType2 = 
+
+# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType3
+primaryFilterType3 = 
+
+# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType4
+primaryFilterType4 = 
+
+# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType5
+primaryFilterType5 =  
+
 # cat=CatSearch; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.fulltextIndexTable
 indexTable = tx_catsearch_domain_model_filterable
 

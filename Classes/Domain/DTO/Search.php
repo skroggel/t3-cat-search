@@ -43,12 +43,6 @@ final class Search
     /**
      * @var int
      */
-    protected int $language = 0;
-
-
-    /**
-     * @var int
-     */
     protected int $relatedProduct = 0;
 
 
@@ -176,28 +170,6 @@ final class Search
 	}
 
 
-    /**
-     * Get language
-     *
-     * @return int
-     */
-    public function getLanguage(): int
-    {
-        return $this->language;
-    }
-
-
-    /**
-     * Set language
-     *
-     * @param int|null $language
-     * @return void
-     */
-    public function setLanguage(?int $language): void
-    {
-        $this->language = (int) $language;
-    }
-
 
     /**
      * Get relatedProduct
@@ -236,10 +208,10 @@ final class Search
     /**
      * Set filter
      *
-     * @param int $filter
+     * @param int|null $filter
      * @return void
      */
-    public function setFilter1(int $filter): void
+    public function setFilter1(?int $filter): void
     {
         $this->setFilter(1, $filter);
     }

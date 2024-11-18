@@ -50,5 +50,5 @@ interface FilterableRepositoryInterface
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function findAllYearsAssigned(int $languageUid, array $settings): array;
+    public function findAssignedYears(int $languageUid, array $settings): array;
 }

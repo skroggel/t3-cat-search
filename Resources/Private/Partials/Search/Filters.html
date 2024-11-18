@@ -24,13 +24,7 @@
                                           arguments="{filterOptions: searchOptions.relatedProducts, search: search,
                                                       data:data, settings: settings, settingsForLayout: settingsForLayout}" />
                             </f:if>
-
-                            <f:if condition="{settings.showFilterByLanguage}">
-                                <f:render partial="Search/Filters/Types/Special/Language"
-                                          arguments="{filterOptions: searchOptions.languages, search: search,
-                                                      data:data, settings: settings, settingsForLayout: settingsForLayout}" />
-                            </f:if>                            
-
+                            
                             <f:for each="{searchOptions.filters}" key="filterName" as="filterDetails" iteration="iterator">
                                 <f:render partial="Search/Filters/Types/Select"
                                           arguments="{filterOptions: filterDetails.filterOptions, filterType: filterDetails.filterType,

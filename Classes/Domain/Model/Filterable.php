@@ -38,18 +38,6 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
-     * @var \Madj2k\CatSearch\Domain\Model\Language|null
-     */
-    protected ?Language $language = null;
-
-
-    /**
-     * @var \Madj2k\CatSearch\Domain\Model\Category|null
-     */
-    protected ?Category $category = null;
-
-
-    /**
      * @var string
      */
     protected string $layout = '';
@@ -287,6 +275,36 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 
 
     /**
+     * @var \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    protected ?Filter $primaryFilter1 = null;
+
+
+    /**
+     * @var \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    protected ?Filter $primaryFilter2 = null;
+
+
+    /**
+     * @var \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    protected ?Filter $primaryFilter3 = null;
+
+
+    /**
+     * @var \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    protected ?Filter $primaryFilter4 = null;
+
+
+    /**
+     * @var \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    protected ?Filter $primaryFilter5 = null;
+
+
+    /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\TtContent>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
@@ -338,52 +356,6 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     public function setRecordType(int $recordType): void
     {
         $this->recordType = $recordType;
-    }
-
-
-    /**
-     * Returns the language
-     *
-     * @return \Madj2k\CatSearch\Domain\Model\Language|null
-     */
-    public function getLanguage(): ?Language
-    {
-        return $this->language;
-    }
-
-
-    /**
-     * Sets the language
-     *
-     * @param \Madj2k\CatSearch\Domain\Model\Language $language
-     * @return void
-     */
-    public function setLanguage(Language $language): void
-    {
-        $this->language = $language;
-    }
-
-
-    /**
-     * Returns the category
-     *
-     * @return \Madj2k\CatSearch\Domain\Model\Category|null
-     */
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-
-    /**
-     * Sets the category
-     *
-     * @param \Madj2k\CatSearch\Domain\Model\Category $category
-     * @return void
-     */
-    public function setCategory(Category $category): void
-    {
-        $this->category = $category;
     }
 
 
@@ -1530,6 +1502,135 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
     }
 
 
+
+    /**
+     * Sets the filters
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
+     * @return void
+     */
+    public function setFilters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $filters): void
+    {
+        $this->filters = $filters;
+    }
+
+
+    /**
+     * Returns the primaryFilter1
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter1(): ?Filter
+    {
+        return $this->primaryFilter1;
+    }
+
+
+    /**
+     * Sets the primaryFilter1
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter1
+     * @return void
+     */
+    public function setPrimaryFilter1(Filter $primaryFilter1): void
+    {
+        $this->primaryFilter1 = $primaryFilter1;
+    }
+
+
+    /**
+     * Returns the primaryFilter2
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter2(): ?Filter
+    {
+        return $this->primaryFilter2;
+    }
+
+
+    /**
+     * Sets the primaryFilter2
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter2
+     * @return void
+     */
+    public function setPrimaryFilter2(Filter $primaryFilter2): void
+    {
+        $this->primaryFilter2 = $primaryFilter2;
+    }
+
+
+    /**
+     * Returns the primaryFilter3
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter3(): ?Filter
+    {
+        return $this->primaryFilter3;
+    }
+
+
+    /**
+     * Sets the primaryFilter3
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter3
+     * @return void
+     */
+    public function setPrimaryFilter3(Filter $primaryFilter3): void
+    {
+        $this->primaryFilter3 = $primaryFilter3;
+    }
+
+
+    /**
+     * Returns the primaryFilter4
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter4(): ?Filter
+    {
+        return $this->primaryFilter4;
+    }
+
+
+    /**
+     * Sets the primaryFilter4
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter4
+     * @return void
+     */
+    public function setPrimaryFilter4(Filter $primaryFilter4): void
+    {
+        $this->primaryFilter4 = $primaryFilter4;
+    }
+
+
+    /**
+     * Returns the primaryFilter5
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter5(): ?Filter
+    {
+        return $this->primaryFilter5;
+    }
+
+
+    /**
+     * Sets the primaryFilter5
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter5
+     * @return void
+     */
+    public function setPrimaryFilter5(Filter $primaryFilter5): void
+    {
+        $this->primaryFilter5 = $primaryFilter5;
+    }
+
+
+
     /**
 	 * Adds a filter
 	 *
@@ -1573,33 +1674,39 @@ class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implemen
 	}
 
 
+    /**
+     * Returns full list of all filters
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
+     */
+    public function getAllFilters(): ObjectStorage
+    {
+        $filters = $this->getFilters();
+        foreach (range(1,5) as $cnt) {
+            $getter = 'getPrimaryFilter' . $cnt;
+            if ($this->$getter()) {
+                $filters->attach($this->$getter());
+            }
+        }
+
+        return $filters;
+    }
+
+
 	/**
 	 * Returns a comma-separated list of all filters set
 	 *
 	 * @return string
 	 */
-	public function getFiltersList(): string
+	public function getAllFiltersList(): string
 	{
 		/** @var \Madj2k\CatSearch\Domain\Model\Filter $filter */
 		$filtersList = [];
-		foreach ($this->filters as $filter) {
+		foreach ($this->getAllFilters() as $filter) {
 			$filtersList[] = $filter->getTitle();
 		}
 		return implode(', ', $filtersList);
 	}
-
-
-	/**
-	 * Sets the filters
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
-	 * @return void
-	 */
-	public function setFilters(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $filters): void
-	{
-		$this->filters = $filters;
-	}
-
 
 
     /**

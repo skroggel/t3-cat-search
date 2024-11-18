@@ -40,5 +40,5 @@ interface FilterRepositoryInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-	public function findAllAssignedByLanguageAndType(int $languageUid, int $typeUid, array $settings): array;
+	public function findAssignedByLanguageAndType(int $languageUid, int $typeUid, array $settings): array;
 }

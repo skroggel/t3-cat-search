@@ -59,14 +59,14 @@ final class SearchController extends AbstractSearchController
         $languageId = $this->siteLanguage->getLanguageId();
         $cacheIdentifier = 'filteroptions_' . $languageId;
 
-        if (!$searchOptions = $this->cache->get($cacheIdentifier)) {
+//        if (!$searchOptions = $this->cache->get($cacheIdentifier)) {
 
             $searchOptions = parent::getSearchOptions();
             $this->cache->set(
                 $cacheIdentifier,
                 $searchOptions,
                 ['madj2kcatsearch_filteroptions', 'madj2kcatsearch_filteroptions_' . $languageId]);
-        }
+  //      }
 
         return $searchOptions;
     }

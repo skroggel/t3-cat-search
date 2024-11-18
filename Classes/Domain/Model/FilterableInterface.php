@@ -37,14 +37,6 @@ interface FilterableInterface
 
 
     /**
-     * Returns the language
-     *
-     * @return \Madj2k\CatSearch\Domain\Model\Language|null
-     */
-    public function getLanguage(): ?Language;
-
-
-    /**
      * Returns the publishDate
      *
      * @return int
@@ -108,14 +100,6 @@ interface FilterableInterface
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
      */
     public function getFilters(): ObjectStorage;
-
-
-    /**
-     * Returns a comma-separated list of all filters set
-     *
-     * @return string
-     */
-    public function getFiltersList(): string;
 
 
     /**

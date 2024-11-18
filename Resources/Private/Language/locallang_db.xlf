@@ -99,7 +99,6 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.layout.big">
 				<source>Big</source>
 			</trans-unit>
-
 			<trans-unit id="tx_catsearch_domain_model_filterable.detail_pid">
 				<source>Detail page (overrides configuration)</source>
 			</trans-unit>
@@ -217,6 +216,21 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.filters">
 				<source>Filters</source>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.primary_filter1">
+				<source>Primary Filter 1</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.primary_filter2">
+				<source>Primary Filter 2</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.primary_filter3">
+				<source>Primary Filter 3</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.primary_filter4">
+				<source>Primary Filter 4</source>
+			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.primary_filter5">
+				<source>Primary Filter 5</source>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.content_elements">
 				<source>Content Elements</source>
 			</trans-unit>
@@ -268,37 +282,6 @@
 			<trans-unit id="tx_catsearch_domain_model_manufacturer.image">
 				<source>Image</source>
 			</trans-unit>
-
-
-			<!-- tx_catsearch_domain_model_language -->
-			<trans-unit id="tx_catsearch_domain_model_language">
-				<source>Language of document</source>
-			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_language.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_language.iso2_key">
-				<source>ISO 2</source>
-			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_language.iso3_key">
-				<source>ISO 3</source>
-			</trans-unit>
-
-
-			<!-- tx_catsearch_domain_model_category -->
-			<trans-unit id="tx_catsearch_domain_model_category">
-				<source>Category</source>
-			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_category.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_category.title_long">
-				<source>Title (long)</source>
-			</trans-unit>
-			<trans-unit id="tx_catsearch_domain_model_category.image">
-				<source>Image</source>
-			</trans-unit>
-
         </body>
     </file>
 </xliff>

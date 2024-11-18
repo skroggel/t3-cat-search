@@ -28,7 +28,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-final class FilterablesByCategoryViewHelper extends AbstractViewHelper
+final class FilterablesByPrimaryFilterViewHelper extends AbstractViewHelper
 {
 
 	/**
@@ -40,7 +40,9 @@ final class FilterablesByCategoryViewHelper extends AbstractViewHelper
 	{
 		parent::initializeArguments();
 		$this->registerArgument('filterables', ObjectStorage::class, 'The related filterables as array', true);
-	}
+        $this->registerArgument('number', 'integer', 'The number of the primary filter', false, 1);
+
+    }
 
 
 	/**
@@ -58,15 +60,17 @@ final class FilterablesByCategoryViewHelper extends AbstractViewHelper
         /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable> $filterables */
 		$filterables = $arguments['filterables'];
 
+        $getter = 'getPrimaryFilter' . (int) $arguments['number'];
+
         /** @var \Madj2k\CatSearch\Domain\Model\FilterableInterface $filterable */
         $result = [];
         foreach ($filterables as $filterable) {
             if ($filterable instanceof FilterableInterface) {
 
-                $categoryId = $filterable->getCategory()? $filterable->getCategory()->getUid() : 0;
+                $categoryId = $filterable->$getter()? $filterable->$getter()->getUid() : 0;
                 if (! isset($result[$categoryId])) {
                     $result[$categoryId] = [
-                        'category' => $filterable->getCategory() ?? null,
+                        'category' => $filterable->$getter() ?? null,
                         'items' => []
                     ];
                 }
