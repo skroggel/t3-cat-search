@@ -1,11 +1,35 @@
 <?php
+declare(strict_types=1);
+
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+$primaryFilterType = [];
+try {
+
+    // check for primary filters
+    $configReader = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+    $extensionConfig = $configReader->get('cat_search');
+
+    foreach (range(1,5) as $cnt) {
+
+        if (
+            (isset($extensionConfig['primaryFilterType' . $cnt]))
+            && ($extensionConfig['primaryFilterType' . $cnt])
+        ){
+            $primaryFilterType[$cnt] = $extensionConfig['primaryFilterType' . $cnt];
+        }
+    }
+} catch (\Exception $e) {
+    // nothing
+}
+
 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 return [
     'ctrl' => [
         'title' => $ll .'tx_catsearch_domain_model_filterable',
         'label' => 'title',
-        'label_alt' => 'subtitle, language',
-        'label_alt_force' => true,
+        'label_userFunc' => \Madj2k\CatSearch\UserFunctions\FormEngine\Labels::class . '->labelFilterableTable',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'default_sortby' => 'ORDER BY title ASC',
@@ -39,7 +63,7 @@ return [
             --div--;' . $ll . 'tab.content,--palette--;;content_document,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_document,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_document,
-            --div--;' . $ll . 'tab.filter,--palette--;;filter,
+            --div--;' . $ll . 'tab.filter,--palette--;;filter_document,
             --div--;' . $ll . 'tab.media,--palette--;;media_document,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
@@ -53,7 +77,7 @@ return [
             --div--;' . $ll . 'tab.content,--palette--;;content_product,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_product,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_product,
-            --div--;' . $ll . 'tab.filter,--palette--;;filter,
+            --div--;' . $ll . 'tab.filter,--palette--;;filter_product,
             --div--;' . $ll . 'tab.media,--palette--;;media_product,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
@@ -67,7 +91,7 @@ return [
             --div--;' . $ll . 'tab.content,--palette--;;content_accessory,
             --div--;' . $ll . 'tab.meta,--palette--;;meta_accessory,
             --div--;' . $ll . 'tab.relations,--palette--;;relations_accessory,
-            --div--;' . $ll . 'tab.filter,--palette--;;filter,
+            --div--;' . $ll . 'tab.filter,--palette--;;filter_accessory,
             --div--;' . $ll . 'tab.media,--palette--;;media_accessory,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
 			--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
@@ -77,8 +101,6 @@ return [
         'main_document' => [
             'label' => $ll . 'palette.main',
             'showitem' => '
-                category,
-                --linebreak--,
                 layout,
                 --linebreak--,
 				title,
@@ -93,8 +115,6 @@ return [
         'main_product' => [
             'label' => $ll . 'palette.main',
             'showitem' => '
-                category,
-                --linebreak--,
                 layout,
                 --linebreak--,
 				title,
@@ -109,8 +129,6 @@ return [
         'main_accessory' => [
             'label' => $ll . 'palette.main',
             'showitem' => '
-                category,
-                --linebreak--,
                 layout,
                 --linebreak--,
 				title,
@@ -122,9 +140,49 @@ return [
 				detail_pid
 				',
         ],
-        'filter' => [
+        'filter_document' => [
             'label' => $ll . 'palette.filter',
             'showitem' => '
+                primary_filter1,
+                --linebreak--,
+                primary_filter2,
+                --linebreak--,
+                primary_filter3,
+                --linebreak--,
+                primary_filter4,
+                --linebreak--,
+                primary_filter5,
+                --linebreak--,
+				filters',
+        ],
+        'filter_product' => [
+            'label' => $ll . 'palette.filter',
+            'showitem' => '
+                primary_filter1,
+                --linebreak--,
+                primary_filter2,
+                --linebreak--,
+                primary_filter3,
+                --linebreak--,
+                primary_filter4,
+                --linebreak--,
+                primary_filter5,
+                --linebreak--,
+				filters',
+        ],
+        'filter_accessory' => [
+            'label' => $ll . 'palette.filter',
+            'showitem' => '
+                primary_filter1,
+                --linebreak--,
+                primary_filter2,
+                --linebreak--,
+                primary_filter3,
+                --linebreak--,
+                primary_filter4,
+                --linebreak--,
+                primary_filter5,
+                --linebreak--,
 				filters',
         ],
         'seo_document' => [
@@ -233,9 +291,7 @@ return [
             'showitem' => '
 				publish_date,
 				 --linebreak--,
-                manufacturer,
-                --linebreak--,
-				language,',
+                manufacturer,',
         ],
         'meta_product' => [
             'label' => $ll . 'palette.meta',
@@ -447,34 +503,6 @@ return [
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-            ],
-        ],
-        'category' => [
-            'exclude' => false,
-            'l10n_mode' => 'exclude',
-            'label' => $ll . 'tx_catsearch_domain_model_filterable.category',
-            'config' => [
-                'type' => 'group',
-                'size' => 1,
-                'allowed' => 'tx_catsearch_domain_model_category',
-                'foreign_table' => 'tx_catsearch_domain_model_category',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_category.pid=###CURRENT_PID### AND tx_catsearch_domain_model_category.sys_category_uid IN (-1, 0) AND tx_catsearch_domain_model_category.hidden = 0 AND tx_catsearch_domain_model_category.deleted = 0 ORDER BY tx_catsearch_domain_model_category.title',
-                'minitems' => 0,
-                'maxitems' => 1
-            ],
-        ],
-        'language' => [
-            'exclude' => false,
-            'l10n_mode' => 'exclude',
-            'label' => $ll . 'tx_catsearch_domain_model_filterable.language',
-            'config' => [
-                'type' => 'group',
-                'size' => 1,
-                'allowed' => 'tx_catsearch_domain_model_language',
-                'foreign_table' => 'tx_catsearch_domain_model_language',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_language.pid=###CURRENT_PID### AND tx_catsearch_domain_model_language.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_language.hidden = 0 AND tx_catsearch_domain_model_language.deleted = 0 ORDER BY tx_catsearch_domain_model_language.title',
-                'minitems' => 0,
-                'maxitems' => 1
             ],
         ],
         'layout' => [
@@ -911,15 +939,74 @@ return [
         ],
         'filters' => [
             'exclude' => false,
-            'l10n_mode' => 'exclude',
             'label' => $ll .'tx_catsearch_domain_model_filterable.filters',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type NOT IN(' . ($primaryFilterType ? implode(',', $primaryFilterType) : -1). ') AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'MM' => 'tx_catsearch_filterable_filter_mm',
                 'minitems' => 0
+            ],
+        ],
+        'primary_filter1' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.primary_filter1',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_catsearch_domain_model_filter',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[1]) ? (int) $primaryFilterType[1] : -1). ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'minitems' => 0,
+                'maxitems' => 1
+            ],
+        ],
+        'primary_filter2' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.primary_filter2',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_catsearch_domain_model_filter',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[2]) ? (int) $primaryFilterType[2] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'minitems' => 0,
+                'maxitems' => 1
+            ],
+        ],
+        'primary_filter3' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.primary_filter3',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_catsearch_domain_model_filter',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[3]) ? (int) $primaryFilterType[3] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'minitems' => 0,
+                'maxitems' => 1
+            ],
+        ],
+        'primary_filter4' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.primary_filter4',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_catsearch_domain_model_filter',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[4]) ? (int) $primaryFilterType[4] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'minitems' => 0,
+                'maxitems' => 1
+            ],
+        ],
+        'primary_filter5' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filterable.primary_filter5',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_catsearch_domain_model_filter',
+                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[5]) ? (int) $primaryFilterType[5] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'minitems' => 0,
+                'maxitems' => 1
             ],
         ],
         'content_elements' => [

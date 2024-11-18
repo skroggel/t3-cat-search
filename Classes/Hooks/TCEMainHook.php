@@ -423,7 +423,7 @@ class TCEMainHook
                 );
 
             } else {
-                if ($record[$column]) {
+                if (isset($record[$column])) {
                     $indexResult .= ' ' . $this->sanitize((string)$record[$column]);
                 }
             }

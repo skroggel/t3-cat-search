@@ -19,8 +19,6 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 (
 	uid                            int(11) NOT NULL auto_increment,
 	record_type                    int(4) NOT NULL DEFAULT '0',
-	category                       int(4) NOT NULL DEFAULT '0',
-	language                       int(4) NOT NULL DEFAULT '0',
 	layout                         varchar(255) DEFAULT 'default' NOT NULL,
 	detail_pid                     int(4) NOT NULL DEFAULT '0',
 
@@ -50,6 +48,12 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 
 	manufacturer                   int(11) DEFAULT '0' NOT NULL,
 	filters                        int(11) unsigned DEFAULT '0',
+	primary_filter1                int(11) unsigned DEFAULT '0',
+	primary_filter2                int(11) unsigned DEFAULT '0',
+	primary_filter3                int(11) unsigned DEFAULT '0',
+	primary_filter4                int(11) unsigned DEFAULT '0',
+	primary_filter5                int(11) unsigned DEFAULT '0',
+
 	publish_date                   int(11) unsigned DEFAULT '0' NOT NULL,
 	publish_date_year              int(4) unsigned DEFAULT '0' NOT NULL,
 
@@ -82,7 +86,8 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 	KEY                            parent (pid),
 	KEY                            publish_date_year (publish_date_year),
 	KEY                            record_type (record_type),
-	KEY language (l10n_parent,sys_language_uid),
+	KEY                            filters (filters, primary_filter1, primary_filter2, primary_filter3, primary_filter4, primary_filter5),
+	KEY                            sys_language (l10n_parent,sys_language_uid),
 	KEY                            deleted_hidden (deleted, hidden),
 	KEY                            sys_language_uid (sys_language_uid),
 	FULLTEXT KEY `content_index` (`content_index`)
@@ -122,35 +127,6 @@ CREATE TABLE tx_catsearch_domain_model_filter
 
 
 CREATE TABLE tx_catsearch_domain_model_manufacturer
-(
-	uid        int(11) NOT NULL auto_increment,
-
-	title      varchar(255) DEFAULT '' NOT NULL,
-	title_long varchar(255) DEFAULT '' NOT NULL,
-
-	image      int(11) unsigned DEFAULT '0' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY        parent (pid),
-	KEY language (l10n_parent,sys_language_uid)
-);
-
-
-CREATE TABLE tx_catsearch_domain_model_language
-(
-	uid      int(11) NOT NULL auto_increment,
-
-	title    varchar(255) DEFAULT '' NOT NULL,
-	iso2_key varchar(255) DEFAULT '' NOT NULL,
-	iso3_key varchar(255) DEFAULT '' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY      parent (pid),
-	KEY language (l10n_parent,sys_language_uid)
-);
-
-
-CREATE TABLE tx_catsearch_domain_model_category
 (
 	uid        int(11) NOT NULL auto_increment,
 

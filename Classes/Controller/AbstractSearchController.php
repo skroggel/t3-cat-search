@@ -381,15 +381,11 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
         $searchOptions = [
             'filters' => [],
             'filtersCombined' => [],
-            'years' => $this->filterableRepository->findAllYearsAssigned(
+            'years' => $this->filterableRepository->findAssignedYears(
                 $languageId,
                 $this->settings,
             ),
-            'languages' => $this->filterableRepository->findAllLanguagesAssigned(
-                $languageId,
-                $this->settings,
-            ),
-            'relatedProducts' => $this->filterableRepository->findAllRelatedProductsAssigned(
+            'relatedProducts' => $this->filterableRepository->findAssignedRelatedProducts(
                 $languageId,
                 $this->settings,
             ),
@@ -401,11 +397,11 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
             if (
                 (isset($this->settings['filterType' . $filterNumber]))
                 && ($this->settings['filterType' . $filterNumber])
-            ){
+            ) {
 
-                $filterOptions = $this->filterRepository->findAllAssignedByLanguageAndType(
+                $filterOptions = $this->filterRepository->findAssignedByLanguageAndType(
                     $languageId,
-                    (int) $this->settings['filterType' . $filterNumber],
+                    (int)$this->settings['filterType' . $filterNumber],
                     $this->settings
                 );
 
@@ -428,7 +424,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
                         'title' => $filterType->getTitle()
                     ],
                     'filterOptions' => $filterOptions,
-                    'allowMultiple' => (bool) $this->settings['filterType' . $filterNumber . 'AllowMultiple']
+                    'allowMultiple' => (bool)$this->settings['filterType' . $filterNumber . 'AllowMultiple'] ?? false
                 ];
             }
         }

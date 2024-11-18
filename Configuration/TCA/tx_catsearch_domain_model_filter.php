@@ -5,9 +5,7 @@ return [
 	'ctrl' => [
 		'title' => $ll .'tx_catsearch_domain_model_filter',
 		'label' => 'title',
-        'label_alt' => 'type',
-        'label_userFunc' => \Madj2k\CatSearch\UserFunctions\FormEngine\Labels::class . '->filterLabel',
-        'label_alt_force' => true,
+        'label_userFunc' => \Madj2k\CatSearch\UserFunctions\FormEngine\Labels::class . '->labelFilterTable',
         'hideTable' => true,
 		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => true,
@@ -130,7 +128,6 @@ return [
         ],
 		'filterables' => [
 			'exclude' => false,
-			'l10n_mode' => 'exclude',
 			'label' => $ll .'tx_catsearch_domain_model_filter.filterables',
 			'config' => [
 				'type' => 'select',

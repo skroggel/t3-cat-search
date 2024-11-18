@@ -31,7 +31,21 @@
 			<trans-unit id="extConf.contentElementsDefaultCType">
 				<source>Standard cType for linked content elements.</source>
 			</trans-unit>
-
+			<trans-unit id="extConf.primaryFilterType1">
+				<source>The filter-type-uid to use for primary filter 1.</source>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType2">
+				<source>The filter-type-uid to use for primary filter 2.</source>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType3">
+				<source>The filter-type-uid to use for primary filter 3.</source>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType4">
+				<source>The filter-type-uid to use for primary filter 4.</source>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType5">
+				<source>The filter-type-uid to use for primary filter 5.</source>
+			</trans-unit>
 
 
 			<!-- Content Element Wizard -->
@@ -148,10 +162,7 @@
 				<source>Show Year-Filter</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.showFilterByRelatedProduct">
-				<source>Show Product-Filter</source>
-			</trans-unit>
-			<trans-unit id="flexform.settings.showFilterByLanguage">
-				<source>Show Language-Filter</source>
+				<source>Show Related Product-Filter</source>
 			</trans-unit>
 			<trans-unit id="flexform.settings.showTags">
 				<source>Show Tags</source>

@@ -39,7 +39,26 @@
 				<source>Standard cType for linked content elements.</source>
 				<target>Standard-cType fpr verknüpfte Content-Elemente.</target>
 			</trans-unit>
-
+			<trans-unit id="extConf.primaryFilterType1">
+				<source>The filter-type-uid to use for primary filter 1.</source>
+				<target>Die Filter-Typ-Uid für den Primär-Filter 1.</target>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType2">
+				<source>The filter-type-uid to use for primary filter 2.</source>
+				<target>Die Filter-Typ-Uid für den Primär-Filter 2.</target>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType3">
+				<source>The filter-type-uid to use for primary filter 3.</source>
+				<target>Die Filter-Typ-Uid für den Primär-Filter 3.</target>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType4">
+				<source>The filter-type-uid to use for primary filter 4.</source>
+				<target>Die Filter-Typ-Uid für den Primär-Filter 4.</target>
+			</trans-unit>
+			<trans-unit id="extConf.primaryFilterType5">
+				<source>The filter-type-uid to use for primary filter 5.</source>
+				<target>Die Filter-Typ-Uid für den Primär-Filter 5.</target>
+			</trans-unit>
 
 
 			<!-- Content Element Wizard -->
@@ -191,12 +210,8 @@
 				<target>Zeige Jahres-Filter</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.showFilterByRelatedProduct">
-				<source>Show Product-Filter</source>
-				<target>Zeige Produkt-Filter</target>
-			</trans-unit>
-			<trans-unit id="flexform.settings.showFilterByLanguage">
-				<source>Show Language-Filter</source>
-				<target>Zeige Sprachen-Filter</target>
+				<source>Show Related Product-Filter</source>
+				<target>Zeige Verwandtes-Produkt-Filter</target>
 			</trans-unit>
 			<trans-unit id="flexform.settings.showTags">
 				<source>Show Tags</source>

@@ -127,7 +127,6 @@ return [
         'filters' => [
 			'exclude' => false,
 			'label' => $ll .'tx_catsearch_domain_model_filtertype.filters',
-			'l10n_mode' => 'exclude',
 			'config' => [
                 'type' => 'inline',
 				'allowed' => 'tx_catsearch_domain_model_filter',
