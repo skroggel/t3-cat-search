@@ -26,11 +26,11 @@
 
             <f:comment><!-- first page --></f:comment>
             <f:if condition="{pagination.displayRangeStart} > {pagination.firstPageNumber}">
-                <li class="pagination-page-item">
+                <li class="pagination-item">
                     <f:render
                         section="PageLink"
                         arguments="{arguments: '{currentPage:pagination.firstPageNumber}',
-                                    class: 'pagination-link', text: pagination.firstPageNumber}, data: data"
+                                    class: 'pagination-link', text: pagination.firstPageNumber, data: data}"
                     />
                 </li>
             </f:if>
@@ -38,7 +38,7 @@
             <f:comment><!-- has less pages --></f:comment>
             <f:if condition="{pagination.hasLessPages}">
                 <li class="pagination-item page-item">
-                    <span class="pagination-link">…</span>
+                    <span class="pagination-placeholder"></span>
                 </li>
             </f:if>
 
@@ -57,7 +57,7 @@
             <f:comment><!-- Has more pages --></f:comment>
             <f:if condition="{pagination.hasMorePages}">
                 <li class="pagination-item">
-                    <span class="pagination-link">…</span>
+                    <span class="pagination-placeholder"></span>
                 </li>
             </f:if>
 
@@ -75,7 +75,7 @@
             </f:if>
 
             <f:comment><!-- next --></f:comment>
-            <li class="page-item">
+            <li class="pagination-item">
                 <f:if condition="{pagination.nextPageNumber}">
                     <f:then>
                         <f:render

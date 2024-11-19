@@ -82,7 +82,6 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 			(in_array($search->getSorting(), GeneralUtility::trimExplode(',', $settings['sorting'] ?? '')))
 			&& ($sorting = explode('#', strtolower($search->getSorting())))
 			&& (count($sorting) == 2)
-			&& (isset($GLOBALS['TCA'][$this->getTableName()]['columns'][$sorting[0]]))
 		){
 			$orderDirection = QueryInterface::ORDER_ASCENDING;
 			$orderColumn = $sorting[0];
@@ -91,7 +90,7 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 			}
 
 			$query->setOrderings([
-                $orderColumn => $orderDirection
+                GeneralUtility::underscoredToLowerCamelCase($orderColumn) => $orderDirection
 			]);
 		}
 
