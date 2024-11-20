@@ -402,7 +402,7 @@ return [
             ],
         ],
         'sys_language_uid' => [
-            'exclude' => 0,
+            'exclude' => false,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
                 'type' => 'select',
@@ -418,7 +418,7 @@ return [
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 0,
+            'exclude' => false,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
@@ -596,7 +596,7 @@ return [
             ]
         ],
         'header2' => [
-            'exclude' => true,
+            'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.header2',
             'config' => [
                 'type' => 'input',
@@ -605,7 +605,7 @@ return [
             ]
         ],
         'header3' => [
-            'exclude' => true,
+            'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.header3',
             'config' => [
                 'type' => 'input',
@@ -662,7 +662,7 @@ return [
             ],
         ],
         'description2' => [
-            'exclude' => true,
+            'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.description2',
             'config' => [
                 'type' => 'text',
@@ -673,7 +673,7 @@ return [
             ],
         ],
         'description3' => [
-            'exclude' => true,
+            'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.description3',
             'config' => [
                 'type' => 'text',
@@ -1010,7 +1010,7 @@ return [
             ],
         ],
         'content_elements' => [
-            'exclude' => true,
+            'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.content_elements',
             'config' => [
                 'type' => 'inline',
