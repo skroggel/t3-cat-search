@@ -208,11 +208,12 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * action related
      *
      * @param \Madj2k\CatSearch\Domain\DTO\Search|null $search
+     * @param int $currentPage
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function searchRelatedAction(Search $search = null): ResponseInterface
+    public function searchRelatedAction(Search $search = null, int $currentPage = 1): ResponseInterface
     {
         // load from session or init new one - do not save it to session here!!!!
         if (!$search && (!$search = $this->loadSearchfromSession())) {
@@ -221,10 +222,35 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 
         $results = $this->getSearchResults($search);
 
+        $layoutKey = $search->getLayout() ?? $this->settings['layout'] ?? 'default';
+        $maxItemsPerPage = (int) $this->settings['maxResultsPerPage'] ?? 10;
+        if (isset($this->settings[$layoutKey]['maxResultsPerPage'])) {
+            $maxItemsPerPage = (int) $this->settings[$layoutKey]['maxResultsPerPage'];
+        }
+
+        $maxPages = (int) $this->settings['maxPages'] ?? 3;
+        if (isset($this->settings[$layoutKey]['maxPages'])) {
+            $maxPages = (int) $this->settings[$layoutKey]['maxPages'];
+        }
+
+        /** @var \TYPO3\CMS\Extbase\Pagination\QueryResultPaginator $paginator */
+        $paginator = new QueryResultPaginator(
+            $results,
+            $currentPage,
+            $maxItemsPerPage
+        );
+
+        /** @var \TYPO3\CMS\Core\Pagination\SlidingWindowPagination $pagination */
+        $pagination = new SlidingWindowPagination(
+            $paginator,
+            $maxPages,
+        );
+
         $this->view->assignMultiple([
-            'results' => $results,
             'search' => $search,
-            'resultCount' => $results->count()
+            'paginator' => $paginator,
+            'pagination' => $pagination,
+            'resultCount' => $results->count(),
         ]);
 
         return $this->htmlResponse();
@@ -243,6 +269,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
      * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
+     * @throws \Madj2k\CatSearch\Exception
      */
 	public function searchAction(Search $search = null, int $currentPage = 0, bool $useSessionPage = false): ResponseInterface
 	{
@@ -276,7 +303,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
         $results = $this->getSearchResults($search, false);
 
         // check for settings for pagination
-        $layoutKey = $search->getLayout() ?? $this->settings['layout'] ?? 'list';
+        $layoutKey = $search->getLayout() ?? $this->settings['layout'] ?? 'default';
         $maxItemsPerPage = (int) $this->settings['maxResultsPerPage'] ?? 10;
         if (isset($this->settings[$layoutKey]['maxResultsPerPage'])) {
             $maxItemsPerPage = (int) $this->settings[$layoutKey]['maxResultsPerPage'];

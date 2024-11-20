@@ -19,20 +19,34 @@
 
 	<f:section name="Default">
 
-		<section class="catsearch-related" id="c{data.uid}">
+        <f:if condition="{paginator.paginatedItems}">
 
-            <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+            <section class="catsearch-related variant-{settings.layout}" id="c{data.uid}">
 
-            <div class="container-xxl">
-                <div class="row">
-                    <div class="col-12">
-                        <f:render partial="Teaser/List"
-                                  arguments="{results: results, data: data, settings: settings, 
-                                              settingsForLayout: settingsForLayout}" />
+                <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+
+                <div class="container-xxl">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <f:render partial="Teaser/List"
+                                      arguments="{results: paginator.paginatedItems, data: data, settings: settings, 
+                                                  settingsForLayout: settingsForLayout}" />
+
+                            <f:if condition="!{settings.hidePagination}">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <f:render partial="Pagination"
+                                                  arguments="{pagination: pagination, data: data, settings: settings, 
+                                                  settingsForLayout: settingsForLayout}" />
+                                    </div>
+                                </div>
+                            </f:if>
+                        </div>
                     </div>
                 </div>
-            </div>
-		</section>
+            </section>
+        </f:if>
 
 	</f:section>
 
@@ -40,23 +54,34 @@
 
 	<f:section name="Big">
 
-        <section class="catsearch-related" id="c{data.uid}">
+        <f:if condition="{paginator.paginatedItems}">
 
-            <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+            <section class="catsearch-related variant-{settings.layout}" id="c{data.uid}">
 
-            <div class="container-xxl">
-                <div class="row">
-                    <div class="col-12">
-                        <f:for each="{results}" as="item">
-                            <f:render partial="SearchRelated/Item"
-                                      arguments="{item: item, data: data, settings: settings, 
+                <f:render partial="Header" arguments="{data: data, settings: settings, settingsForLayout: settingsForLayout}" />
+
+                <div class="container-xxl">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <f:render partial="Teaser/List"
+                                      arguments="{results: paginator.paginatedItems, data: data, settings: settings, 
                                                   settingsForLayout: settingsForLayout}" />
-                        </f:for>
+
+                            <f:if condition="!{settings.hidePagination}">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <f:render partial="Pagination"
+                                                  arguments="{pagination: pagination, data: data, settings: settings, 
+                                                  settingsForLayout: settingsForLayout}" />
+                                    </div>
+                                </div>
+                            </f:if>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-	</f:section>
+            </section>
+        </f:if>
+    </f:section>
 
 </html>

@@ -51,7 +51,7 @@ class Labels
                 'uid, title, subtitle, record_type'
             );
 
-            $params['title'] = $record['title'];
+            $params['title'] = $record['title'] ?? '';
 
             if (
                 (isset($record['subtitle']))
@@ -88,11 +88,11 @@ class Labels
         if (isset($params['row']['uid'])) {
             $record = BackendUtility::getRecord($params['table'], (int) $params['row']['uid'], 'uid, title, type');
 
-            $params['title'] = $record['title'];
+            $params['title'] = $record['title'] ?? '';
 
             if (isset($record['type'])) {
                 $typeRecord = BackendUtility::getRecord( self::TABLE_FILTER_TYPE, (int) $record['type'], 'title');
-                $params['title'] .= ', ' . $typeRecord['title'];
+                $params['title'] .= ', ' . $typeRecord['title'] ?? '';
             }
         }
     }
