@@ -17,6 +17,7 @@ namespace Madj2k\CatSearch\Controller;
 
 use Madj2k\CatSearch\Domain\DTO\Search;
 use Madj2k\CatSearch\Domain\Model\Filterable;
+use Madj2k\CatSearch\Domain\Model\FilterableInterface;
 use Madj2k\CatSearch\Domain\Repository\FilterableProductRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterableRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterRepository;
@@ -105,17 +106,27 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 
 
     /**
-	 * Assign default variables to view
-	 */
+     * Assign default variables to view
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     */
 	protected function initializeView(): void
 	{
 		$this->view->assign('data', $this->request->getAttribute('currentContentObject')->data);
         $this->view->assign('hashedParametersLink', $this->getHashLinkFromSearchParams());
 
+        // check for layout - and for layout of item for detail view!
+        $layout = $this->settings['layout'] ?: 'default';
+        if ($this->arguments->hasArgument('item')) {
+            $item = $this->arguments->getArgument('item')->getValue();
+
+            if ($item instanceof FilterableInterface) {
+                $layout = $item->getLayout();
+            }
+        }
+
         // set layout specific settings in separate array
         if (
-            ($layout = $this->settings['layout'])
-            && (isset($this->settings['layoutOverride'][$layout]))
+            (isset($this->settings['layoutOverride'][$layout]))
             && (is_array($this->settings['layoutOverride'][$layout]))
         ){
             $layoutSettings = $this->settings['layoutOverride'][$layout];

@@ -115,6 +115,14 @@ plugin.tx_catsearch_detail {
 }
 
 
+plugin.tx_catsearch_detail2 < plugin.tx_catsearch_detail
+plugin.tx_catsearch_detail2 {
+
+    view {
+        pluginNamespace = tx_catsearch_detail2
+    }
+}
+
 # ================================================================================
 # PageTitleProvider
 # ================================================================================

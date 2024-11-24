@@ -37,6 +37,14 @@ interface FilterableInterface
 
 
     /**
+     * Returns the layout
+     *
+     * @return string
+     */
+    public function getLayout(): string;
+
+
+    /**
      * Returns the publishDate
      *
      * @return int
