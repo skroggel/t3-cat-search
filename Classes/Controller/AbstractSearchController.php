@@ -24,7 +24,6 @@ use Madj2k\CatSearch\Domain\Repository\FilterTypeRepository;
 use Madj2k\CatSearch\PageTitle\PageTitleProvider;
 use Madj2k\CatSearch\Utilities\SearchParameterUtility;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\PageTitle\PageTitleProviderInterface;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -202,6 +201,22 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 
         return $this->htmlResponse();
     }
+
+
+
+    /**
+     * action detail2
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filterable|null $item
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException
+     * @throws \TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException
+     */
+    public function detail2Action(?Filterable $item = null): ResponseInterface
+    {
+        return $this->detailAction($item);
+    }
+
 
 
     /**

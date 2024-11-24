@@ -48,3 +48,27 @@ routeEnhancers:
           document: '1'
           product: '2'
           assessory: '3'
+
+  CatSearchDetail2:
+    type: Extbase
+    namespace: 'tx_catsearch_detail2'
+    routes:
+      - routePath: '/{type}/{item}/2'
+        _controller: 'Search::detail2'
+      - routePath: '/{item}/2'
+        _controller: 'Search::detail2'
+    defaultController: 'Search::detail2'
+    requirements:
+      type: '^(\d+|item|document|product|assessory)$'
+    aspects:
+      item:
+        type: PersistedAliasMapper
+        tableName: tx_catsearch_domain_model_filterable
+        routeFieldName: slug
+      type:
+        type: 'StaticValueMapper'
+        map:
+          item: '0'
+          document: '1'
+          product: '2'
+          assessory: '3'

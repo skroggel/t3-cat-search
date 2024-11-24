@@ -30,7 +30,15 @@ mod.wizards.newContentElement.wizardItems.catSearch {
 			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail.title
 			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail.description
 			tt_content_defValues {
-				CType = catsearch_teaserfiltered
+				CType = catsearch_detail
+			}
+		}
+        detail2 {
+			iconIdentifier = catsearch-plugin-detail2
+			title = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail2.title
+			description = LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:plugin.tx_catsearch_detail2.description
+			tt_content_defValues {
+				CType = catsearch_detail2
 			}
 		}
     }

@@ -16,9 +16,7 @@ namespace Madj2k\CatSearch\UserFunctions\FormEngine;
  */
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 
 /**
  * Class FilterTypeLabel

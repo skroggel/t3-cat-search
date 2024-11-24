@@ -2,7 +2,7 @@
 	  data-namespace-typo3-fluid="true">
 
     <f:if condition="{filterOptions}">
-        <div class="catsearch-filter catsearch-filter-type-{filterType.uid} form-group">
+            <div class="catsearch-filter catsearch-filter-type-{filterType.uid} form-element">
 
             <f:render partial="Search/Filters/Label" 
                       arguments="{labelFor: 'tx-catsearch-select-{filterType.uid}-{data.uid}', 
@@ -14,7 +14,7 @@
                     <f:form.select property="{filterName}"
                                    options="{filterOptions}"
                                    id="tx-catsearch-select-{filterType.uid}-{data.uid}"
-                                   class="catsearch-filter-select form-control select2-multiple"
+                                   class="catsearch-filter-select form-select js-forminator-select2-multiple"
                                    value="{search.{filterName}}"
                                    multiple="1"
                     />
@@ -26,7 +26,7 @@
                                    prependOptionLabel="{filterType.title}"
                                    prependOptionValue=""
                                    id="tx-catsearch-select-{filterType.uid}-{data.uid}"
-                                   class="catsearch-filter-select form-control select2-single"
+                                   class="catsearch-filter-select form-select js-forminator-select2-single"
                                    value="{search.{filterName}}"
                     />
                 </f:else>
