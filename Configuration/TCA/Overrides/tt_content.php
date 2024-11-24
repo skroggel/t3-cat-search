@@ -6,10 +6,26 @@ call_user_func(
 	{
 
         $pluginConfig = [
-            'Search' => ['flexFormFile' => 'Search'],
-            'SearchRelated' => ['flexFormFile' => 'SearchRelated'],
-            'TeaserFiltered' => ['flexFormFile' => 'TeaserFiltered'],
-            'Detail' => ['flexFormFile' => 'Detail'],
+            'Search' => [
+                'flexFormFile' => 'Search',
+                'includeHeaderFields' => true
+            ],
+            'SearchRelated' => [
+                'flexFormFile' => 'SearchRelated',
+                'includeHeaderFields' => true
+            ],
+            'TeaserFiltered' => [
+                'flexFormFile' => 'TeaserFiltered',
+                'includeHeaderFields' => true
+            ],
+            'Detail' => [
+                'flexFormFile' => 'Detail',
+                'includeHeaderFields' => true
+            ],
+            'Detail2' => [
+                'flexFormFile' => 'Detail',
+                'includeHeaderFields' => true
+            ],
         ];
 
         foreach ($pluginConfig as $pluginName => $pluginSettings) {
@@ -28,6 +44,7 @@ call_user_func(
             );
 
             $flexFormFile = $pluginName;
+            $hasFlexForm = true;
             if (isset($pluginSettings['flexFormFile'])) {
                 $flexFormFile = $pluginSettings['flexFormFile'];
             }
@@ -46,6 +63,8 @@ call_user_func(
                     'FILE:' . $flexFormFile,
                     $pluginSignature // third parameter adds flexform to content-element below, too!
                 );
+            } else {
+                $hasFlexForm = false;
             }
 
             // add content element
@@ -60,20 +79,27 @@ call_user_func(
                 ]
             );
 
+            $flexFormTab = '';
+            if ($hasFlexForm) {
+                $flexFormTab = '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.plugin,
+                    pi_flexform,';
+            }
+
+            $flexFormHeader = '';
+            if (! empty($pluginSettings['includeHeaderFields'])){
+                $flexFormHeader = 'header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
+                    --linebreak--,
+                    header_layout;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_layout_formlabel,
+                    --linebreak--,
+                    subheader;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:subheader_formlabel,';
+            }
+
             // define TCA-fields
             // $GLOBALS['TCA']['tt_content']['types'][$pluginSignature] = $GLOBALS['TCA']['tt_content']['types']['list'];
-         //   var_dump($GLOBALS['TCA']['tt_content']['types']['list']);
-           // die();
             $GLOBALS['TCA']['tt_content']['types'][$pluginSignature]['showitem'] = '
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
                     --palette--;;general,
-                     header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
-                     --linebreak--,
-                     header_layout;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_layout_formlabel,
-                     --linebreak--,
-                     subheader;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:subheader_formlabel,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.plugin,
-                    pi_flexform,
+                    ' . $flexFormHeader . $flexFormTab . '
                     pages;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:pages.ALT.list_formlabel,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
                     --palette--;;language,

@@ -21,7 +21,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class MetaTagViewHelper e
+ * Class MetaTagViewHelper
  *
  * @author Georg Ringer <mail@ringer.it>
  * @copyright Georg Ringer <mail@ringer.it>
@@ -64,7 +64,7 @@ class MetaTagViewHelper extends AbstractViewHelper
 		$forceAbsoluteUrl = $arguments['forceAbsoluteUrl'];
 
 		/** @var string $content */
-		$content = (string)$arguments['content'];
+		$content = (string) $arguments['content'];
 
         // set current domain
         if ($useCurrentDomain) {

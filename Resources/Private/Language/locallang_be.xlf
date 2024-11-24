@@ -134,6 +134,9 @@
 			<trans-unit id="flexform.settings.detailPid">
 				<source>Page with Detail-View</source>
 			</trans-unit>
+			<trans-unit id="flexform.settings.detail2Pid">
+				<source>Page with Detail-View (2)</source>
+			</trans-unit>
 			<trans-unit id="flexform.settings.layout">
 				<source>Layout</source>
 			</trans-unit>
@@ -181,6 +184,9 @@
 			</trans-unit>
 			<trans-unit id="plugin.tx_catsearch_detail.title">
 				<source>CatSearch: Detail-View</source>
+			</trans-unit>
+			<trans-unit id="plugin.tx_catsearch_detail2.title">
+				<source>CatSearch: Detail-View (2)</source>
 			</trans-unit>
 		</body>
 	</file>

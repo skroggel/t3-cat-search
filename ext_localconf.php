@@ -56,9 +56,19 @@ call_user_func(
 
             ],
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-
         );
 
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            $extKey,
+            'Detail2',
+            [
+                \Madj2k\CatSearch\Controller\SearchController::class => 'detail2'
+            ],
+            [
+
+            ],
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
         //=================================================================
         // Routing
         //=================================================================

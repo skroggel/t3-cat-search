@@ -3,7 +3,7 @@
 >
         
     <f:if condition="{filterOptions}">
-        <div class="catsearch-filter catsearch-product form-group">
+        <div class="catsearch-filter catsearch-product form-element">
     
             <f:render partial="Search/Filters/Label"
                       arguments="{labelFor: 'tx-catsearch-product-{data.uid}', 
@@ -16,7 +16,7 @@
                            prependOptionLabel="{f:translate(key:'search.filters.product.label')}"
                            prependOptionValue=""
                            id="tx-catsearch-product-{data.uid}"
-                           class="catsearch-filter-select form-control select2-single"
+                           class="catsearch-filter-select form-control js-forminator-select2-single"
             />
         </div>
     </f:if>

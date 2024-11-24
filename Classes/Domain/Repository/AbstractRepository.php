@@ -172,7 +172,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         }
 
         if (
-            (isset($settings['filter']))
+            (! empty($settings['filter']))
             && ($preFilter = GeneralUtility::trimExplode(',', $settings['filter'], true))
         ){
             $filters[] = $preFilter;
@@ -331,7 +331,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
                 $localTable = self::TABLE_FILTER_TYPE;
                 $localLanguageField = $GLOBALS['TCA'][$localTable]['ctrl']['languageField'] ?? '';
                 $localUid = 'uid';
-                if (isset($GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField'])) {
+                if (! empty($GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField'])) {
                     $localUid = $GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField'];
                 }
 
@@ -402,7 +402,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         }
 
         // get foreign table and change join field in case of l10nMode == exclude
-        $isRelationField = isset($GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table']);
+        $isRelationField = ! empty($GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table']);
         if ($isRelationField) {
 
             $mmTable = $GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['MM'] ?? '';
@@ -429,7 +429,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
                 if (
                     ($localLanguageField)
-                    && (isset($GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField']))
+                    && (! empty($GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField']))
                 ) {
                     $localUid = $GLOBALS['TCA'][$localTable]['ctrl']['transOrigPointerField'];
                 }
@@ -437,7 +437,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
                 if ($l10nMode == 'exclude') {
                     if (
                         ($foreignLanguageField)
-                        && (isset($GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField']))
+                        && (! empty($GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField']))
                     ) {
                         $foreignUid = $GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField'];
                     }
@@ -567,7 +567,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         $foreignUid = 'uid';
 
         // get foreign table and change join field in case of l10nMode == exclude
-        $isRelationField = isset($GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table']);
+        $isRelationField = ! empty($GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table']);
         if ($isRelationField) {
             $foreignTable = $GLOBALS['TCA'][$localTable]['columns'][$localField]['config']['foreign_table'];
             $foreignLanguageField = $GLOBALS['TCA'][$foreignTable]['ctrl']['languageField'] ?? '';
@@ -577,7 +577,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             if (
                 ($foreignLanguageField)
                 && ($languageUid > 0)
-                && (isset($GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField']))
+                && (! empty($GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField']))
             ){
                 $foreignUid = $GLOBALS['TCA'][$foreignTable]['ctrl']['transOrigPointerField'];
             }
@@ -672,7 +672,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
      */
     protected function getRelatedFieldNamesByRecordType(int $recordType, bool $invert = false): array
     {
-        if (isset(self::MM_RELATIONS_BY_RECORD_TYPE[$recordType])) {
+        if (! empty(self::MM_RELATIONS_BY_RECORD_TYPE[$recordType])) {
             if ($invert) {
                 return array_flip(self::MM_RELATIONS_BY_RECORD_TYPE[$recordType]);
             }

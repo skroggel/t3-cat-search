@@ -68,9 +68,7 @@ class SearchParameterUtility
             $hashService = GeneralUtility::makeInstance(HashService::class);
 
             $stripped = $hashService->validateAndStripHmac($hmac);
-            $parameters = unserialize(base64_decode($stripped));
-
-            return $parameters;
+            return unserialize(base64_decode($stripped));
         }
 
         return [];

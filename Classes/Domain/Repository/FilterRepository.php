@@ -47,10 +47,10 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 
 	/**
 	 * @return void
-	 */
+
 	public function initializeObject(): void
 	{
-		/** @var \TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface $querySettings */
+		/** @var \TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface $querySettings
 		$querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
 
 		// Show filters from all pages
@@ -61,7 +61,7 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 
 		$this->setDefaultQuerySettings($querySettings);
 	}
-
+    */
 
     /**
      * Find all filters that are used with filterables

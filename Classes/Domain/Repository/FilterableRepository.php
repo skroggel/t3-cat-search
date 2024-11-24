@@ -46,7 +46,6 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
      * @param array $settings
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
 	public function findBySearch(Search $search, array $settings): QueryResultInterface
 	{
