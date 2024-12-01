@@ -29,11 +29,11 @@ plugin.tx_catsearch {
         maxResults = {$plugin.tx_catsearch.settings.maxResults}
         maxResultsPerPage = {$plugin.tx_catsearch.settings.maxResultsPerPage}
         maxPages = {$plugin.tx_catsearch.settings.maxPages}
-        disablePagination = {$plugin.tx_catsearch.settings.maxPages}
 
         showFilterByTextQuery = {$plugin.tx_catsearch.settings.showFilterByTextQuery}
         showFilterByYear = {$plugin.tx_catsearch.settings.showFilterByYear}
         showTags = {$plugin.tx_catsearch.settings.showTags}
+        hidePagination = {$plugin.tx_catsearch.settings.hidePagination}
 
         layout = {$plugin.tx_catsearch.settings.layout}
 	}

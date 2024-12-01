@@ -126,6 +126,7 @@ class Filter extends AbstractEntity
 		return $this->type;
 	}
 
+
 	/**
 	 * Sets the filterType
 	 *

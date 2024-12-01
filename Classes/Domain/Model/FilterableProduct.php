@@ -15,7 +15,6 @@ namespace Madj2k\CatSearch\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 
-
 /**
  * Class FilterableProduct
  *

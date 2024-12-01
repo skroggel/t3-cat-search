@@ -15,10 +15,8 @@ namespace Madj2k\CatSearch\ViewHelpers\Filter;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\CatSearch\Domain\Model\FilterableInterface;
 use Madj2k\CatSearch\Utilities\PageLanguageUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 

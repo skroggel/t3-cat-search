@@ -16,10 +16,6 @@ namespace Madj2k\CatSearch\PageTitle;
  */
 
 use Madj2k\CatSearch\Domain\Model\Filterable;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\PageTitle\AbstractPageTitleProvider;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 
 /**
  * Class PageTitleProviderInterface

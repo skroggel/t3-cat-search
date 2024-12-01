@@ -9,7 +9,7 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_file_reference',
             [
                 'tx_catsearch_header' => [
-                    'exclude' => 0,
+                    'exclude' => false,
                     'label' =>  $ll  . 'sys_file_reference.tx_catsearch_header',
                     'config' => [
                         'type' => 'passthrough', // default type is passthrough - it is overridden when field is needed
@@ -18,7 +18,7 @@ call_user_func(
                     ]
                 ],
                 'tx_catsearch_bodytext' => [
-                    'exclude' => 0,
+                    'exclude' => false,
                     'label' =>  $ll  . 'sys_file_reference.tx_catsearch_bodytext',
                     'config' => [
                         'type' => 'passthrough', // default type is passthrough - it is overridden when field is needed

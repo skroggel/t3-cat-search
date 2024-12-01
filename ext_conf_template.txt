@@ -1,35 +1,47 @@
-# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType1
+# cat=PrimaryFilter; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType1
 primaryFilterType1 =
 
-# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType2
+# cat=PrimaryFilter; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType2
 primaryFilterType2 = 
 
-# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType3
+# cat=PrimaryFilter; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType3
 primaryFilterType3 = 
 
-# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType4
+# cat=PrimaryFilter; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType4
 primaryFilterType4 = 
 
-# cat=CatSearch; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType5
+# cat=PrimaryFilter; type=integer; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.primaryFilterType5
 primaryFilterType5 =  
 
-# cat=CatSearch; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.fulltextIndexTable
+# cat=Indexing; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.fulltextIndexTable
 indexTable = tx_catsearch_domain_model_filterable
 
-# cat=CatSearch; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.fulltextIndexFields
+# cat=Indexing; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.fulltextIndexFields
 indexFields = subtitle, product_number, manufacturer.title, header, subheader, header2, subheader2, header3, subheader3, description, description2, description3, options, applications, features, highlight, details, content_elements.header, content_elements.bodytext
 
-# cat=CatSearch; type=boolean; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.showIndexResult
+# cat=Indexing; type=boolean; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.showIndexResult
 showIndexResult = 1
 
-# cat=CatSearch; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.pageTitleFields
+# cat=Seo; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.pageTitleFields
 pageTitleFields = seo_title, title, subtitle
 
-# cat=CatSearch; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.pageTitleSeparator
+# cat=Seo; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.pageTitleSeparator
 pageTitleSeparator = |
 
-# cat=CatSearch; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.contentElementsAllowedCTypes
+# cat=ContentElements; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.contentElementsAllowedCTypes
 contentElementsAllowedCTypes = 
 
-# cat=CatSearch; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.contentElementsDefaultCType
+# cat=ContentElements; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.contentElementsDefaultCType
 contentElementsDefaultCType = 
+
+# cat=TCA; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.removeFieldsProduct 
+removeFieldsProduct = 
+
+# cat=TCA; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.removeFieldsDocument 
+removeFieldsDocument = 
+
+# cat=TCA; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.removeFieldsAccessory 
+removeFieldsAccessory = 
+
+# cat=Tca; type=string; label=LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:extConf.pluginsWithHeader
+pluginsWithHeader = Search, SearchRelated, TeaserFiltered, Detail, Detail

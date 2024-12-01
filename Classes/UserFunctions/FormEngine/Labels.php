@@ -43,6 +43,7 @@ class Labels
     public function labelFilterableTable(array &$params): void
     {
         if (isset($params['row']['uid'])) {
+
             $record = BackendUtility::getRecord(
                 $params['table'],
                 (int) $params['row']['uid'],
@@ -51,17 +52,11 @@ class Labels
 
             $params['title'] = $record['title'] ?? '';
 
-            if (
-                (isset($record['subtitle']))
-                && ($record['subtitle'])
-            ){
+            if (! empty($record['subtitle'])){
                 $params['title'] .= ', ' . $record['subtitle'];
             }
 
-            if (
-                (isset($record['record_type']))
-                && ($record['record_type'])
-            ){
+            if (! empty($record['record_type'])){
 
                 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
                 $recordType = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -88,9 +83,10 @@ class Labels
 
             $params['title'] = $record['title'] ?? '';
 
-            if (isset($record['type'])) {
-                $typeRecord = BackendUtility::getRecord( self::TABLE_FILTER_TYPE, (int) $record['type'], 'title');
-                $params['title'] .= ', ' . $typeRecord['title'] ?? '';
+            if (! empty($record['type'])) {
+                if ($typeRecord = BackendUtility::getRecord( self::TABLE_FILTER_TYPE, (int) $record['type'], 'title')) {
+                    $params['title'] .= ', ' . $typeRecord['title'] ?? '';
+                }
             }
         }
     }

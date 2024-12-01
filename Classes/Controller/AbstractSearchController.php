@@ -18,7 +18,6 @@ namespace Madj2k\CatSearch\Controller;
 use Madj2k\CatSearch\Domain\DTO\Search;
 use Madj2k\CatSearch\Domain\Model\Filterable;
 use Madj2k\CatSearch\Domain\Model\FilterableInterface;
-use Madj2k\CatSearch\Domain\Repository\FilterableProductRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterableRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterRepository;
 use Madj2k\CatSearch\Domain\Repository\FilterTypeRepository;
@@ -115,7 +114,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
         $this->view->assign('hashedParametersLink', $this->getHashLinkFromSearchParams());
 
         // check for layout - and for layout of item for detail view!
-        $layout = $this->settings['layout'] ?: 'default';
+        $layout = $this->settings['layout'] ?? 'default';
         if ($this->arguments->hasArgument('item')) {
             $item = $this->arguments->getArgument('item')->getValue();
 
@@ -167,7 +166,6 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      *
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     public function teaserFilteredAction(): ResponseInterface
     {
@@ -409,7 +407,6 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @param \Madj2k\CatSearch\Domain\DTO\Search $search
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     protected function getSearchResults (Search $search): QueryResultInterface
     {
@@ -423,8 +420,6 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @return array
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \Madj2k\CatSearch\Exception
      */
     protected function getSearchOptions (): array
     {

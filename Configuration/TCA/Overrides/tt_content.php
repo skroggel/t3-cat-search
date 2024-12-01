@@ -8,23 +8,18 @@ call_user_func(
         $pluginConfig = [
             'Search' => [
                 'flexFormFile' => 'Search',
-                'includeHeaderFields' => true
             ],
             'SearchRelated' => [
                 'flexFormFile' => 'SearchRelated',
-                'includeHeaderFields' => true
             ],
             'TeaserFiltered' => [
                 'flexFormFile' => 'TeaserFiltered',
-                'includeHeaderFields' => true
             ],
             'Detail' => [
                 'flexFormFile' => 'Detail',
-                'includeHeaderFields' => true
             ],
             'Detail2' => [
                 'flexFormFile' => 'Detail',
-                'includeHeaderFields' => true
             ],
         ];
 
@@ -86,7 +81,7 @@ call_user_func(
             }
 
             $flexFormHeader = '';
-            if (! empty($pluginSettings['includeHeaderFields'])){
+            if (\Madj2k\CatSearch\Utilities\TcaUtility::isPluginHeaderAllowed($pluginName)){
                 $flexFormHeader = 'header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
                     --linebreak--,
                     header_layout;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_layout_formlabel,

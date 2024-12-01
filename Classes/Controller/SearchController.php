@@ -51,8 +51,6 @@ final class SearchController extends AbstractSearchController
      * @return array
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \Madj2k\CatSearch\Exception
      */
     protected function getSearchOptions (): array
     {
