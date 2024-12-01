@@ -10,6 +10,9 @@ services:
   Madj2k\CatSearch\Hooks\TCEMainHook:
     public: true
 
+  Madj2k\CatSearch\Traits:
+    public: true
+
   cache.catsearch_filteroptions:
     class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
     factory: [ '@TYPO3\CMS\Core\Cache\CacheManager', 'getCache' ]

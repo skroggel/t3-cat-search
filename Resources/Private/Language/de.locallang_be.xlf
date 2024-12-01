@@ -59,6 +59,22 @@
 				<source>The filter-type-uid to use for primary filter 5.</source>
 				<target>Die Filter-Typ-Uid für den Primär-Filter 5.</target>
 			</trans-unit>
+			<trans-unit id="extConf.removeFieldsDocument">
+				<source>Comma-separated list of fields that are to be hidden in the data record of type "Document".</source>
+				<target>Komma-separarierte Liste von Feldern, die im Datensatz vom Typ "Dokument" ausgeblendet werden sollen.</target>
+			</trans-unit>
+			<trans-unit id="extConf.removeFieldsProduct">
+				<source>Comma-separated list of fields that are to be hidden in the data record of type "Product".</source>
+				<target>Komma-separarierte Liste von Feldern, die im Datensatz vom Typ "Produkt" ausgeblendet werden sollen.</target>
+			</trans-unit>
+			<trans-unit id="extConf.removeFieldsAccessory">
+				<source>Comma-separated list of fields that are to be hidden in the data record of type "Accessory".</source>
+				<target>Komma-separarierte Liste von Feldern, die im Datensatz vom Typ "Zubehör" ausgeblendet werden sollen.</target>
+			</trans-unit>
+			<trans-unit id="extConf.pluginsWithHeader">
+				<source>Comma-separated list of plugins with header-field in the backend.</source>
+				<target>Komma-separarierte Liste von Plugins mit Überschrift-Feld im Backend.</target>
+			</trans-unit>
 
 
 			<!-- Content Element Wizard -->

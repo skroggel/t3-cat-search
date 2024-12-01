@@ -1,28 +1,7 @@
 <?php
 declare(strict_types=1);
+use \Madj2k\CatSearch\Utilities\TcaUtility;
 
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
-$primaryFilterType = [];
-try {
-
-    // check for primary filters
-    $configReader = GeneralUtility::makeInstance(ExtensionConfiguration::class);
-    $extensionConfig = $configReader->get('cat_search');
-
-    foreach (range(1,5) as $cnt) {
-
-        if (
-            (isset($extensionConfig['primaryFilterType' . $cnt]))
-            && ($extensionConfig['primaryFilterType' . $cnt])
-        ){
-            $primaryFilterType[$cnt] = $extensionConfig['primaryFilterType' . $cnt];
-        }
-    }
-} catch (\Exception $e) {
-    // nothing
-}
 
 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 return [
@@ -100,7 +79,7 @@ return [
     'palettes' => [
         'main_document' => [
             'label' => $ll . 'palette.main',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
                 layout,
                 --linebreak--,
 				title,
@@ -110,11 +89,12 @@ return [
 				subtitle,
 				--linebreak--,
 				detail_pid
-				',
+				'
+            ),
         ],
         'main_product' => [
             'label' => $ll . 'palette.main',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
                 layout,
                 --linebreak--,
 				title,
@@ -124,11 +104,12 @@ return [
 				subtitle,
 				--linebreak--,
 				detail_pid
-				',
+				'
+            ),
         ],
         'main_accessory' => [
             'label' => $ll . 'palette.main',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
                 layout,
                 --linebreak--,
 				title,
@@ -138,11 +119,12 @@ return [
 				subtitle,
 				--linebreak--,
 				detail_pid
-				',
+				'
+            ),
         ],
         'filter_document' => [
             'label' => $ll . 'palette.filter',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
                 primary_filter1,
                 --linebreak--,
                 primary_filter2,
@@ -153,11 +135,12 @@ return [
                 --linebreak--,
                 primary_filter5,
                 --linebreak--,
-				filters',
+				filters'
+            ),
         ],
         'filter_product' => [
             'label' => $ll . 'palette.filter',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
                 primary_filter1,
                 --linebreak--,
                 primary_filter2,
@@ -168,11 +151,12 @@ return [
                 --linebreak--,
                 primary_filter5,
                 --linebreak--,
-				filters',
+				filters'
+            ),
         ],
         'filter_accessory' => [
             'label' => $ll . 'palette.filter',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
                 primary_filter1,
                 --linebreak--,
                 primary_filter2,
@@ -183,45 +167,50 @@ return [
                 --linebreak--,
                 primary_filter5,
                 --linebreak--,
-				filters',
+				filters'
+            ),
         ],
         'seo_document' => [
             'label' => $ll . 'palette.seo',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
 				slug,
                 --linebreak--,
 				title_seo,
 				--linebreak--,
-				description_seo',
+				description_seo'
+            ),
         ],
         'seo_product' => [
             'label' => $ll . 'palette.seo',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
 				slug,
                 --linebreak--,
 				title_seo,
 				--linebreak--,
-				description_seo',
+				description_seo'
+            ),
         ],
         'seo_accessory' => [
             'label' => $ll . 'palette.seo',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
 				slug,
                 --linebreak--,
 				title_seo,
 				--linebreak--,
-				description_seo',
+				description_seo'
+            ),
         ],
         'description_document' => [
             'label' => $ll . 'palette.description',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
 				teaser,
 				--linebreak--,
-				description',
+				description'
+            ),
         ],
         'description_product' => [
             'label' => $ll . 'palette.description',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
 				teaser,
 				--linebreak--,
 				header,
@@ -229,10 +218,11 @@ return [
 				subheader,
 				--linebreak--,
 				description,'
+            )
         ],
         'description_accessory' => [
             'label' => $ll . 'palette.description',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
 				teaser,
 				--linebreak--,
 				header,
@@ -240,10 +230,11 @@ return [
 				subheader,
 				--linebreak--,
 				description,'
+            )
         ],
         'description2_product' => [
             'label' => $ll . 'palette.description2',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
 				header2,
                 --linebreak--,
 				subheader2,
@@ -254,11 +245,12 @@ return [
                 --linebreak--,
 				subheader3,
 				--linebreak--,
-				description3',
+				description3'
+            ),
         ],
         'description2_accessory' => [
             'label' => $ll . 'palette.description2',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
 				header2,
                 --linebreak--,
 				subheader2,
@@ -269,33 +261,38 @@ return [
                 --linebreak--,
 				subheader3,
 				--linebreak--,
-				description3',
+				description3'
+            ),
         ],
         'content_document' => [
             'label' => $ll . 'palette.content',
-            'showitem' => '
-				content_elements',
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
+				content_elements'
+            ),
         ],
         'content_product' => [
             'label' => $ll . 'palette.content',
-            'showitem' => '
-				content_elements',
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
+				content_elements'
+            ),
         ],
         'content_accessory' => [
             'label' => $ll . 'palette.content',
-            'showitem' => '
-				content_elements',
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
+				content_elements'
+            ),
         ],
         'meta_document' => [
             'label' => $ll . 'palette.meta',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
 				publish_date,
 				 --linebreak--,
-                manufacturer,',
+                manufacturer,'
+            ),
         ],
         'meta_product' => [
             'label' => $ll . 'palette.meta',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
 				publish_date,
                 --linebreak--,
                 product_number,
@@ -310,11 +307,12 @@ return [
 				--linebreak--,
 				applications,
 				--linebreak--,
-				details',
+				details'
+            ),
         ],
         'meta_accessory' => [
             'label' => $ll . 'palette.meta',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
 				publish_date,
                 --linebreak--,
                 product_number,
@@ -329,18 +327,20 @@ return [
 				--linebreak--,
 				applications,
 				--linebreak--,
-				details',
+				details'
+            ),
         ],
         'media_document' => [
             'label' => $ll . 'palette.media',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
                 teaser_image,
                 --linebreak--,
-				download',
+				download'
+            ),
         ],
         'media_product' => [
             'label' => $ll . 'palette.media',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
                 teaser_image,
                 --linebreak--,
                 main_image,
@@ -351,11 +351,12 @@ return [
 				--linebreak--,
 				data_sheets,
 				--linebreak--,
-				media_files',
+				media_files'
+            ),
         ],
         'media_accessory' => [
             'label' => $ll . 'palette.media',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
                 teaser_image,
                 --linebreak--,
                 main_image,
@@ -366,28 +367,32 @@ return [
 				--linebreak--,
 				data_sheets,
 				--linebreak--,
-				media_files',
+				media_files'
+            ),
         ],
         'relations_document' => [
             'label' => $ll . 'palette.relations',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('document', '
 				publish_date,
                 --linebreak--,
-				related_filterable_products',
+				related_filterable_products'
+            ),
         ],
         'relations_product' => [
             'label' => $ll . 'palette.relations',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('product', '
 				related_filterable_accessories,
 				--linebreak--,
-				related_filterable_documents',
+				related_filterable_documents'
+            ),
         ],
         'relations_accessory' => [
             'label' => $ll . 'palette.relations',
-            'showitem' => '
+            'showitem' => TcaUtility::removeFieldsByExtConf('accessory', '
 				related_filterable_products2,
 				--linebreak--,
-				related_filterable_documents',
+				related_filterable_documents'
+            ),
         ],
     ],
     'columns' => [
@@ -427,7 +432,7 @@ return [
                     ['', 0],
                 ],
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1,0)',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -536,7 +541,7 @@ return [
                 'size' => 1,
                 'allowed' => 'pages',
                 'foreign_table' => 'pages',
-                'foreign_table_where' => 'AND pages.sys_language_uid IN (-1, 0) AND pages.hidden = 0 AND pages.deleted = 0 ORDER BY pages.title',
+                'foreign_table_where' => 'AND {#pages}.{#sys_language_uid} IN (-1, 0) AND {#pages}.{#hidden} = 0 AND {#pages}.{#deleted} = 0 ORDER BY pages.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -784,7 +789,7 @@ return [
                 'size' => 1,
                 'allowed' => 'tx_catsearch_domain_model_manufacturer',
                 'foreign_table' => 'tx_catsearch_domain_model_manufacturer',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_manufacturer.pid=###CURRENT_PID### AND tx_catsearch_domain_model_manufacturer.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_manufacturer.hidden = 0 AND tx_catsearch_domain_model_manufacturer.deleted = 0 ORDER BY tx_catsearch_domain_model_manufacturer.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_manufacturer}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_manufacturer}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_manufacturer}.{#hidden} = 0 AND {#tx_catsearch_domain_model_manufacturer}.{#deleted} = 0 ORDER BY {#tx_catsearch_domain_model_manufacturer}.{#title}',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -864,7 +869,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = ###REC_FIELD_record_type### AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#uid} != ###REC_FIELD_uid### AND {#tx_catsearch_domain_model_filterable}.{#record_type} = ###REC_FIELD_record_type### AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filterable}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filterable}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterable_filterable_mm',
                 'MM_opposite_field' => 'related_filterables_from',
                 'minitems' => 0
@@ -878,7 +883,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = ###REC_FIELD_record_type### AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#uid} != ###REC_FIELD_uid### AND {#tx_catsearch_domain_model_filterable}.{#record_type} = ###REC_FIELD_record_type### AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filterable}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filterable}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterable_filterable_mm',
                 'readOnly' => 1,
             ],
@@ -891,7 +896,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 1 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, ###REC_FIELD_sys_language_uid###) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#uid} != ###REC_FIELD_uid### AND {#tx_catsearch_domain_model_filterable}.{#record_type} = 1 AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1, ###REC_FIELD_sys_language_uid###) AND {#tx_catsearch_domain_model_filterable}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filterable}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterabledocuments_mm',
                 'MM_opposite_field' => 'related_filterable_products',
                 'minitems' => 0
@@ -905,7 +910,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 2 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, ###REC_FIELD_sys_language_uid###) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#uid} != ###REC_FIELD_uid### AND {#tx_catsearch_domain_model_filterable}.{#record_type} = 2 AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1, ###REC_FIELD_sys_language_uid###) AND {#tx_catsearch_domain_model_filterable}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filterable}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterabledocuments_mm',
                 'minitems' => 0,
             ],
@@ -918,7 +923,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 3 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#uid} != ###REC_FIELD_uid### AND {#tx_catsearch_domain_model_filterable}.{#record_type} = 3 AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filterable}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filterable}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterableaccessories_mm',
                 'MM_opposite_field' => 'related_filterable_products2',
                 'minitems' => 0
@@ -932,7 +937,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filterable.uid != ###REC_FIELD_uid### AND tx_catsearch_domain_model_filterable.record_type = 2 AND tx_catsearch_domain_model_filterable.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#uid} != ###REC_FIELD_uid### AND {#tx_catsearch_domain_model_filterable}.{#record_type} = 2 AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filterable}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filterable}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filterable.title',
                 'MM' => 'tx_catsearch_filterableproduct_filterableaccessories_mm',
                 'minitems' => 0
             ],
@@ -944,7 +949,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type NOT IN(' . ($primaryFilterType ? implode(',', $primaryFilterType) : -1). ') AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} NOT IN(' . (TcaUtility::getPrimaryFiltersByExtConf() ? implode(',', TcaUtility::getPrimaryFiltersByExtConf()) : -1). ') AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'MM' => 'tx_catsearch_filterable_filter_mm',
                 'minitems' => 0
             ],
@@ -956,7 +961,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[1]) ? (int) $primaryFilterType[1] : -1). ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(1) ? TcaUtility::getPrimaryFilterByExtConf(1) : -1). ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -968,7 +973,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[2]) ? (int) $primaryFilterType[2] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(2) ? TcaUtility::getPrimaryFilterByExtConf(2) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -980,7 +985,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[3]) ? (int) $primaryFilterType[3] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(3) ? TcaUtility::getPrimaryFilterByExtConf(3) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -992,7 +997,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[4]) ? (int) $primaryFilterType[4] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(4) ? TcaUtility::getPrimaryFilterByExtConf(4) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -1004,7 +1009,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.type=' . (isset($primaryFilterType[5]) ? (int) $primaryFilterType[5] : -1) . ' AND tx_catsearch_domain_model_filter.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(5) ? TcaUtility::getPrimaryFilterByExtConf(5) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],

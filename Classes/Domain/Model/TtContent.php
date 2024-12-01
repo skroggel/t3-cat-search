@@ -71,6 +71,7 @@ class TtContent extends AbstractEntity
      */
     protected string $bodytext = '';
 
+
     /**
      * @var int
      */

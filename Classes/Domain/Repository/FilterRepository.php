@@ -15,10 +15,6 @@ namespace Madj2k\CatSearch\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\CatSearch\Traits\DebugTrait;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class FilterRepository

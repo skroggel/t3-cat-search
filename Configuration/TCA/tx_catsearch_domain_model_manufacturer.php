@@ -30,7 +30,7 @@ return [
 	],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 0,
+			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -46,7 +46,7 @@ return [
 		],
 		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 0,
+			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
@@ -55,7 +55,7 @@ return [
 					['', 0],
 				],
 				'foreign_table' => 'tx_catsearch_domain_model_manufacturer',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_manufacturer.pid=###CURRENT_PID### AND tx_catsearch_domain_model_manufacturer.sys_language_uid IN (-1,0)',
+				'foreign_table_where' => 'AND {#tx_catsearch_domain_model_manufacturer}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_manufacturer}.{#sys_language_uid} IN (-1,0)',
 			],
 		],
 		'l10n_diffsource' => [

@@ -44,8 +44,8 @@ class PageTitleProvider extends AbstractPageTitleProvider implements PageTitlePr
         $extensionConfig = $configReader->get('cat_search');
 
         // get relevant fields
-        $fields = GeneralUtility::trimExplode(',', ($extensionConfig['pageTitleFields'] ?: 'title'),true);
-        $separator = $extensionConfig['pageTitleSeparator'] ?: '';
+        $fields = GeneralUtility::trimExplode(',', ($extensionConfig['pageTitleFields'] ?? 'title'),true);
+        $separator = $extensionConfig['pageTitleSeparator'] ?? '';
 
         $title = [];
         foreach ($fields as $field) {

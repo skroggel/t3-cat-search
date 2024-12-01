@@ -30,7 +30,7 @@ return [
 	],
 	'columns' => [
 		'sys_language_uid' => [
-			'exclude' => 0,
+			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
 			'config' => [
 				'type' => 'select',
@@ -46,7 +46,7 @@ return [
 		],
 		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => 0,
+			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
@@ -55,7 +55,7 @@ return [
 					['', 0],
 				],
 				'foreign_table' => 'tx_catsearch_domain_model_filtertype',
-				'foreign_table_where' => 'AND tx_catsearch_domain_model_filtertype.pid=###CURRENT_PID### AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1,0)',
+				'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filtertype}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filtertype}.{#sys_language_uid} IN (-1,0)',
 			],
 		],
 		'l10n_diffsource' => [
@@ -131,7 +131,7 @@ return [
                 'type' => 'inline',
 				'allowed' => 'tx_catsearch_domain_model_filter',
 				'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1,0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1,0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'foreign_field' => 'type',
 				'size' => 10,
 				'maxitems' => 9999,

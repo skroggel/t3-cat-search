@@ -38,6 +38,9 @@ plugin.tx_catsearch {
         # cat=plugin.tx_catsearch//a; type=bool; label=Show tags below search-box
         showTags = 1
 
+        # cat=plugin.tx_catsearch//a; type=bool; label=Hide pagination
+        hidePagination = 0
+
         # cat=plugin.tx_catsearch//a; type=string; label=Layout switch for different views
         layout = default
 	}

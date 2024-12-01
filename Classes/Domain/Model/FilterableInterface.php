@@ -111,9 +111,104 @@ interface FilterableInterface
 
 
     /**
-     * Returns the contentIndex
+     * Returns the primaryFilter1
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter1(): ?Filter;
+
+
+    /**
+     * Sets the primaryFilter1
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter1
+     * @return void
+     */
+    public function setPrimaryFilter1(Filter $primaryFilter1): void;
+
+
+    /**
+     * Returns the primaryFilter2
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter2(): ?Filter;
+
+
+    /**
+     * Sets the primaryFilter2
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter2
+     * @return void
+     */
+    public function setPrimaryFilter2(Filter $primaryFilter2): void;
+
+
+    /**
+     * Returns the primaryFilter3
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter3(): ?Filter;
+
+
+    /**
+     * Sets the primaryFilter3
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter3
+     * @return void
+     */
+    public function setPrimaryFilter3(Filter $primaryFilter3): void;
+
+
+    /**
+     * Returns the primaryFilter4
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter4(): ?Filter;
+
+
+    /**
+     * Sets the primaryFilter4
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter4
+     * @return void
+     */
+    public function setPrimaryFilter4(Filter $primaryFilter4): void;
+
+
+    /**
+     * Returns the primaryFilter5
+     *
+     * @return \Madj2k\CatSearch\Domain\Model\Filter|null
+     */
+    public function getPrimaryFilter5(): ?Filter;
+
+
+    /**
+     * Sets the primaryFilter5
+     *
+     * @param \Madj2k\CatSearch\Domain\Model\Filter $primaryFilter5
+     * @return void
+     */
+    public function setPrimaryFilter5(Filter $primaryFilter5): void;
+
+
+    /**
+     * Returns full list of all filters
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter> $filters
+     */
+    public function getAllFilters(): ObjectStorage;
+
+
+    /**
+     * Returns a comma-separated list of all filters set
      *
      * @return string
      */
-    public function getContentIndex(): string;
+    public function getAllFiltersList(): string;
+
 }
+
