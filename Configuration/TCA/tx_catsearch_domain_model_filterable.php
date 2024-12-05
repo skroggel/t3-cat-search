@@ -88,6 +88,8 @@ return [
 				--linebreak--,
 				subtitle,
 				--linebreak--,
+				overview_pid,
+				--linebreak--,
 				detail_pid
 				'
             ),
@@ -103,6 +105,8 @@ return [
 				--linebreak--,
 				subtitle,
 				--linebreak--,
+				overview_pid,
+				--linebreak--,
 				detail_pid
 				'
             ),
@@ -117,6 +121,8 @@ return [
 				title_cleaned,
 				--linebreak--,
 				subtitle,
+				--linebreak--,
+				overview_pid,
 				--linebreak--,
 				detail_pid
 				'
@@ -536,6 +542,20 @@ return [
             'exclude' => false,
             'l10n_mode' => 'exclude',
             'label' => $ll .'tx_catsearch_domain_model_filterable.detail_pid',
+            'config' => [
+                'type' => 'group',
+                'size' => 1,
+                'allowed' => 'pages',
+                'foreign_table' => 'pages',
+                'foreign_table_where' => 'AND {#pages}.{#sys_language_uid} IN (-1, 0) AND {#pages}.{#hidden} = 0 AND {#pages}.{#deleted} = 0 ORDER BY pages.title',
+                'minitems' => 0,
+                'maxitems' => 1
+            ],
+        ],
+        'overview_pid' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll .'tx_catsearch_domain_model_filterable.overview_pid',
             'config' => [
                 'type' => 'group',
                 'size' => 1,

@@ -21,6 +21,7 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 	record_type                    int(4) NOT NULL DEFAULT '0',
 	layout                         varchar(255) DEFAULT 'default' NOT NULL,
 	detail_pid                     int(4) NOT NULL DEFAULT '0',
+	overview_pid                   int(4) NOT NULL DEFAULT '0',
 
 	title                          varchar(255) DEFAULT ''        NOT NULL,
 	title_cleaned                  varchar(255) DEFAULT ''        NOT NULL,
