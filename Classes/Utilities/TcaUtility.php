@@ -104,6 +104,28 @@ class TcaUtility
 
 
     /**
+     * Check if reduced plugin flexforms are to show
+     *
+     * @param string $pluginName
+     * @return bool
+     */
+    public static function hasPluginReducedFlexform(string $pluginName): bool {
+
+        try {
+            $configReader = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+            $extensionConfig = $configReader->get('cat_search');
+            if (!empty($extensionConfig['pluginsWithReducedFlexform'])) {
+                return in_array($pluginName, GeneralUtility::trimExplode(',', $extensionConfig['pluginsWithReducedFlexform'], true));
+            }
+        } catch (\Exception $e) {
+            // do nothing
+        }
+
+        return false;
+    }
+
+
+    /**
      * Removed fields from TCA by extConf
      *
      * @param string $type

@@ -81,6 +81,19 @@
 				<target>Download</target>
 			</trans-unit>
 
+
+			<trans-unit id="pagination.previous">
+				<source>Previous page</source>
+				<target>Vorherige Seite</target>
+			</trans-unit>
+			<trans-unit id="pagination.next">
+				<source>Next page</source>
+				<target>Nächste Seite</target>
+			</trans-unit>
+			<trans-unit id="pagination.page">
+				<source>Page</source>
+				<target>Seite</target>
+			</trans-unit>
         </body>
     </file>
 </xliff>

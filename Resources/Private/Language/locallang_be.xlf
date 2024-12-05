@@ -58,6 +58,10 @@
 			<trans-unit id="extConf.pluginsWithHeader">
 				<source>Comma-separated list of plugins with header-field in the backend.</source>
 			</trans-unit>
+			<trans-unit id="extConf.pluginsWithReducedFlexform">
+				<source>Comma-separated list of plugins to show with a reduced FlexForm-configuration.</source>
+				<target>Komma-separarierte Liste von Plugins, die mit reudzierter FlexForm-Konfiguration angezeigt werden sollen.</target>
+			</trans-unit>
 
 
 			<!-- Content Element Wizard -->

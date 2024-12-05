@@ -44,7 +44,12 @@ call_user_func(
                 $flexFormFile = $pluginSettings['flexFormFile'];
             }
 
-            $flexFormFile = 'EXT:'. $extensionKey . '/Configuration/FlexForms/' . $flexFormFile . '.xml';
+            if (\Madj2k\CatSearch\Utilities\TcaUtility::hasPluginReducedFlexform($pluginName)) {
+                $flexFormFile = 'EXT:'. $extensionKey . '/Configuration/FlexForms/' . $flexFormFile . '.min.xml';
+            } else {
+                $flexFormFile = 'EXT:'. $extensionKey . '/Configuration/FlexForms/' . $flexFormFile . '.xml';
+            }
+
             $file = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($flexFormFile);
             if (
                 ($file)
