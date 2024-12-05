@@ -104,7 +104,7 @@ class TcaUtility
 
 
     /**
-     * Is a header in the plugin allowed via the extConf
+     * Check if reduced plugin flexforms are to show
      *
      * @param string $pluginName
      * @return bool
