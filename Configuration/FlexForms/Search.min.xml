@@ -1,0 +1,350 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+        <preset>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.preset
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.recordType>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType.0</numIndex>
+                                    <numIndex index="1">0</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType.1</numIndex>
+                                    <numIndex index="1">1</numIndex>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType.2</numIndex>
+                                    <numIndex index="1">2</numIndex>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.recordType.3</numIndex>
+                                    <numIndex index="1">3</numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.recordType>
+                    <settings.filter>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filter
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>99999</maxitems>
+                            <minitems>0</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filter</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.filter>
+                    <settings.filterExclude>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterExclude
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>99999</maxitems>
+                            <minitems>0</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filter</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filter.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filter.hidden = 0 AND tx_catsearch_domain_model_filter.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.filterExclude>
+                </el>
+            </ROOT>
+        </preset>
+        <filters>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.filters
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.filterType1>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType1
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>1</maxitems>
+                            <minitems>1</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filtertype</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filtertype.hidden = 0 AND tx_catsearch_domain_model_filtertype.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.filterType1>
+                    <settings.filterType1AllowMultiple>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType1AllowMultiple
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.filterType1AllowMultiple>
+                    <settings.filterType2>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType2
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filtertype</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filtertype.hidden = 0 AND tx_catsearch_domain_model_filtertype.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.filterType2>
+                    <settings.filterType2AllowMultiple>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType2AllowMultiple
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.filterType2AllowMultiple>
+                    <settings.filterType3>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType3
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filtertype</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filtertype.hidden = 0 AND tx_catsearch_domain_model_filtertype.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.filterType3>
+                    <settings.filterType3AllowMultiple>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType3AllowMultiple
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.filterType3AllowMultiple>
+                    <settings.filterType4>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType4
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filtertype</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filtertype.hidden = 0 AND tx_catsearch_domain_model_filtertype.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.filterType4>
+                    <settings.filterType4AllowMultiple>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType4AllowMultiple
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.filterType4AllowMultiple>
+                    <settings.filterType5>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType5
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filtertype</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filtertype.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filtertype.hidden = 0 AND tx_catsearch_domain_model_filtertype.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.filterType5>
+                    <settings.filterType5AllowMultiple>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.filterType5AllowMultiple
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.filterType5AllowMultiple>
+                </el>
+            </ROOT>
+        </filters>
+        <view>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.view
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.showFilterByTextQuery>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showFilterByTextQuery
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showFilterByTextQuery>
+                    <settings.showFilterByYear>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showFilterByYear
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showFilterByYear>
+                    <settings.showFilterByRelatedProduct>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showFilterByRelatedProduct
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showFilterByRelatedProduct>
+                    <settings.showTags>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.showTags
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showTags>
+                    <settings.maxResultsPerPage>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.maxResultsPerPage
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <size>30</size>
+                            <default>10</default>
+                            <eval>num,trim</eval>
+                        </config>
+                    </settings.maxResultsPerPage>
+                    <settings.maxPages>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.maxPages
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <size>30</size>
+                            <default>10</default>
+                            <eval>num,trim</eval>
+                        </config>
+                    </settings.maxPages>
+                    <settings.hidePagination>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.hidePagination
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0"></numIndex>
+                                    <numIndex index="1"></numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.hidePagination>
+                    <settings.layout>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout.default</numIndex>
+                                    <numIndex index="1">default</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout.big</numIndex>
+                                    <numIndex index="1">big</numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.layout>
+                </el>
+            </ROOT>
+        </view>
+	</sheets>
+</T3DataStructure>

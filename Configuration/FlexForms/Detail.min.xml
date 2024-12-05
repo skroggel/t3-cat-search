@@ -1,0 +1,61 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+        <preset>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.preset
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.item>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.item
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectMultipleSideBySide</renderType>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <foreign_table>tx_catsearch_domain_model_filterable</foreign_table>
+                            <foreign_table_where>
+                                AND tx_catsearch_domain_model_filterable.sys_language_uid IN (-1, 0) AND tx_catsearch_domain_model_filterable.hidden = 0 AND tx_catsearch_domain_model_filterable.deleted = 0
+                            </foreign_table_where>
+                        </config>
+                    </settings.item>
+                </el>
+            </ROOT>
+        </preset>
+        <view>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.tab.view
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.layout>
+                        <label>
+                            LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout.default</numIndex>
+                                    <numIndex index="1">default</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">LLL:EXT:cat_search/Resources/Private/Language/locallang_be.xlf:flexform.settings.layout.big</numIndex>
+                                    <numIndex index="1">big</numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.layout>
+                </el>
+            </ROOT>
+        </view>
+    </sheets>
+</T3DataStructure>

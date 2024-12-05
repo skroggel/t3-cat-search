@@ -17,6 +17,15 @@ plugin.tx_catsearch {
 
 	settings {
 
+        # cat=plugin.tx_catsearch//a; type=integer; label=Id of page with search-plugin
+        searchPid =
+
+        # cat=plugin.tx_catsearch//a; type=integer; label=Id of page with detail-plugin
+        detailPid =
+
+        # cat=plugin.tx_catsearch//a; type=integer; label=Id of page with detail-plugin (2)
+        detail2Pid =
+
 		# cat=plugin.tx_catsearch//a; type=string; label=Sorting options (have to be existing fields in the table)
 	    sorting = title#asc
 

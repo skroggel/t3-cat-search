@@ -24,6 +24,10 @@ plugin.tx_catsearch {
 
 	settings {
 
+        searchPid = {$plugin.tx_catsearch.settings.searchPid}
+        detailPid = {$plugin.tx_catsearch.settings.detailPid}
+        detail2Pid = {$plugin.tx_catsearch.settings.detail2Pid}
+
         sorting = {$plugin.tx_catsearch.settings.sorting}
 
         maxResults = {$plugin.tx_catsearch.settings.maxResults}
@@ -36,6 +40,7 @@ plugin.tx_catsearch {
         hidePagination = {$plugin.tx_catsearch.settings.hidePagination}
 
         layout = {$plugin.tx_catsearch.settings.layout}
+
 	}
 }
 
