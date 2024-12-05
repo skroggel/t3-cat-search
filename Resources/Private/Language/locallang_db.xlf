@@ -102,6 +102,9 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.detail_pid">
 				<source>Detail page (overrides configuration)</source>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.overview_pid">
+				<source>Overview page</source>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.title">
 				<source>Title</source>
 			</trans-unit>

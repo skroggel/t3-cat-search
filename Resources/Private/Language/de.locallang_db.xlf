@@ -132,6 +132,10 @@
 				<source>Detail page (overrides configuration)</source>
 				<target>Detail-Seite (überschreibt Konfiguration)</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.overview_pid">
+				<source>Overview page</source>
+				<target>Übersichtsseite</target>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.title">
 				<source>Title</source>
 				<target>Titel</target>

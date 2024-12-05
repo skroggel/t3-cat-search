@@ -54,6 +54,12 @@ trait FilterableFullTrait
 
 
     /**
+     * @var int
+     */
+    protected int $overviewPid = 0;
+
+
+    /**
      * @var string
      */
     protected string $slug = '';
@@ -407,6 +413,29 @@ trait FilterableFullTrait
     public function setDetailPid(int $detailPid): void
     {
         $this->detailPid = $detailPid;
+    }
+
+
+    /**
+     * Returns the overviewPid
+     *
+     * @return int
+     */
+    public function getOverviewPid(): int
+    {
+        return $this->overviewPid;
+    }
+
+
+    /**
+     * Sets the overviewPid
+     *
+     * @param int $overviewPid
+     * @return void
+     */
+    public function setOverviewPid(int $overviewPid): void
+    {
+        $this->overviewPid = $overviewPid;
     }
 
 

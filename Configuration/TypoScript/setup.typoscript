@@ -143,32 +143,87 @@ config {
 
 
 # ================================================================================
-# Content Rendering
+# Libs
 # ================================================================================
-#  Usage:
-#  ---------------
-#  <f:cObject typoscriptObjectPath="lib.txCatSearchContent" data="{uidList: '{item.contentElementsIdList}'}" />
-#
-lib.txCatSearchContent = COA
-lib.txCatSearchContent {
-    5 = LOAD_REGISTER
-    5 {
-        uidList.cObject = TEXT
-        uidList.cObject {
-            field = uidList
+lib.txCatSearch {
+
+
+    #  Usage:
+    #  ---------------
+    #  <f:cObject typoscriptObjectPath="lib.txCatSearch.content" data="{uidList: '{item.contentElementsIdList}'}" />
+    #
+    content = COA
+    content {
+        5 = LOAD_REGISTER
+        5 {
+            uidList.cObject = TEXT
+            uidList.cObject {
+                field = uidList
+            }
         }
+
+        20 = CONTENT
+        20 {
+            table = tt_content
+            select {
+                includeRecordsWithoutDefaultTranslation = 1
+                orderBy = sorting
+                uidInList.data = register:uidList
+                pidInList = 0
+            }
+        }
+
+        90 = RESTORE_REGISTER
     }
 
-    20 = CONTENT
-    20 {
-        table = tt_content
-        select {
-            includeRecordsWithoutDefaultTranslation = 1
-            orderBy = sorting
-            uidInList.data = register:uidList
-            pidInList = 0
+
+    breadcrumb = FLUIDTEMPLATE
+    breadcrumb {
+
+        file = EXT:cat_search/Resources/Private/Menus/Templates/Breadcrumb.html
+        dataProcessing {
+            10 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+            10 {
+               special = rootline
+               special.range = 0|-1
+               expandAll = 1
+               includeSpacer = 0
+               maxItems = 10
+               includeNotInMenu = 1
+               titleField = nav_title // title
+               excludeUidList >
+               as = menuItems
+            }
+        }
+
+        variables {
+
+            productTitle = RECORDS
+            productTitle {
+                source.data =  GP: tx_catsearch_detail|item
+                source.stdWrap.intval = true
+                dontCheckPid = 1
+
+                tables = tx_catsearch_domain_model_filterable
+                conf.tx_catsearch_domain_model_filterable = TEXT
+                conf.tx_catsearch_domain_model_filterable {
+                    field = title
+                    htmlSpecialChars = 1
+                }
+            }
+
+            productOverviewPid = RECORDS
+            productOverviewPid {
+                source.data =  GP: tx_catsearch_detail|item
+                source.stdWrap.intval = true
+                dontCheckPid = 1
+
+                tables = tx_catsearch_domain_model_filterable
+                conf.tx_catsearch_domain_model_filterable = TEXT
+                conf.tx_catsearch_domain_model_filterable {
+                    field = overview_pid
+                }
+            }
         }
     }
-
-    90 = RESTORE_REGISTER
 }
