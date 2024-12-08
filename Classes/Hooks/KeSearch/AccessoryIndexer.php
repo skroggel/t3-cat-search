@@ -40,7 +40,7 @@ class AccessoryIndexer extends AbstractIndexer
     /**
      * @const int
      */
-    const RECORD_TYPE = 2;
+    const RECORD_TYPE = 3;
 
 
 }
