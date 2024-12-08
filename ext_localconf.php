@@ -81,6 +81,24 @@ call_user_func(
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey] =
             \Madj2k\CatSearch\Hooks\TCEMainHook::class;
 
+        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('ke_search')) {
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] =
+                \Madj2k\CatSearch\Hooks\KeSearch\ProductIndexer::class;
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] =
+                \Madj2k\CatSearch\Hooks\KeSearch\ProductIndexer::class;
+
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] =
+                \Madj2k\CatSearch\Hooks\KeSearch\DocumentIndexer::class;
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] =
+                \Madj2k\CatSearch\Hooks\KeSearch\DocumentIndexer::class;
+
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] =
+                \Madj2k\CatSearch\Hooks\KeSearch\AccessoryIndexer::class;
+            $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] =
+                \Madj2k\CatSearch\Hooks\KeSearch\AccessoryIndexer::class;
+
+        }
+
         //=================================================================
         // cHash
         //=================================================================

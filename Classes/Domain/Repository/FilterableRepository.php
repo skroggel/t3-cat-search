@@ -70,7 +70,7 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 		// search for string
 		if ($textQuery = $search->getTextQuery()) {
 			$constraints[] = $query->logicalOr(
-                $query->like('title', '%' . $textQuery .'%'),
+                $query->like('title_cleaned', '%' . $textQuery .'%'),
                 $query->like('teaser', '%' . $textQuery .'%'),
                 $query->like('content_index', '%' . $textQuery .'%')
             );
