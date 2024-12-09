@@ -23,7 +23,14 @@
 				<source>Comma-separated list of fields for generating the page title. First field with data is used.</source>
 			</trans-unit>
 			<trans-unit id="extConf.pageTitleSeparator">
-				<source>Separator for page title. If set, the page title is composed of all defined fields.</source>
+				<source>Separator for page title.</source>
+			</trans-unit>
+			<trans-unit id="extConf.pageTitleIncludePageName">
+				<source>Add name of website to page title (from site-configuration, needs pageTitleSeparator set).</source>
+			</trans-unit>
+			<trans-unit id="extConf.pageTitleCombineFields">
+				<source>If set the defined fields in pageTitleFields are combined in the order of their appearence instead of being used as fallbacks-chain (needs pageTitleSeparator set).</source>
+				<target>Wenn gesetzt, werden die in pageTitleFields in der gegebenen Reihenfolge miteinander kombiniert anstatt als Fallbacks-Kette verwendet zu werden</target>
 			</trans-unit>
 			<trans-unit id="extConf.contentElementsAllowedCTypes">
 				<source>Allowed cTypes for linked content elements.: fieldValue,fieldLabel;anotherFieldValue,anotherFieldLabel</source>

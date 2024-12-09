@@ -28,7 +28,7 @@
 
                             <tr>
                                 <th><f:format.html parseFuncTSPath="lib.parseFunc_Headline">{document.title}</f:format.html></th>
-                                <td><f:format.date format="{f:translate(key:'detail.download.dateFormat'}">{document.publishDate}</f:format.date></td>
+                                <td><time datetime="{f:format.date(date: document.publishDate, format:'Y-m-d')}"><f:format.date format="{f:translate(key:'detail.download.dateFormat'}">{document.publishDate}</f:format.date></time></td>
                                 <td>
                                     <f:if condition="{document.download}">
                                         <f:link.file file="{document.download.originalResource}"
