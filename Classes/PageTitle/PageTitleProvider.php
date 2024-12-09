@@ -16,10 +16,10 @@ namespace Madj2k\CatSearch\PageTitle;
  */
 
 use Madj2k\CatSearch\Domain\Model\Filterable;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\PageTitle\AbstractPageTitleProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 
 /**
  * Class PageTitleProvider
@@ -46,6 +46,8 @@ class PageTitleProvider extends AbstractPageTitleProvider implements PageTitlePr
         // get relevant fields
         $fields = GeneralUtility::trimExplode(',', ($extensionConfig['pageTitleFields'] ?? 'title'),true);
         $separator = $extensionConfig['pageTitleSeparator'] ?? '';
+        $includePageName = (bool) $extensionConfig['pageTitleIncludePageName'] ?? false;
+        $combineFields = (bool) $extensionConfig['pageTitleCombineFields'] ?? false;
 
         $title = [];
         foreach ($fields as $field) {
@@ -57,14 +59,30 @@ class PageTitleProvider extends AbstractPageTitleProvider implements PageTitlePr
                 && (is_string($value))
             ){
                 $title[] = trim(str_replace('­', '', strip_tags($value)));
-                if (! $separator) {
+                if (! $separator || ! $combineFields) {
                     break;
                 }
             }
         }
 
+        if ($separator && $includePageName) {
+            /** @var \TYPO3\CMS\Core\Site\Entity\Site $config */
+            $site = $this->getRequest()->getAttribute('site');
+            $title[] = $site->getConfiguration()['websiteTitle'];
+        }
+
         if ($title) {
-           $this->title = implode($separator, $title);
+           $this->title = implode(' ' . $separator . ' ', $title);
         }
     }
+
+
+    /**
+     * @return \Psr\Http\Message\ServerRequestInterface
+     */
+    private function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
+    }
+
 }
