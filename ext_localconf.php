@@ -27,7 +27,7 @@ call_user_func(
                 \Madj2k\CatSearch\Controller\SearchController::class => 'teaserFiltered'
             ],
             [
-                \Madj2k\CatSearch\Controller\SearchController::class => ''
+
             ],
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 
@@ -53,7 +53,7 @@ call_user_func(
                 \Madj2k\CatSearch\Controller\SearchController::class => 'detail'
             ],
             [
-
+                \Madj2k\CatSearch\Controller\SearchController::class => 'detail'
             ],
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
@@ -65,7 +65,7 @@ call_user_func(
                 \Madj2k\CatSearch\Controller\SearchController::class => 'detail2'
             ],
             [
-
+                \Madj2k\CatSearch\Controller\SearchController::class => 'detail2'
             ],
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
