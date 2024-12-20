@@ -21,11 +21,13 @@
                     <div class="col-12 col-lg-6">
                         <f:comment><!-- render all filters --></f:comment>
                         <f:for each="{catSearch:grouping.filtersByFilterType(filters: item.allFilters)}" as="sortedFilters">
-                            <ul class="catsearch-detail-filter-list">
-                                <f:for each="{sortedFilters.filters}" as="filter">
-                                    <li class="catsearch-detail-filter">{filter.titleCombined}</li>
-                                </f:for>
-                            </ul>
+                            <f:if condition="!{sortedFilters.filterType.isInternal}">
+                                <ul class="catsearch-detail-filter-list">
+                                    <f:for each="{sortedFilters.filters}" as="filter">
+                                        <li class="catsearch-detail-filter">{filter.titleCombined}</li>
+                                    </f:for>
+                                </ul>
+                            </f:if>
                         </f:for>
                     </div>
                 </div>

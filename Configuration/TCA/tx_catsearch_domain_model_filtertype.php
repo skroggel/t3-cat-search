@@ -23,7 +23,7 @@ return [
 		'iconfile' => 'EXT:cat_search/Resources/Public/Icons/tx_catsearch_domain_model_filtertype.svg',
 	],
 	'types' => [
-		'1' => ['showitem' => 'title, title_long, filters,
+		'1' => ['showitem' => 'title, title_long, is_internal, filters,
 					--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource,
 					--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'
 		],
@@ -122,6 +122,14 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim'
+            ],
+        ],
+        'is_internal' => [
+            'exclude' => false,
+            'label' => $ll .'tx_catsearch_domain_model_filtertype.is_internal',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
             ],
         ],
         'filters' => [

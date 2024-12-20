@@ -39,6 +39,13 @@ class FilterType extends AbstractEntity
      */
     protected string $titleLong = '';
 
+
+    /**
+     * @var bool
+     */
+    protected bool $isInternal = false;
+
+
 	/**
 	 * filters
 	 *
@@ -108,6 +115,29 @@ class FilterType extends AbstractEntity
     public function getTitleCombined(): string
     {
         return $this->titleLong ?: $this->title;
+    }
+
+
+
+    /**
+     * Gets the isInternal
+     *
+     * @return bool
+     */
+    public function getIsInternal(): bool
+    {
+        return $this->isInternal;
+    }
+
+
+    /**
+     * Sets the isInternal
+     *
+     * @param bool $isInternal isInternal
+     */
+    public function setIsInternal(bool $isInternal): void
+    {
+        $this->isInternal = $isInternal;
     }
 
 
