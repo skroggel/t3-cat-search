@@ -42,7 +42,7 @@ class MetaTagViewHelper extends AbstractViewHelper
         $this->registerArgument('content', 'string', 'Content of meta tag', true, null, false);
         $this->registerArgument('useCurrentDomain', 'boolean', 'Use current domain', false, false);
         $this->registerArgument('forceAbsoluteUrl', 'boolean', 'Force absolut domain', false, false);
-        $this->registerArgument('replace', 'boolean', 'Replace potential existing tag', false, false);
+        $this->registerArgument('replace', 'boolean', 'Replace potential existing tag', false, true);
     }
 
 	/**
