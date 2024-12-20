@@ -102,6 +102,7 @@ CREATE TABLE tx_catsearch_domain_model_filtertype
 	title            varchar(255) DEFAULT '' NOT NULL,
 	title_long       varchar(255) DEFAULT '' NOT NULL,
 	filters          int(11) unsigned DEFAULT '0',
+	is_internal      int(4) unsigned DEFAULT '0',
 
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
 

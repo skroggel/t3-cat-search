@@ -354,6 +354,10 @@
 				<source>Filters</source>
 				<target>Filter</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filtertype.is_internal">
+				<source>Do not show in frontend</source>
+				<target>Nicht im Frontend anzeigen</target>
+			</trans-unit>
 
 
 			<!-- tx_catsearch_domain_model_manufacturer -->
