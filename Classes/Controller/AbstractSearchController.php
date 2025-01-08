@@ -212,7 +212,6 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
     }
 
 
-
     /**
      * action detail2
      *
@@ -227,7 +226,6 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
     }
 
 
-
     /**
      * action related
      *
@@ -235,10 +233,17 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @param int $currentPage
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
+     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
      */
     public function searchRelatedAction(Search $search = null, int $currentPage = 1): ResponseInterface
     {
+        // check if there is a hash with search-parameters given
+        if ($parameters = SearchParameterUtility::unserializeParameters($this->request)) {
+            $parameters['currentPage'] = $currentPage;
+            return $this->redirect($this->request->getControllerActionName(), null, null, $parameters);
+        }
+
         // load from session or init new one - do not save it to session here!!!!
         if (!$search && (!$search = $this->loadSearchfromSession())) {
             $search = GeneralUtility::makeInstance(Search::class);
@@ -299,6 +304,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
         // check if there is a hash with search-parameters given
         if ($parameters = SearchParameterUtility::unserializeParameters($this->request)) {
             $parameters['currentPage'] = $currentPage;
+            $parameters['useSessionPage'] = $useSessionPage;
             return $this->redirect($this->request->getControllerActionName(), null, null, $parameters);
         }
 
