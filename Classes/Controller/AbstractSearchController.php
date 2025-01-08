@@ -29,6 +29,7 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -162,6 +163,21 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 
 
     /**
+     * Allow mapping of properties to DTO even if no object is submitted (e.g. when using GET)
+     *
+     * @return void
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     */
+    public function initializeSearchRelatedAction(): void
+    {
+        if ($this->arguments->hasArgument('search')) {
+            $propertyMappingConfiguration = $this->arguments->getArgument('search')->getPropertyMappingConfiguration();
+            $propertyMappingConfiguration->allowAllProperties();
+        }
+    }
+
+
+    /**
      * action teaserFiltered
      *
      * @return \Psr\Http\Message\ResponseInterface
@@ -238,10 +254,30 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      */
     public function searchRelatedAction(Search $search = null, int $currentPage = 1): ResponseInterface
     {
-        // check if there is a hash with search-parameters given
-        if ($parameters = SearchParameterUtility::unserializeParameters($this->request)) {
-            $parameters['currentPage'] = $currentPage;
-            return $this->redirect($this->request->getControllerActionName(), null, null, $parameters);
+        if (! $this->settings['useSessionCookie']) {
+
+            // get queryParams from regular search
+            $queryParams = $this->request->getQueryParams();
+            if (
+                (isset($queryParams['tx_catsearch_search']))
+                && (isset($queryParams['tx_catsearch_search']['search']))
+            ){
+                $params = $queryParams['tx_catsearch_search']['search'];
+                $search = GeneralUtility::makeInstance(Search::class);
+
+                foreach ($params as $param => $value) {
+                    if (!empty($value)) {
+                        $setter = 'set' . ucfirst($param);
+                        if (method_exists($search, $setter)) {
+                            if (is_numeric($value)) {
+                                $search->$setter((int)$value);
+                            } else {
+                                $search->$setter($value);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // load from session or init new one - do not save it to session here!!!!
