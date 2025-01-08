@@ -55,7 +55,8 @@ final class SearchController extends AbstractSearchController
     protected function getSearchOptions (): array
     {
         $languageId = $this->siteLanguage->getLanguageId();
-        $cacheIdentifier = 'filteroptions_' . $languageId;
+        $pid = (int) $this->currentContentObject->data['pid'];
+        $cacheIdentifier = 'filteroptions_' . $pid . '_' . $languageId;
 
         if (!$searchOptions = $this->cache->get($cacheIdentifier)) {
 
@@ -63,7 +64,7 @@ final class SearchController extends AbstractSearchController
             $this->cache->set(
                 $cacheIdentifier,
                 $searchOptions,
-                ['madj2kcatsearch_filteroptions', 'madj2kcatsearch_filteroptions_' . $languageId]);
+                ['madj2kcatsearch_filteroptions', 'madj2kcatsearch_filteroptions_' . $pid . '_' . $languageId]);
         }
 
         return $searchOptions;
