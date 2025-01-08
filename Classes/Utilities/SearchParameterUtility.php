@@ -18,6 +18,7 @@ namespace Madj2k\CatSearch\Utilities;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class SearchParameterUtility
@@ -49,15 +50,18 @@ class SearchParameterUtility
      * Unserialize search parameters from request
      *
      * @param \TYPO3\CMS\Extbase\Mvc\Request $request
+     * @param string $parameterNamespace
      * @param string $hashKey
      * @return array
      * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
      * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
      */
-    static public function unserializeParameters(Request $request, string $hashKey = 'hash'): array
+    static public function unserializeParameters(Request $request, string $parameterNamespace = '', string $hashKey = 'hash'): array
     {
         $queryParams = $request->getQueryParams();
-        $parameterNamespace = self::getParameterNamespace($request);
+        if (empty($parameterNamespace)) {
+            $parameterNamespace = self::getParameterNamespace($request);
+        }
 
         if (
             (isset($queryParams[$parameterNamespace][$hashKey]))
@@ -79,13 +83,17 @@ class SearchParameterUtility
      * Serialize search parameter from request
      *
      * @param \TYPO3\CMS\Extbase\Mvc\Request $request
+     * @param string $parameterNamespace
      * @param string $parameterName
      * @return string
      */
-    static public function serializeParameters(Request $request, string $parameterName = 'search'): string
+    static public function serializeParameters(Request $request, string $parameterNamespace = '', string $parameterName = 'search'): string
     {
         $queryParams = $request->getQueryParams();
-        $parameterNamespace = self::getParameterNamespace($request);
+
+        if (empty($parameterNamespace)) {
+            $parameterNamespace = self::getParameterNamespace($request);
+        }
 
         $hmac = '';
         if (
