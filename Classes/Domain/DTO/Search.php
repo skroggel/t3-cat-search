@@ -254,10 +254,10 @@ final class Search
     /**
      * Set filter
      *
-     * @param int $filter
+     * @param int|null $filter
      * @return void
      */
-    public function setFilter3(int $filter): void
+    public function setFilter3(?int $filter): void
     {
         $this->setFilter(3, $filter);
     }
@@ -277,10 +277,10 @@ final class Search
     /**
      * Set filter
      *
-     * @param int $filter
+     * @param int|null $filter
      * @return void
      */
-    public function setFilter4(int $filter): void
+    public function setFilter4(?int $filter): void
     {
         $this->setFilter(4, $filter);
     }
@@ -300,10 +300,10 @@ final class Search
     /**
      * Set filter
      *
-     * @param int $filter
+     * @param int|null $filter
      * @return void
      */
-    public function setFilter5(int $filter): void
+    public function setFilter5(?int $filter): void
     {
         $this->setFilter(5, $filter);
     }
