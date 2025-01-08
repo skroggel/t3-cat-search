@@ -5,8 +5,6 @@ routeEnhancers:
     routes:
       - routePath: '/catsearch/page/{currentPage}/{hash}'
         _controller: 'Search::search'
-      - routePath: '/catsearch/page/{currentPage}'
-        _controller: 'Search::search'
       - routePath: '/catsearch/back/{useSessionPage}'
         _controller: 'Search::search'
       - routePath: '/catsearch/hash/{hash}'
@@ -15,7 +13,7 @@ routeEnhancers:
     requirements:
       currentPage: '[0-9]{1,30}'
       useSessionPage: '[01]{1}'
-      hash: '.+'
+      hash: '.*'
 
   CatSearchSearchRelated:
     type: Extbase
@@ -23,12 +21,10 @@ routeEnhancers:
     routes:
       - routePath: '/catsearchrel/page/{currentPage}/{hash}'
         _controller: 'Search::searchRelated'
-      - routePath: '/catsearchrel/page/{currentPage}'
-        _controller: 'Search::searchRelated'
     defaultController: 'Search::searchRelated'
     requirements:
       currentPage: '[0-9]{1,30}'
-      hash: '.+'
+      hash: '.*'
 
   CatSearchDetail:
     type: Extbase
