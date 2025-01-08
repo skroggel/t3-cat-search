@@ -51,12 +51,12 @@ final class SearchController extends AbstractSearchController
      * @return array
      * @throws Exception
      * @throws \Doctrine\DBAL\Exception
-     */
+     *
     protected function getSearchOptions (): array
     {
         $languageId = $this->siteLanguage->getLanguageId();
-        $pid = (int) $this->currentContentObject->data['pid'];
-        $cacheIdentifier = 'filteroptions_' . $pid . '_' . $languageId;
+        $uid = (int) $this->currentContentObject->data['uid'];
+        $cacheIdentifier = 'filteroptions_' . $uid . '_' . $languageId;
 
         if (!$searchOptions = $this->cache->get($cacheIdentifier)) {
 
@@ -64,10 +64,11 @@ final class SearchController extends AbstractSearchController
             $this->cache->set(
                 $cacheIdentifier,
                 $searchOptions,
-                ['madj2kcatsearch_filteroptions', 'madj2kcatsearch_filteroptions_' . $pid . '_' . $languageId]);
+                ['madj2kcatsearch_filteroptions', 'madj2kcatsearch_filteroptions_' . $uid . '_' . $languageId]);
         }
 
         return $searchOptions;
     }
+    */
 
 }

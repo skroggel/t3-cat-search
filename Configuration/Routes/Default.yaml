@@ -3,6 +3,8 @@ routeEnhancers:
     type: Extbase
     namespace: 'tx_catsearch_search'
     routes:
+      - routePath: '/catsearch/page/{currentPage}/{hash}'
+        _controller: 'Search::search'
       - routePath: '/catsearch/page/{currentPage}'
         _controller: 'Search::search'
       - routePath: '/catsearch/back/{useSessionPage}'
@@ -19,11 +21,14 @@ routeEnhancers:
     type: Extbase
     namespace: 'tx_catsearch_searchreleated'
     routes:
+      - routePath: '/catsearchrel/page/{currentPage}/{hash}'
+        _controller: 'Search::searchRelated'
       - routePath: '/catsearchrel/page/{currentPage}'
         _controller: 'Search::searchRelated'
     defaultController: 'Search::searchRelated'
     requirements:
       currentPage: '[0-9]{1,30}'
+      hash: '.+'
 
   CatSearchDetail:
     type: Extbase

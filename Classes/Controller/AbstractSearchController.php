@@ -293,12 +293,12 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
      * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
-     * @throws \Madj2k\CatSearch\Exception
      */
 	public function searchAction(Search $search = null, int $currentPage = 0, bool $useSessionPage = false): ResponseInterface
 	{
         // check if there is a hash with search-parameters given
         if ($parameters = SearchParameterUtility::unserializeParameters($this->request)) {
+            $parameters['currentPage'] = $currentPage;
             return $this->redirect($this->request->getControllerActionName(), null, null, $parameters);
         }
 
@@ -356,7 +356,8 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 			'paginator' => $paginator,
 			'pagination' => $pagination,
 			'resultCount' => $results->count(),
-			'searchOptions' => $this->getSearchOptions()
+			'searchOptions' => $this->getSearchOptions(),
+            'hash' => $this->getHashFromSearchParams()
 		]);
 
 		return $this->htmlResponse();
@@ -489,11 +490,13 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 */
 	protected function saveSearchToSession(Search $search): void
 	{
-        // bind it to pid in order to work with different filters on different pages!
-        $pid = (int) $this->currentContentObject->data['pid'];
-		$frontendUser = $this->request->getAttribute('frontend.user');
-		$frontendUser->setKey('ses', 'madj2kcatsearch_search_' . $pid, serialize($search));
-		$frontendUser->storeSessionData();
+        if ($this->settings['useSessionCookie']) {
+            // bind it to uid in order to work with different filters on different pages!
+            $uid = (int) $this->currentContentObject->data['uid'];
+            $frontendUser = $this->request->getAttribute('frontend.user');
+            $frontendUser->setKey('ses', 'madj2kcatsearch_search_' . $uid, serialize($search));
+            $frontendUser->storeSessionData();
+        }
 	}
 
 
@@ -504,14 +507,31 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 	 */
 	protected function loadSearchFromSession(): ?Search
 	{
-        // bind it to pid in order to work with different filters on different pages!
-        $pid = (int) $this->currentContentObject->data['pid'];
-        $frontendUser = $this->request->getAttribute('frontend.user');
-        if ($data = $frontendUser->getKey('ses', 'madj2kcatsearch_search_' . $pid)) {
-            return unserialize($data)?? null;
-		}
+        if ($this->settings['useSessionCookie']) {
+            // bind it to pid in order to work with different filters on different pages!
+            $uid = (int)$this->currentContentObject->data['uid'];
+            $frontendUser = $this->request->getAttribute('frontend.user');
+            if ($data = $frontendUser->getKey('ses', 'madj2kcatsearch_search_' . $uid)) {
+                return unserialize($data) ?? null;
+            }
+        }
 		return null;
 	}
+
+
+    /**
+     * Get a hash from the search params
+     *
+     * @return string
+     */
+    protected function getHashFromSearchParams(): string
+    {
+        if ($hmac = SearchParameterUtility::serializeParameters($this->request)) {
+            return $hmac;
+        }
+
+        return '';
+    }
 
 
     /**
@@ -521,7 +541,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      */
     protected function getHashLinkFromSearchParams(): string
     {
-        if ($hmac = SearchParameterUtility::serializeParameters($this->request)) {
+        if ($hmac = $this->getHashFromSearchParams()) {
             $parameterNamespace = SearchParameterUtility::getParameterNamespace($this->request);
             return $this->uriBuilder
                 ->reset()
