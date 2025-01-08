@@ -13,6 +13,7 @@
                             <f:render
                                 section="PageLink"
                                 arguments="{page: pagination.previousPageNumber,
+                                            hash: hash,
                                             class:'pagination-link pagination-prev',
                                             title:'{f:translate(key:\'pagination.previous\')}',
                                             type: type,
@@ -34,6 +35,7 @@
                         <f:render
                             section="PageLink"
                             arguments="{page: pagination.firstPageNumber,
+                                        hash: hash,
                                         class: 'pagination-link',
                                         text: pagination.firstPageNumber,
                                         titlePrefix: '{f:translate(key: \'pagination.page\')}',
@@ -58,6 +60,7 @@
                         <f:render
                             section="PageLink"
                             arguments="{page: page,
+                                        hash: hash,
                                         class:'pagination-link',
                                         text: page,
                                         titlePrefix: '{f:translate(key: \'pagination.page\')}',
@@ -82,6 +85,7 @@
                         <f:render
                             section="PageLink"
                             arguments="{page: pagination.lastPageNumber,
+                                        hash: hash,
                                         class: 'pagination-link',
                                         text: pagination.lastPageNumber,
                                         titlePrefix: '{f:translate(key: \'pagination.page\')}',
@@ -98,6 +102,7 @@
                             <f:render
                                 section="PageLink"
                                 arguments="{page: pagination.nextPageNumber,
+                                            hash: hash,
                                             class: 'pagination-link pagination-next',
                                             title: '{f:translate(key:\'pagination.next\')}',
                                             type: type,
@@ -119,11 +124,11 @@
     <f:comment><!-- ======================================================== --></f:comment>
     
     <f:section name="PageLink">
-    
+
         <f:switch expression="{type}">
             <f:defaultCase>
                 <f:link.action
-                    arguments="{currentPage: page}"
+                    arguments="{hash: hash, currentPage: page}"
                     class="{class}"
                     title="{f:if(condition: title, then: title, else: '{titlePrefix} {text}')}"
                     section="c{data.uid}"

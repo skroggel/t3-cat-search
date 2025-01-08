@@ -52,6 +52,9 @@ plugin.tx_catsearch {
 
         # cat=plugin.tx_catsearch//a; type=string; label=Layout switch for different views
         layout = default
+
+        # cat=plugin.tx_catsearch//a; type=bool; label=Use session cookie
+        useSessionCookie = 0
 	}
 }
 
