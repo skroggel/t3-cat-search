@@ -313,7 +313,9 @@ return [
 				--linebreak--,
 				applications,
 				--linebreak--,
-				details'
+				details,
+				--linebreak--,
+				detail_image'
             ),
         ],
         'meta_accessory' => [
@@ -333,7 +335,9 @@ return [
 				--linebreak--,
 				applications,
 				--linebreak--,
-				details'
+				details,
+				--linebreak--,
+				detail_image'
             ),
         ],
         'media_document' => [
@@ -828,6 +832,16 @@ return [
             'exclude' => false,
             'l10n_mode' => 'exclude',
             'label' => $ll .'tx_catsearch_domain_model_filterable.main_image',
+            'config' => [
+                'type' => 'file',
+                'allowed' => ['jpeg', 'jpg', 'png', 'gif', 'svg', 'webp'],
+                'maxitems' => 1,
+            ],
+        ],
+        'detail_image' => [
+            'exclude' => false,
+            'l10n_mode' => 'exclude',
+            'label' => $ll .'tx_catsearch_domain_model_filterable.detail_image',
             'config' => [
                 'type' => 'file',
                 'allowed' => ['jpeg', 'jpg', 'png', 'gif', 'svg', 'webp'],

@@ -60,6 +60,7 @@ CREATE TABLE tx_catsearch_domain_model_filterable
 
 	teaser_image                   int(11) unsigned DEFAULT '0' NOT NULL,
 	main_image                     int(11) unsigned DEFAULT '0' NOT NULL,
+	detail_image                   int(11) unsigned DEFAULT '0' NOT NULL,
 	images                         varchar(255) DEFAULT ''        NOT NULL,
 
 	download                       int(11) unsigned DEFAULT '0' NOT NULL,

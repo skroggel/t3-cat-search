@@ -212,6 +212,12 @@ trait FilterableFullTrait
     /**
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
      */
+    protected ?FileReference $detailImage = null;
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
+     */
     protected ?FileReference $download = null;
 
 
@@ -1013,6 +1019,29 @@ trait FilterableFullTrait
     public function setMainImage(FileReference $mainImage): void
     {
         $this->mainImage = $mainImage;
+    }
+
+
+    /**
+     * Returns the detailImage
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference|null $detailImage
+     */
+    public function getDetailImage(): ?FileReference
+    {
+        return $this->detailImage;
+    }
+
+
+    /**
+     * Sets the detailImage
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $detailImage
+     * @return void
+     */
+    public function setDetailImage(FileReference $detailImage): void
+    {
+        $this->detailImage = $detailImage;
     }
 
 
