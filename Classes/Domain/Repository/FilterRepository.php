@@ -15,6 +15,9 @@ namespace Madj2k\CatSearch\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 
 /**
  * Class FilterRepository
@@ -37,7 +40,7 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 	 * @var array
 	 */
 	protected $defaultOrderings = [
-		'title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+		'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 	];
 
 
@@ -71,30 +74,41 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
      */
 	public function findAssignedByLanguageAndType(int $languageUid, int $typeUid, $settings): array
 	{
+
         // get filters from filters-field
         $result = $this->findGroupedByMMField(
             'filterables',
             $this->getTableName(),
             $typeUid,
             $languageUid,
-            $settings
+            $settings,
+            array_key_first($this->defaultOrderings)
         );
 
-        // primary-filters to this
+        // add primary-filters to this
         foreach (range(1,5) as $cnt) {
             $result += $this->findGroupedByField(
                 'primary_filter' . $cnt,
                 self::TABLE_FILTERABLE,
                 $typeUid,
                 $languageUid,
-                $settings
+                $settings,
+                array_key_first($this->defaultOrderings)
             );
         }
 
         $finalResult = [];
+        $excludedFilters = GeneralUtility::trimExplode(',', $settings['filterExclude']);
         if ($result) {
             foreach ($result as $row) {
-                $finalResult[$row['l10n_parent'] ?: $row['uid']] = $row['title'];
+
+                // Exclude the excluded filters from the list!
+                $uid = $row['l10n_parent'] ?: $row['uid'];
+                if (in_array($uid, $excludedFilters)) {
+                    continue;
+                }
+
+                $finalResult[$uid] = $row['title'];
             }
         }
 
