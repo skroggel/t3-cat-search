@@ -122,6 +122,7 @@ CREATE TABLE tx_catsearch_domain_model_filter
 
 	type        int(11) unsigned DEFAULT '0',
 	filterables int(11) unsigned DEFAULT '0',
+	sorting     int(11) unsigned DEFAULT '0',
 
 	PRIMARY KEY (uid),
 	KEY         parent (pid),

@@ -141,6 +141,7 @@ return [
 				'foreign_table' => 'tx_catsearch_domain_model_filter',
                 'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1,0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'foreign_field' => 'type',
+                'foreign_sortby' => 'sorting',
 				'size' => 10,
 				'maxitems' => 9999,
                 'appearance'    => array(

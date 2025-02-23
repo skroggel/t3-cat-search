@@ -143,5 +143,10 @@ return [
                 'type' => 'passthrough',
             ],
         ],
+        'sorting' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
 	],
 ];
