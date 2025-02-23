@@ -244,6 +244,10 @@
 				<source>Main-Image</source>
 				<target>Haupt-Bild</target>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.detail_image">
+				<source>Image for technical details</source>
+				<target>Bild für technische Details</target>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.images">
 				<source>Images</source>
 				<target>Bilder</target>

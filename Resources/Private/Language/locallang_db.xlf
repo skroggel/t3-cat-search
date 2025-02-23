@@ -186,6 +186,9 @@
 			<trans-unit id="tx_catsearch_domain_model_filterable.main_image">
 				<source>Main-Image</source>
 			</trans-unit>
+			<trans-unit id="tx_catsearch_domain_model_filterable.detail_image">
+				<source>Image for technical details</source>
+			</trans-unit>
 			<trans-unit id="tx_catsearch_domain_model_filterable.images">
 				<source>Images</source>
 			</trans-unit>
