@@ -649,7 +649,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         $queryBuilder->where(...$constraints);
 
         // add sorting
-        if ($GLOBALS['TCA'][$localTable]['columns'][$orderField]) {
+        if (! empty($GLOBALS['TCA'][$localTable]['columns'][$orderField])) {
             $queryBuilder->orderBy($orderField, $orderDirection);
         }
 
