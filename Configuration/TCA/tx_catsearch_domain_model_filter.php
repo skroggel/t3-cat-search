@@ -1,6 +1,10 @@
 <?php
-$ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 
+/** @var \TYPO3\CMS\Core\Package\PackageManager $packageManager */
+$packageManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Package\PackageManager::class);
+$deepLInstalled =  $packageManager->isPackageActive('deepltranslate_core');
+
+$ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 return [
 	'ctrl' => [
 		'title' => $ll .'tx_catsearch_domain_model_filter',
@@ -110,6 +114,7 @@ return [
 		],
 		'title' => [
 			'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
 			'label' => $ll .'tx_catsearch_domain_model_filter.title',
 			'config' => [
 				'type' => 'input',
@@ -119,6 +124,7 @@ return [
 		],
         'title_long' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filter.title_long',
             'config' => [
                 'type' => 'input',

@@ -2,6 +2,9 @@
 declare(strict_types=1);
 use \Madj2k\CatSearch\Utilities\TcaUtility;
 
+/** @var \TYPO3\CMS\Core\Package\PackageManager $packageManager */
+$packageManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Package\PackageManager::class);
+$deepLInstalled =  $packageManager->isPackageActive('deepltranslate_core');
 
 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 return [
@@ -572,6 +575,7 @@ return [
         ],
         'title' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.title',
             'config' => [
                 'type' => 'input',
@@ -590,6 +594,7 @@ return [
         ],
         'title_seo' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.title_seo',
             'config' => [
                 'type' => 'input',
@@ -598,6 +603,7 @@ return [
         ],
         'subtitle' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subtitle',
             'config' => [
                 'type' => 'input',
@@ -607,6 +613,7 @@ return [
         ],
         'teaser' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.teaser',
             'config' => [
                 'type' => 'text',
@@ -617,6 +624,7 @@ return [
         ],
         'header' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.header',
             'config' => [
                 'type' => 'input',
@@ -626,6 +634,7 @@ return [
         ],
         'header2' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.header2',
             'config' => [
                 'type' => 'input',
@@ -635,6 +644,7 @@ return [
         ],
         'header3' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.header3',
             'config' => [
                 'type' => 'input',
@@ -644,6 +654,7 @@ return [
         ],
         'subheader' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subheader',
             'config' => [
                 'type' => 'input',
@@ -653,6 +664,7 @@ return [
         ],
         'subheader2' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subheader2',
             'config' => [
                 'type' => 'input',
@@ -662,6 +674,7 @@ return [
         ],
         'subheader3' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subheader3',
             'config' => [
                 'type' => 'input',
@@ -671,6 +684,7 @@ return [
         ],
         'description' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description',
             'config' => [
                 'type' => 'text',
@@ -682,6 +696,7 @@ return [
         ],
         'description_seo' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description_seo',
             'config' => [
                 'type' => 'text',
@@ -692,6 +707,7 @@ return [
         ],
         'description2' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description2',
             'config' => [
                 'type' => 'text',
@@ -703,6 +719,7 @@ return [
         ],
         'description3' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description3',
             'config' => [
                 'type' => 'text',
@@ -714,6 +731,7 @@ return [
         ],
         'features' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.features',
             'config' => [
                 'type' => 'text',
@@ -725,6 +743,7 @@ return [
         ],
         'options' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.options',
             'config' => [
                 'type' => 'text',
@@ -736,6 +755,7 @@ return [
         ],
         'applications' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.applications',
             'config' => [
                 'type' => 'text',
@@ -747,6 +767,7 @@ return [
         ],
         'highlights' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.highlights',
             'config' => [
                 'type' => 'text',
@@ -758,6 +779,7 @@ return [
         ],
         'details' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.details',
             'config' => [
                 'type' => 'text',
