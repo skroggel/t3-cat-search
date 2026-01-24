@@ -14,11 +14,9 @@ namespace Madj2k\CatSearch\Utilities;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Core\Crypto\HashService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class SearchParameterUtility
@@ -53,8 +51,8 @@ class SearchParameterUtility
      * @param string $parameterNamespace
      * @param string $hashKey
      * @return array
-     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
-     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
+     * @throws \TYPO3\CMS\Core\Exception\Crypto\InvalidHashStringException
+     * @throws \TYPO3\CMS\Core\Exception\Crypto\InvalidHashStringException
      */
     static public function unserializeParameters(Request $request, string $parameterNamespace = '', string $hashKey = 'hash'): array
     {
@@ -68,10 +66,10 @@ class SearchParameterUtility
             && ($hmac = $queryParams[$parameterNamespace][$hashKey])
         ) {
 
-            /** @var \TYPO3\CMS\Extbase\Security\Cryptography\HashService $hashService */
+            /** @var \TYPO3\CMS\Core\Crypto\HashService $hashService */
             $hashService = GeneralUtility::makeInstance(HashService::class);
 
-            $stripped = $hashService->validateAndStripHmac($hmac);
+            $stripped = $hashService->validateAndStripHmac($hmac, 'secret');
             return unserialize(base64_decode($stripped));
         }
 
@@ -101,11 +99,11 @@ class SearchParameterUtility
             && ($parameters = $queryParams[$parameterNamespace][$parameterName])
         ) {
 
-            /** @var \TYPO3\CMS\Extbase\Security\Cryptography\HashService $hashService */
+            /** @var \TYPO3\CMS\Core\Crypto\HashService $hashService */
             $hashService = GeneralUtility::makeInstance(HashService::class);
 
             $hmac = $hashService->appendHmac(
-                base64_encode(serialize([$parameterName => $parameters]))
+                base64_encode(serialize([$parameterName => $parameters])), 'secret'
             );
         }
 

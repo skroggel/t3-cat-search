@@ -1,15 +1,22 @@
 <?php
 declare(strict_types=1);
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Package\PackageManager;
+use Madj2k\CatSearch\UserFunctions\FormEngine\Labels;
+use Madj2k\CatSearch\UserFunctions\FormEngine\CTypeSelectItemProcFunc;
 use \Madj2k\CatSearch\Utilities\TcaUtility;
 
+/** @var \TYPO3\CMS\Core\Package\PackageManager $packageManager */
+$packageManager = GeneralUtility::makeInstance(PackageManager::class);
+$deepLInstalled =  $packageManager->isPackageActive('deepltranslate_core');
 
 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
 return [
     'ctrl' => [
         'title' => $ll .'tx_catsearch_domain_model_filterable',
         'label' => 'title',
-        'label_userFunc' => \Madj2k\CatSearch\UserFunctions\FormEngine\Labels::class . '->labelFilterableTable',
-        'cruser_id' => 'cruser_id',
+        'label_userFunc' => Labels::class . '->labelFilterableTable',
         'dividers2tabs' => true,
         'default_sortby' => 'ORDER BY title ASC',
         'languageField' => 'sys_language_uid',
@@ -419,27 +426,16 @@ return [
         'sys_language_uid' => [
             'exclude' => false,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
-                ],
-                'default' => 0
-            ],
+            'config' => ['type' => 'language'],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => false,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_catsearch_domain_model_filterable',
                 'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filterable}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filterable}.{#sys_language_uid} IN (-1,0)',
@@ -461,10 +457,8 @@ return [
             'exclude' => false,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'behaviour' => [
@@ -476,10 +470,8 @@ return [
             'exclude' => false,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'behaviour' => [
@@ -572,10 +564,12 @@ return [
         ],
         'title' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.title',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
             ]
         ],
         'title_cleaned' => [
@@ -590,6 +584,7 @@ return [
         ],
         'title_seo' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.title_seo',
             'config' => [
                 'type' => 'input',
@@ -598,6 +593,7 @@ return [
         ],
         'subtitle' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subtitle',
             'config' => [
                 'type' => 'input',
@@ -607,6 +603,7 @@ return [
         ],
         'teaser' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.teaser',
             'config' => [
                 'type' => 'text',
@@ -617,6 +614,7 @@ return [
         ],
         'header' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.header',
             'config' => [
                 'type' => 'input',
@@ -626,6 +624,7 @@ return [
         ],
         'header2' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.header2',
             'config' => [
                 'type' => 'input',
@@ -635,6 +634,7 @@ return [
         ],
         'header3' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.header3',
             'config' => [
                 'type' => 'input',
@@ -644,6 +644,7 @@ return [
         ],
         'subheader' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subheader',
             'config' => [
                 'type' => 'input',
@@ -653,6 +654,7 @@ return [
         ],
         'subheader2' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subheader2',
             'config' => [
                 'type' => 'input',
@@ -662,6 +664,7 @@ return [
         ],
         'subheader3' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.subheader3',
             'config' => [
                 'type' => 'input',
@@ -671,6 +674,7 @@ return [
         ],
         'description' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description',
             'config' => [
                 'type' => 'text',
@@ -682,6 +686,7 @@ return [
         ],
         'description_seo' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description_seo',
             'config' => [
                 'type' => 'text',
@@ -692,6 +697,7 @@ return [
         ],
         'description2' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description2',
             'config' => [
                 'type' => 'text',
@@ -703,6 +709,7 @@ return [
         ],
         'description3' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.description3',
             'config' => [
                 'type' => 'text',
@@ -714,6 +721,7 @@ return [
         ],
         'features' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.features',
             'config' => [
                 'type' => 'text',
@@ -725,6 +733,7 @@ return [
         ],
         'options' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.options',
             'config' => [
                 'type' => 'text',
@@ -736,6 +745,7 @@ return [
         ],
         'applications' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.applications',
             'config' => [
                 'type' => 'text',
@@ -747,6 +757,7 @@ return [
         ],
         'highlights' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.highlights',
             'config' => [
                 'type' => 'text',
@@ -758,6 +769,7 @@ return [
         ],
         'details' => [
             'exclude' => false,
+            'l10n_mode' => ($deepLInstalled ? 'prefixLangTitle' : ''),
             'label' => $ll .'tx_catsearch_domain_model_filterable.details',
             'config' => [
                 'type' => 'text',
@@ -780,10 +792,9 @@ return [
             'exclude' => false,
             'label' => $ll .'tx_catsearch_domain_model_filterable.publish_date',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,required',
-                'default' => time()
+                'type' => 'datetime',
+                'default' => time(),
+                'required' => true
             ],
         ],
         'slug' => [
@@ -995,7 +1006,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(1) ? TcaUtility::getPrimaryFilterByExtConf(1) : -1). ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(1) ?: -1). ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -1007,7 +1018,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(2) ? TcaUtility::getPrimaryFilterByExtConf(2) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(2) ?: -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -1019,7 +1030,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(3) ? TcaUtility::getPrimaryFilterByExtConf(3) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(3) ?: -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -1031,7 +1042,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(4) ? TcaUtility::getPrimaryFilterByExtConf(4) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(4) ?: -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -1043,7 +1054,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_catsearch_domain_model_filter',
-                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(5) ? TcaUtility::getPrimaryFilterByExtConf(5) : -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
+                'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filter}.{#type} =' . (TcaUtility::getPrimaryFilterByExtConf(5) ?: -1) . ' AND {#tx_catsearch_domain_model_filter}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filter}.{#sys_language_uid} IN (-1, 0) AND {#tx_catsearch_domain_model_filter}.{#hidden} = 0 AND {#tx_catsearch_domain_model_filter}.{#deleted} = 0 ORDER BY tx_catsearch_domain_model_filter.title',
                 'minitems' => 0,
                 'maxitems' => 1
             ],
@@ -1078,7 +1089,7 @@ return [
                     'columns' => [
                         'CType' => [
                             'config' => [
-                                'itemsProcFunc' => Madj2k\CatSearch\UserFunctions\FormEngine\CTypeSelectItemProcFunc::class . '->itemsProcFunc',
+                                'itemsProcFunc' => CTypeSelectItemProcFunc::class . '->itemsProcFunc',
                             ]
                         ]
                     ]

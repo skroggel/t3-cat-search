@@ -14,8 +14,7 @@ namespace Madj2k\CatSearch\Traits;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use Madj2k\CatSearch\Domain\Model\Filter;
 use Madj2k\CatSearch\Domain\Model\Filterable;
 use Madj2k\CatSearch\Domain\Model\Manufacturer;
@@ -222,72 +221,72 @@ trait FilterableFullTrait
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $images = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $downloads = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $dataSheets = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $mediaFiles = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterables = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableAccessories = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableDocuments = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableProducts = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableProducts2 = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $filters = null;
 
 
@@ -322,9 +321,9 @@ trait FilterableFullTrait
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\TtContent>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $contentElements;
 
 
@@ -339,17 +338,17 @@ trait FilterableFullTrait
 	 */
 	public function __construct()
 	{
-		$this->filters = $this->filters ?? new ObjectStorage();
-        $this->images = $this->images ?? new ObjectStorage();
-        $this->downloads = $this->downloads ?? new ObjectStorage();
-        $this->dataSheets = $this->dataSheets ?? new ObjectStorage();
-        $this->mediaFiles = $this->mediaFiles ?? new ObjectStorage();
-        $this->relatedFilterables = $this->relatedFilterables ?? new ObjectStorage();
-        $this->relatedFilterableDocuments = $this->relatedFilterableDocuments ?? new ObjectStorage();
-        $this->relatedFilterableAccessories = $this->relatedFilterableAccessories ?? new ObjectStorage();
-        $this->relatedFilterableProducts = $this->relatedFilterableProducts ?? new ObjectStorage();
-        $this->relatedFilterableProducts2 = $this->relatedFilterableProducts2 ?? new ObjectStorage();
-        $this->contentElements = $this->contentElements ?? new ObjectStorage();
+		$this->filters ??= new ObjectStorage();
+        $this->images ??= new ObjectStorage();
+        $this->downloads ??= new ObjectStorage();
+        $this->dataSheets ??= new ObjectStorage();
+        $this->mediaFiles ??= new ObjectStorage();
+        $this->relatedFilterables ??= new ObjectStorage();
+        $this->relatedFilterableDocuments ??= new ObjectStorage();
+        $this->relatedFilterableAccessories ??= new ObjectStorage();
+        $this->relatedFilterableProducts ??= new ObjectStorage();
+        $this->relatedFilterableProducts2 ??= new ObjectStorage();
+        $this->contentElements ??= new ObjectStorage();
     }
 
 
@@ -1074,7 +1073,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
      * @return void
      */
-    public function addImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image): void
+    public function addImage(FileReference $image): void
     {
         $this->images->attach($image);
     }
@@ -1086,7 +1085,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
      * @return void
      */
-    public function removeImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image): void
+    public function removeImage(FileReference $image): void
     {
         $this->images->detach($image);
     }
@@ -1129,7 +1128,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $download
      * @return void
      */
-    public function addDownload(\TYPO3\CMS\Extbase\Domain\Model\FileReference $download): void
+    public function addDownload(FileReference $download): void
     {
         $this->downloads->attach($download);
     }
@@ -1141,7 +1140,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $download
      * @return void
      */
-    public function removeDownload(\TYPO3\CMS\Extbase\Domain\Model\FileReference $download): void
+    public function removeDownload(FileReference $download): void
     {
         $this->downloads->detach($download);
     }
@@ -1184,7 +1183,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet
      * @return void
      */
-    public function addDataSheet(\TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet): void
+    public function addDataSheet(FileReference $dataSheet): void
     {
         $this->dataSheets->attach($dataSheet);
     }
@@ -1196,7 +1195,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet
      * @return void
      */
-    public function removeDataSheet(\TYPO3\CMS\Extbase\Domain\Model\FileReference $dataSheet): void
+    public function removeDataSheet(FileReference $dataSheet): void
     {
         $this->dataSheets->detach($dataSheet);
     }
@@ -1239,7 +1238,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile
      * @return void
      */
-    public function addMediaFile(\TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile): void
+    public function addMediaFile(FileReference $mediaFile): void
     {
         $this->mediaFiles->attach($mediaFile);
     }
@@ -1251,7 +1250,7 @@ trait FilterableFullTrait
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile
      * @return void
      */
-    public function removeMediaFile(\TYPO3\CMS\Extbase\Domain\Model\FileReference $mediaFile): void
+    public function removeMediaFile(FileReference $mediaFile): void
     {
         $this->mediaFiles->detach($mediaFile);
     }

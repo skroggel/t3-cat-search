@@ -29,22 +29,9 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 final class SearchController extends AbstractSearchController
 {
 
-    /**
-     * @var \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface|null
-     */
-    protected ?FrontendInterface $cache = null;
-
-
-    /**
-     * @param \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface $cache
-     * @return void
-     */
-    public function injectCache(FrontendInterface $cache): void
+    public function __construct(protected ?FrontendInterface $cache)
     {
-        $this->cache = $cache;
     }
-
-
     /**
      * Separate method for available filter options with cache.
      *

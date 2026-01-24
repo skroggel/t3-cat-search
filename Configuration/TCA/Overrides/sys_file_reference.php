@@ -1,12 +1,14 @@
 <?php
-defined('TYPO3') or die('Access denied.');
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(
 	function($extensionKey)
 	{
 
         $ll = 'LLL:EXT:' . $extensionKey . '/Resources/Private/Language/locallang_db.xlf:';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_file_reference',
+        ExtensionManagementUtility::addTCAcolumns('sys_file_reference',
             [
                 'tx_catsearch_header' => [
                     'exclude' => false,
@@ -40,7 +42,7 @@ call_user_func(
                 'audioOverlayPalette' => 'autoplay'
             ] as $palette =>  $insertAfter) {
 
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+            ExtensionManagementUtility::addFieldsToPalette(
                 'sys_file_reference',
                 $palette,
                 '--linebreak--, tx_catsearch_header, --linebreak--,tx_catsearch_bodytext ',

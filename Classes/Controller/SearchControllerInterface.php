@@ -17,14 +17,6 @@ namespace Madj2k\CatSearch\Controller;
 
 use Madj2k\CatSearch\Domain\DTO\Search;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
-use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
-use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 /**
  * Class SearchControllerInterface
  *
@@ -47,7 +39,7 @@ interface SearchControllerInterface
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
 	 */
-	public function searchAction(Search $search = null, int $currentPage = 0, bool $useSessionPage = false): ResponseInterface;
+	public function searchAction(?Search $search = null, int $currentPage = 0, bool $useSessionPage = false): ResponseInterface;
 
 
 	/**

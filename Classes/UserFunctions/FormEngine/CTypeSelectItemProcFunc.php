@@ -17,6 +17,7 @@ namespace Madj2k\CatSearch\UserFunctions\FormEngine;
 
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class CTypeSelectItemProcFunc
@@ -49,7 +50,10 @@ class CTypeSelectItemProcFunc
         ) {
 
             foreach ($cTypes as $cType) {
-                if ($config = GeneralUtility::trimExplode(',', $cType, true)) {
+                if (
+                    ($config = GeneralUtility::trimExplode(',', $cType, true))
+                    && (count($config) === 2)
+                ){
                     $newList[] = [
                         'value' => $config[0],
                         'label' => $config[1],

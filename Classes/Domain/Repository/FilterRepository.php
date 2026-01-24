@@ -14,9 +14,8 @@ namespace Madj2k\CatSearch\Domain\Repository;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 
 /**
@@ -40,7 +39,7 @@ class FilterRepository extends AbstractRepository implements FilterRepositoryInt
 	 * @var array
 	 */
 	protected $defaultOrderings = [
-		'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+		'sorting' => QueryInterface::ORDER_ASCENDING
 	];
 
 

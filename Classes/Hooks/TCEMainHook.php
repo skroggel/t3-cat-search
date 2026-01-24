@@ -192,7 +192,7 @@ class TCEMainHook
                             'uid',
                             $queryBuilderUpdate->createNamedParameter(
                                 $record['uid'],
-                                \PDO::PARAM_INT
+                                 Connection::PARAM_INT
                             )
                         )
                     )
@@ -316,7 +316,7 @@ class TCEMainHook
                         $mmTable  . '.uid_local',
                         $queryBuilder->createNamedParameter(
                             $parentRecord['uid'],
-                            \PDO::PARAM_INT
+                             Connection::PARAM_INT
                         )
                     )
                 )
@@ -342,7 +342,7 @@ class TCEMainHook
                         $parentUidField,
                         $queryBuilder->createNamedParameter(
                             $parentRecord['uid'],
-                            \PDO::PARAM_INT
+                             Connection::PARAM_INT
                         )
                     );
 
@@ -356,7 +356,7 @@ class TCEMainHook
                             $parentTableField,
                             $queryBuilder->createNamedParameter(
                                 $parentTable,
-                                \PDO::PARAM_STR
+                                 Connection::PARAM_STR
                             )
                         );
                 }
@@ -371,7 +371,7 @@ class TCEMainHook
             // 1:n-relation based on comma-list (or single value)
             } else {
 
-                $uidList = GeneralUtility::trimExplode(',', ($parentRecord[$parentColumn] ?? ''));
+                $uidList = GeneralUtility::trimExplode(',', (string) ($parentRecord[$parentColumn] ?? ''));
                 $constraints[] =
                     $queryBuilder->expr()->in(
                         $uidField,

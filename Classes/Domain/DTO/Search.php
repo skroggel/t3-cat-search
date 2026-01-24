@@ -15,7 +15,7 @@ namespace Madj2k\CatSearch\Domain\DTO;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 
 /**
  * Class Search
@@ -168,7 +168,6 @@ final class Search
 	{
 		$this->year = (int) $year;
 	}
-
 
 
     /**
@@ -499,13 +498,9 @@ final class Search
 	 * @return bool
 	 */
 	public function getIsActive(): bool
-	{
-		if (count($this->getAllFilters()) > 0 || $this->getTextQuery() || $this->getYear() ) {
-			return true;
-		}
-
-		return false;
-	}
+    {
+        return count($this->getAllFilters()) > 0 || $this->getTextQuery() || $this->getYear();
+    }
 
 
 	/**
@@ -517,7 +512,7 @@ final class Search
 	 */
 	public function unsetProperty(string $property, mixed $value = null): bool
 	{
-		if (property_exists($this::class, $property)) {
+		if (property_exists(self::class, $property)) {
 			if (is_array($this->$property) && $value) {
 				if (($key = array_search($value, $this->$property)) !== false) {
 					unset($this->$property[$key]);

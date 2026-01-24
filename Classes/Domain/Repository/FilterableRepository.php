@@ -35,7 +35,7 @@ class FilterableRepository extends AbstractRepository implements FilterableRepos
 	 * @var array
 	 */
 	protected $defaultOrderings = [
-		'publish_date' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+		'publish_date' => QueryInterface::ORDER_DESCENDING
 	];
 
 

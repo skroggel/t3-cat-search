@@ -14,8 +14,7 @@ namespace Madj2k\CatSearch\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use Madj2k\CatSearch\Traits\FilterableFullTrait;
 
 
@@ -27,7 +26,7 @@ use Madj2k\CatSearch\Traits\FilterableFullTrait;
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Filterable extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implements FilterableInterface
+class Filterable extends AbstractEntity implements FilterableInterface
 {
 
     use FilterableFullTrait;

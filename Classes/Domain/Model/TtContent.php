@@ -14,7 +14,7 @@ namespace Madj2k\CatSearch\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
@@ -79,9 +79,9 @@ class TtContent extends AbstractEntity
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $image = null;
 
 
@@ -116,9 +116,9 @@ class TtContent extends AbstractEntity
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $media = null;
 
 
@@ -177,8 +177,8 @@ class TtContent extends AbstractEntity
      */
     public function initializeObject(): void
     {
-        $this->image = $this->image ?? new ObjectStorage();
-        $this->media = $this->media ?? new ObjectStorage();
+        $this->image ??= new ObjectStorage();
+        $this->media ??= new ObjectStorage();
     }
 
 

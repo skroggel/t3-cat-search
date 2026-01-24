@@ -14,7 +14,8 @@ namespace Madj2k\CatSearch\Domain\Repository;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Core\Database\Connection;
 use Madj2k\CatSearch\Domain\DTO\Search;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,7 +30,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+abstract class AbstractRepository extends Repository
 {
 
     /**
@@ -193,7 +194,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
                     }
                 }
 
-                if (!empty($subConstraints)) {
+                if ($subConstraints !== []) {
                     $constraints[] = $query->logicalOr(...$subConstraints);
                 }
             }
@@ -235,7 +236,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
                 }
             }
 
-            if (!empty($subConstraints)){
+            if ($subConstraints !== []){
                 $constraints[] = $query->logicalAnd(...$subConstraints);
             }
         }
@@ -337,7 +338,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 
                 if ($localLanguageField) {
                     /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
-                    $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
+                    $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
 
                     /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
                     $queryBuilder = $connectionPool->getQueryBuilderForTable($localTable);
@@ -347,11 +348,11 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
                         ->where(
                             $queryBuilder->expr()->eq(
                                 'local_table.' . $localUid,
-                                $queryBuilder->createNamedParameter($filterTypeUid, \PDO::PARAM_INT)
+                                $queryBuilder->createNamedParameter($filterTypeUid, Connection::PARAM_INT)
                             ),
                             $queryBuilder->expr()->eq(
                                 'local_table.' . $localLanguageField,
-                                $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                                $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                             ),
                         );
 
@@ -394,7 +395,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         int $languageUid,
         array $settings,
         string $orderField = 'title',
-        string $orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        string $orderDirection = QueryInterface::ORDER_ASCENDING
     ): array {
 
         if (! $GLOBALS['TCA'][$localTable]['columns'][$localField]) {
@@ -445,7 +446,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             }
 
             /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
-            $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
+            $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
 
             /** @var \TYPO3\CMS\Core\Database\Query\QueryBuilder $queryBuilder */
             $queryBuilder = $connectionPool->getQueryBuilderForTable($localTable);
@@ -478,14 +479,14 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             if ($localLanguageField) {
                 $constraints[] =  $queryBuilder->expr()->eq(
                     'local_table.' .$localLanguageField,
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 );
             }
 
             if ($foreignLanguageField) {
                 $constraints[] =  $queryBuilder->expr()->eq(
                     'foreign_table.' . $foreignLanguageField,
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 );
             }
 
@@ -493,7 +494,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             if ($filterTypeParams = $this->getFilterTypeQueryParams($typeUid, $languageUid, $localTable)) {
                 $constraints[] = $queryBuilder->expr()->eq(
                     'local_table.' . $filterTypeParams['field'],
-                    $queryBuilder->createNamedParameter($filterTypeParams['value'], \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($filterTypeParams['value'], Connection::PARAM_INT)
                 );
             }
 
@@ -501,7 +502,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             if ($recordTypeParams = $this->getRecordTypeQueryParams($settings, $foreignTable)) {
                 $constraints[] = $queryBuilder->expr()->eq(
                      'foreign_table.' . $recordTypeParams['field'],
-                    $queryBuilder->createNamedParameter($recordTypeParams['value'], \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($recordTypeParams['value'], Connection::PARAM_INT)
                 );
             }
 
@@ -545,7 +546,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         int $languageUid,
         array $settings,
         string $orderField = 'title',
-        string $orderDirection = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        string $orderDirection = QueryInterface::ORDER_ASCENDING
     ): array
     {
         if (! $localTable) {
@@ -557,7 +558,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         }
 
         /** @var \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool */
-        $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConnectionPool::class);
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
 
         // select only local field - or in case of relation all related table field plus the local field
         $selectFields[] = 'local_table.' . $localField;
@@ -595,14 +596,14 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         // check if field value of local table is > 0
         $constraints[] = $queryBuilder->expr()->gt(
             'local_table.' . $localField,
-            $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)
+            $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)
         );
 
         //
         if ($localField) {
             $constraints[] = $queryBuilder->expr()->eq(
                 'local_table.' . $localLanguageField,
-                $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
             );
         }
 
@@ -610,7 +611,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         if ($recordTypeParams = $this->getRecordTypeQueryParams($settings)) {
             $constraints[] = $queryBuilder->expr()->eq(
                 'local_table.' . $recordTypeParams['field'],
-                $queryBuilder->createNamedParameter($recordTypeParams['value'], \PDO::PARAM_INT)
+                $queryBuilder->createNamedParameter($recordTypeParams['value'], Connection::PARAM_INT)
             );
         }
 
@@ -633,7 +634,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             ) {
                 $constraints[] =  $queryBuilder->expr()->eq(
                     'foreign_table.' . $foreignLanguageField,
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 );
             }
 
@@ -641,7 +642,7 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
             if ($filterTypeParams = $this->getFilterTypeQueryParams($typeUid, $languageUid, $foreignTable)) {
                 $constraints[] = $queryBuilder->expr()->eq(
                     'foreign_table.' . $filterTypeParams['field'],
-                    $queryBuilder->createNamedParameter($filterTypeParams['value'], \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($filterTypeParams['value'], Connection::PARAM_INT)
                 );
             }
         }

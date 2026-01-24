@@ -14,7 +14,7 @@ namespace Madj2k\CatSearch\UserFunctions\FormEngine;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 
@@ -59,7 +59,7 @@ class Labels
             if (! empty($record['record_type'])){
 
                 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
-                $recordType = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                $recordType = LocalizationUtility::translate(
                     $ll . 'tx_catsearch_domain_model_filterable.record_type.'. $record['record_type'],
                 );
 
