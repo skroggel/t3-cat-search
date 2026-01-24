@@ -14,7 +14,7 @@ namespace Madj2k\CatSearch\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Madj2k\CatSearch\Domain\DTO\Search;
 use Madj2k\CatSearch\Domain\Model\Filterable;
 use Madj2k\CatSearch\Domain\Model\FilterableInterface;
@@ -29,9 +29,7 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -42,7 +40,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * @package Madj2k_CatSearch
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController implements SearchControllerInterface
+abstract class AbstractSearchController extends ActionController implements SearchControllerInterface
 {
 
     /**
@@ -249,10 +247,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @param int $currentPage
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
-     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
+     * @throws \TYPO3\CMS\Core\Exception\Crypto\InvalidHashStringException
+     * @throws \TYPO3\CMS\Core\Exception\Crypto\InvalidHashStringException
      */
-    public function searchRelatedAction(Search $search = null, int $currentPage = 1): ResponseInterface
+    public function searchRelatedAction(?Search $search = null, int $currentPage = 1): ResponseInterface
     {
         if (! $this->settings['useSessionCookie']) {
 
@@ -267,7 +265,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 
                 foreach ($params as $param => $value) {
                     if (!empty($value)) {
-                        $setter = 'set' . ucfirst($param);
+                        $setter = 'set' . ucfirst((string) $param);
                         if (method_exists($search, $setter)) {
                             if (is_numeric($value)) {
                                 $search->$setter((int)$value);
@@ -332,10 +330,10 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
      * @throws \Doctrine\DBAL\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidArgumentForHashGenerationException
-     * @throws \TYPO3\CMS\Extbase\Security\Exception\InvalidHashException
+     * @throws \TYPO3\CMS\Core\Exception\Crypto\InvalidHashStringException
+     * @throws \TYPO3\CMS\Core\Exception\Crypto\InvalidHashStringException
      */
-	public function searchAction(Search $search = null, int $currentPage = 0, bool $useSessionPage = false): ResponseInterface
+    public function searchAction(?Search $search = null, int $currentPage = 0, bool $useSessionPage = false): ResponseInterface
 	{
         // check if there is a hash with search-parameters given
         if ($parameters = SearchParameterUtility::unserializeParameters($this->request)) {
@@ -366,7 +364,7 @@ abstract class AbstractSearchController extends \TYPO3\CMS\Extbase\Mvc\Controlle
 		$this->saveSearchToSession($search);
 
         // get results
-        $results = $this->getSearchResults($search, false);
+        $results = $this->getSearchResults($search);
 
         // check for settings for pagination
         $layoutKey = $search->getLayout() ?? $this->settings['layout'] ?? 'default';

@@ -19,7 +19,5 @@ services:
     arguments: [ 'catsearch_filteroptions' ]
 
   Madj2k\CatSearch\Controller\SearchController:
-    calls:
-      - method: 'injectCache'
-        arguments:
-          $cache: '@cache.catsearch_filteroptions'
+    arguments:
+      $cache: '@cache.catsearch_filteroptions'

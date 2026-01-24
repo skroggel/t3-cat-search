@@ -14,8 +14,7 @@ namespace Madj2k\CatSearch\Traits;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use Madj2k\CatSearch\Domain\Model\Filter;
 use Madj2k\CatSearch\Domain\Model\Filterable;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
@@ -57,44 +56,44 @@ trait FilterableBasicTrait
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterables = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableAccessories = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableDocuments = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableProducts = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $relatedFilterableProducts2 = null;
 
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filter>|\TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy|null
      */
+    #[Lazy]
     protected ObjectStorage|LazyLoadingProxy|null $filters = null;
 
 
@@ -139,12 +138,12 @@ trait FilterableBasicTrait
 	 */
 	public function __construct()
 	{
-		$this->filters = $this->filters ?? new ObjectStorage();
-        $this->relatedFilterables = $this->relatedFilterables ?? new ObjectStorage();
-        $this->relatedFilterableDocuments = $this->relatedFilterableDocuments ?? new ObjectStorage();
-        $this->relatedFilterableAccessories = $this->relatedFilterableAccessories ?? new ObjectStorage();
-        $this->relatedFilterableProducts = $this->relatedFilterableProducts ?? new ObjectStorage();
-        $this->relatedFilterableProducts2 = $this->relatedFilterableProducts2 ?? new ObjectStorage();
+		$this->filters ??= new ObjectStorage();
+        $this->relatedFilterables ??= new ObjectStorage();
+        $this->relatedFilterableDocuments ??= new ObjectStorage();
+        $this->relatedFilterableAccessories ??= new ObjectStorage();
+        $this->relatedFilterableProducts ??= new ObjectStorage();
+        $this->relatedFilterableProducts2 ??= new ObjectStorage();
     }
 
 

@@ -14,10 +14,7 @@ namespace Madj2k\CatSearch\Domain\Repository;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
-
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /**
  * Class FilterRepository
  *
@@ -33,7 +30,7 @@ class FilterTypeRepository extends AbstractRepository
 	 * @var array
 	 */
 	protected $defaultOrderings = [
-		'title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+		'title' => QueryInterface::ORDER_DESCENDING
 	];
 
 

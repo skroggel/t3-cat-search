@@ -7,13 +7,10 @@ $EM_CONF[$_EXTKEY] = [
 	'author' => 'Steffen Kroggel',
 	'author_email' => 'developer@steffenkroggel.de',
 	'state' => 'stable',
-	'internal' => '',
-	'uploadfolder' => '0',
-	'clearCacheOnLoad' => 0,
 	'version' => '13.4.0',
 	'constraints' => [
 		'depends' => [
-            'typo3' => '12.4.0-13.4.99',
+            'typo3' => '13.4.0-13.4.99',
         ],
 		'conflicts' => [
 		],

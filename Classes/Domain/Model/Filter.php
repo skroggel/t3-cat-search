@@ -57,7 +57,7 @@ class Filter extends AbstractEntity
 	 */
 	public function __construct()
 	{
-		$this->filterables = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->filterables = new ObjectStorage();
 	}
 
 
@@ -180,7 +180,7 @@ class Filter extends AbstractEntity
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\CatSearch\Domain\Model\Filterable> $filterables
 	 * @return void
 	 */
-	public function setFilterables(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $filterables): void
+	public function setFilterables(ObjectStorage $filterables): void
 	{
 		$this->filterables = $filterables;
 	}

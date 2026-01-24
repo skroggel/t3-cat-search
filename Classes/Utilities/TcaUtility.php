@@ -46,7 +46,7 @@ class TcaUtility
                 return (int) $extensionConfig['primaryFilterType' . $filterNumber];
             }
 
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // just ignore
         }
 
@@ -73,7 +73,7 @@ class TcaUtility
                 }
             }
 
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // just ignore
         }
 
@@ -95,7 +95,7 @@ class TcaUtility
             if (!empty($extensionConfig['pluginsWithHeader'])) {
                 return in_array($pluginName, GeneralUtility::trimExplode(',', $extensionConfig['pluginsWithHeader'], true));
             }
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // do nothing
         }
 
@@ -117,7 +117,7 @@ class TcaUtility
             if (!empty($extensionConfig['pluginsWithReducedFlexform'])) {
                 return in_array($pluginName, GeneralUtility::trimExplode(',', $extensionConfig['pluginsWithReducedFlexform'], true));
             }
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // do nothing
         }
 
@@ -151,7 +151,7 @@ class TcaUtility
                 $fields = self::trimLinebreaks(implode(', ', $fieldsArray));
             }
 
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // just ignore
         }
 
@@ -169,7 +169,7 @@ class TcaUtility
     {
         // check if a linebreak is at start or end
         $prefix = '--linebreak--';
-        if (substr($fields, 0, strlen($prefix)) == $prefix) {
+        if (str_starts_with($fields, $prefix)) {
             $fields = trim(trim(substr($fields, strlen($prefix))), ',');
         }
         if (substr($fields, strlen($fields) - strlen($prefix), strlen($fields)) == $prefix) {

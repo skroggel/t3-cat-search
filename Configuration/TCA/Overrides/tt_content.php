@@ -1,5 +1,10 @@
 <?php
-defined('TYPO3') or die('Access denied.');
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use Madj2k\CatSearch\Utilities\TcaUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(
 	function($extensionKey)
@@ -31,7 +36,7 @@ call_user_func(
             $pluginIcon =  'catsearch-plugin-' . strtolower($pluginName);
 
             // register normal plugin
-            $pluginSignature = \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            $pluginSignature = ExtensionUtility::registerPlugin(
                 $extensionKey,
                 $pluginName,
                 $pluginTitle,
@@ -44,21 +49,21 @@ call_user_func(
                 $flexFormFile = $pluginSettings['flexFormFile'];
             }
 
-            if (\Madj2k\CatSearch\Utilities\TcaUtility::hasPluginReducedFlexform($pluginName)) {
+            if (TcaUtility::hasPluginReducedFlexform($pluginName)) {
                 $flexFormFile = 'EXT:'. $extensionKey . '/Configuration/FlexForms/' . $flexFormFile . '.min.xml';
             } else {
                 $flexFormFile = 'EXT:'. $extensionKey . '/Configuration/FlexForms/' . $flexFormFile . '.xml';
             }
 
-            $file = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($flexFormFile);
+            $file = GeneralUtility::getFileAbsFileName($flexFormFile);
             if (
                 ($file)
                 && (file_exists($file))
             ) {
 
                 // add flexform to plugin
-                $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-                \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+                ExtensionManagementUtility::addToAllTCAtypes('tt_content', '--div--;Configuration,pi_flexform,', $pluginSignature, 'after:subheader');
+                ExtensionManagementUtility::addPiFlexFormValue(
                     '*', // wildcard when using third parameter, else use pluginSignature
                     'FILE:' . $flexFormFile,
                     $pluginSignature // third parameter adds flexform to content-element below, too!
@@ -68,7 +73,7 @@ call_user_func(
             }
 
             // add content element
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
+            ExtensionManagementUtility::addTcaSelectItem(
                 'tt_content',
                 'CType',
                 [
@@ -86,7 +91,7 @@ call_user_func(
             }
 
             $flexFormHeader = '';
-            if (\Madj2k\CatSearch\Utilities\TcaUtility::isPluginHeaderAllowed($pluginName)){
+            if (TcaUtility::isPluginHeaderAllowed($pluginName)){
                 $flexFormHeader = 'header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
                     --linebreak--,
                     header_layout;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_layout_formlabel,

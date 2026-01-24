@@ -1,6 +1,9 @@
 <?php
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Package\PackageManager;
+
 /** @var \TYPO3\CMS\Core\Package\PackageManager $packageManager */
-$packageManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Package\PackageManager::class);
+$packageManager = GeneralUtility::makeInstance(PackageManager::class);
 $deepLInstalled =  $packageManager->isPackageActive('deepltranslate_core');
 
 $ll = 'LLL:EXT:cat_search/Resources/Private/Language/locallang_db.xlf:';
@@ -9,7 +12,6 @@ return [
 	'ctrl' => [
 		'title' => $ll .'tx_catsearch_domain_model_filtertype',
 		'label' => 'title',
-		'cruser_id' => 'cruser_id',
 		'dividers2tabs' => true,
 		'default_sortby' => 'ORDER BY title ASC',
 		'languageField' => 'sys_language_uid',
@@ -36,27 +38,16 @@ return [
 		'sys_language_uid' => [
 			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'foreign_table' => 'sys_language',
-				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => [
-					['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-					['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
-				],
-				'default' => 0
-			],
+			'config' => ['type' => 'language'],
 		],
 		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
-			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'items' => [
-					['', 0],
+					['label' => '', 'value' => 0],
 				],
 				'foreign_table' => 'tx_catsearch_domain_model_filtertype',
 				'foreign_table_where' => 'AND {#tx_catsearch_domain_model_filtertype}.{#pid}=###CURRENT_PID### AND {#tx_catsearch_domain_model_filtertype}.{#sys_language_uid} IN (-1,0)',
@@ -78,10 +69,8 @@ return [
 			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
 			'config' => [
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
+				'type' => 'datetime',
 				'size' => 13,
-				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
 				'range' => [
@@ -96,10 +85,8 @@ return [
 			'exclude' => false,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
 			'config' => [
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
+				'type' => 'datetime',
 				'size' => 13,
-				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
 				'range' => [
@@ -117,7 +104,8 @@ return [
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
-				'eval' => 'trim,required'
+				'eval' => 'trim',
+                'required' => true
 			],
 		],
         'title_long' => [
@@ -150,10 +138,10 @@ return [
                 'foreign_sortby' => 'sorting',
 				'size' => 10,
 				'maxitems' => 9999,
-                'appearance'    => array(
+                'appearance'    => [
                     'useSortable'        => true,
                     'levelLinksPosition' => 'both',
-                ),
+                ],
 			],
 		],
 	],

@@ -61,7 +61,7 @@ final class LocalizedSortingOptionsViewHelper extends AbstractViewHelper
 
 			$label = LocalizationUtility::translate(
 				'search.sorting.' . $option . '.label',
-				'cat_search',
+				'CatSearch',
 			);
 
 			$result[$option] = $label;

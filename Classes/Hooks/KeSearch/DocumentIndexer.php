@@ -15,9 +15,6 @@ namespace Madj2k\CatSearch\Hooks\KeSearch;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 /**
  * Class DocumentIndexer
  *

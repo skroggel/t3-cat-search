@@ -59,7 +59,7 @@ class FilterType extends AbstractEntity
 	 */
 	public function __construct()
 	{
-		$this->filters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->filters = new ObjectStorage();
 	}
 
 
@@ -157,7 +157,7 @@ class FilterType extends AbstractEntity
 	 *
 	 * @param \Madj2k\CatSearch\Domain\Model\Filter $filter
 	 */
-	public function removeFilter(Filter $filter)
+	public function removeFilter(Filter $filter): void
 	{
 		$this->filters->detach($filter);
 	}

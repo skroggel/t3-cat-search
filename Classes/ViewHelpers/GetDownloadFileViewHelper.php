@@ -15,12 +15,9 @@ namespace Madj2k\CatSearch\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -71,7 +68,7 @@ final class GetDownloadFileViewHelper extends AbstractViewHelper
             $fileArray = $fileRepository->findByRelation(
                 'tx_catsearch_domain_model_filterable',
                 'download',
-                $arguments['uid']
+                (int) $arguments['uid']
             );
 
             if ($fileArray) {

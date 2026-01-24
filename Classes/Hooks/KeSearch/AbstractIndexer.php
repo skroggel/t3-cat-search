@@ -17,13 +17,11 @@ namespace Madj2k\CatSearch\Hooks\KeSearch;
 
 use Tpwd\KeSearch\Indexer\IndexerBase;
 use Tpwd\KeSearch\Indexer\IndexerRunner;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class AbstractIndexer
@@ -34,7 +32,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-if (class_exists(\Tpwd\KeSearch\Indexer\IndexerBase::class)) {
+if (class_exists(IndexerBase::class)) {
     abstract class AbstractIndexer extends IndexerBase
     {
 
@@ -84,11 +82,11 @@ if (class_exists(\Tpwd\KeSearch\Indexer\IndexerBase::class)) {
         public function registerIndexerConfiguration(array &$params, object $pObj): void
         {
             // Set a name and an icon for your indexer.
-            $customIndexer = array(
-                ucfirst(static::RECORD_TYPE_STRING) . ' (CatSearch)',
+            $customIndexer = [
+                ucfirst((string) static::RECORD_TYPE_STRING) . ' (CatSearch)',
                 static::KEY,
                 'EXT:cat_search/Resources/Public/Icons/Extension.svg'
-            );
+            ];
             $params['items'][] = $customIndexer;
         }
 
@@ -125,7 +123,7 @@ if (class_exists(\Tpwd\KeSearch\Indexer\IndexerBase::class)) {
                     ->add(GeneralUtility::makeInstance(DeletedRestriction::class))
                     ->add(GeneralUtility::makeInstance(HiddenRestriction::class));
 
-                $folders = GeneralUtility::trimExplode(',', htmlentities($indexerConfig['sysfolder']));
+                $folders = GeneralUtility::trimExplode(',', htmlentities((string) $indexerConfig['sysfolder']));
                 $statement = $queryBuilder
                     ->select('uid', 'pid', 'tstamp', 'sys_language_uid', 'starttime', 'endtime', 'record_type',
                         'publish_date', 'detail_pid', 'overview_pid', 'title_cleaned', 'subtitle', 'header', 'subheader',
@@ -136,7 +134,7 @@ if (class_exists(\Tpwd\KeSearch\Indexer\IndexerBase::class)) {
                             $queryBuilder->expr()->in( 'pid', $folders),
                             $queryBuilder->expr()->eq(
                                 'record_type',
-                                $queryBuilder->createNamedParameter(static::RECORD_TYPE, \PDO::PARAM_INT)
+                                $queryBuilder->createNamedParameter(static::RECORD_TYPE, Connection::PARAM_INT)
                             )
                         )
                     )
@@ -171,7 +169,7 @@ if (class_exists(\Tpwd\KeSearch\Indexer\IndexerBase::class)) {
                     }
 
                     // Additional information
-                    $additionalFields = array(
+                    $additionalFields = [
                         'orig_uid' => $record['uid'],
                         'orig_pid' => $record['pid'],
                         'detail_pid' => $record['detail_pid'],
@@ -182,7 +180,7 @@ if (class_exists(\Tpwd\KeSearch\Indexer\IndexerBase::class)) {
                         'subheader' => $record['subheader'],
                         'teaser_image' => $record['teaser_image'],
                         'download' => $record['download'],
-                    );
+                    ];
 
                     // ... and store the information in the index
                     $indexerObject->storeInIndex(

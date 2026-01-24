@@ -1,9 +1,12 @@
 <?php
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 call_user_func(
     function($extKey)
     {
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+        ExtensionManagementUtility::addStaticFile(
             $extKey,
             'Configuration/TypoScript',
             'CatSearch'
