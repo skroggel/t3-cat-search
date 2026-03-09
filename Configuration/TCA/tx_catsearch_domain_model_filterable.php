@@ -390,8 +390,6 @@ return [
         'relations_document' => [
             'label' => $ll . 'palette.relations',
             'showitem' => TcaUtility::removeFieldsByExtConf('document', '
-				publish_date,
-                --linebreak--,
 				related_filterable_products'
             ),
         ],
